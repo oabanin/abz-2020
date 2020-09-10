@@ -12,7 +12,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин
 
 module.exports = {
   entry: {
-    application: './src/index.js',
+    "abz-app": './src/index.js',
     //print: './src/print.js',
     //styles: './src/sass/style.scss'
   },
