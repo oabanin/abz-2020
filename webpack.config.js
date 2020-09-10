@@ -1,7 +1,6 @@
 const path = require('path');
- const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
@@ -15,26 +14,25 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   mode: 'development',
-  // plugins: [
-  //   new CleanWebpackPlugin(),
+  plugins: [
+     new CleanWebpackPlugin(),
 
   //   new MiniCssExtractPlugin({
   //     filename: '[name].[hash].css',
   //     chunkFilename: '[id].[hash].css',
   //   }),
 
-  //   new HtmlWebpackPlugin({
-  //   filename: 'index.html',
-  //   inject: false,
-  //   template: './src/pages/index.pug'
-  //   }),
+     new HtmlWebpackPlugin({
+     template:"./src/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
+     filename:"./index.html"    //итоговое название файла
+   }),
 
   //   //inline SVG 
   //   new HtmlWebpackInlineSVGPlugin({
   //       runPreEmit: true, //If true plugin doesn't needy any loader
   //   }),
 
-  // ],
+  ],
  
 
 
@@ -45,10 +43,19 @@ module.exports = {
 
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader']
-      // },
+      {
+         test:/\.(js|jsx)$/,
+         exclude:/node_modules/,
+         use: {
+           loader:'babel-loader',
+         },
+      },
+
+
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
       // {
       //   test: /\.(png|jpe?g|gif|svg)$/i,
       //   exclude: /checked\.svg$/,  //LOADING VIA HtmlWebpackInlineSVGPlugin
