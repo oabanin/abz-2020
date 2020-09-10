@@ -1,8 +1,12 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //плагин очистки dist
+const HtmlWebpackPlugin = require('html-webpack-plugin');       //плагин генерации html файла (автоматически или по шаблону,можно использовать шаблонизаторы)
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин бандлинга css в отдельный файл  
+//Плагины запускаются после лоадеров
+
 // const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
 
 
@@ -12,36 +16,13 @@ module.exports = {
     //print: './src/print.js',
     //styles: './src/sass/style.scss'
   },
-  devtool: 'inline-source-map',
-  mode: 'development',
-  plugins: [
-     new CleanWebpackPlugin(),
-
-  //   new MiniCssExtractPlugin({
-  //     filename: '[name].[hash].css',
-  //     chunkFilename: '[id].[hash].css',
-  //   }),
-
-     new HtmlWebpackPlugin({
-     template:"./src/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
-     filename:"./index.html"    //итоговое название файла
-   }),
-
-  //   //inline SVG 
-  //   new HtmlWebpackInlineSVGPlugin({
-  //       runPreEmit: true, //If true plugin doesn't needy any loader
-  //   }),
-
-  ],
- 
-
-
+  
   output: {
     path: path.resolve(__dirname, 'dist'), //ПАПКА куда кладет файл js
     filename: '[name].bundle.js' //имя СБОРКи
   },
 
-  module: {
+  module: { //LOADERS
     rules: [
       {
          test:/\.(js|jsx)$/,
@@ -51,21 +32,25 @@ module.exports = {
          },
       },
 
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'  //задом наперед, сначала sass-loader (превращает в css), затем postcss-loader, затем css-loader, затем MiniCssExtractPlugin.loader
+        ]
+      },
 
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      // {
-      //   test: /\.(png|jpe?g|gif|svg)$/i,
-      //   exclude: /checked\.svg$/,  //LOADING VIA HtmlWebpackInlineSVGPlugin
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: 'img/[name].[hash].[ext]', //if [path] path goes from src, node_modules etc.
-      //       },
-      //     },
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'img/[name].[hash].[ext]', 
+            },
+          },
           //  Image compress
           // {
           //   loader: 'image-webpack-loader',
@@ -91,8 +76,8 @@ module.exports = {
           //     // }
           //   }
           // },
-      //   ],
-      // },
+        ],
+      },
 
 
       // {
@@ -152,15 +137,7 @@ module.exports = {
       //   ],
       // },
 
-      // {
-      //   test: /\.scss$/,
-      //   use: [
-      //     MiniCssExtractPlugin.loader,
-      //     'css-loader',
-      //     'postcss-loader',
-      //     'sass-loader'
-      //   ]
-      // },
+
 
       // //SCSS to js bundle
       // {
@@ -186,6 +163,28 @@ module.exports = {
 
     ],//End rules
   },//End Module
+
+  plugins: [
+     new CleanWebpackPlugin(),
+
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',    //используятся при синхронных импортах
+      chunkFilename: '[id].[hash].css', // Используются при динамических импортах
+    }),
+
+     new HtmlWebpackPlugin({
+     template:"./src/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
+     filename:"./index.html"    //итоговое название файла
+   }),
+
+  //   //inline SVG 
+  //   new HtmlWebpackInlineSVGPlugin({
+  //       runPreEmit: true, //If true plugin doesn't needy any loader
+  //   }),
+
+  ],
+  devtool: 'inline-source-map',
+  mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
