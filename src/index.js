@@ -4,7 +4,13 @@ import './style.scss';
 
 import(/****/ './2.scss');
 
-const App = () => (<div className="orange">Hello</div>);
+import bannerPhoto from "./assets/banner-photo.jpg";
+
+const App = () => (
+	<div>
+		Hello
+		<img src={bannerPhoto}/>
+	</div>);
 const root = document.getElementById('root');
 
 ReactDOM.render(<App/>,root);

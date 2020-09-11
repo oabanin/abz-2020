@@ -19,7 +19,8 @@ module.exports = {
   
   output: {
     path: path.resolve(__dirname, 'dist'), //ПАПКА куда кладет файл js
-    filename: '[name].bundle.js' //имя СБОРКи
+    filename: 'js/[name].bundle.js',       //имя СБОРКи
+    chunkFilename: 'js/[id].[hash].js'     // Чанки js. Используются при динамических импортах вендорных библиотек
   },
 
   module: { //LOADERS
@@ -48,7 +49,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[hash].[ext]', 
+              name: 'img/[name].[ext]', 
             },
           },
           //  Image compress
@@ -168,8 +169,8 @@ module.exports = {
      new CleanWebpackPlugin(),
 
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',    //используятся при синхронных импортах
-      chunkFilename: '[id].[hash].css', // Используются при динамических импортах
+      filename: 'css/[name].[hash].css',    //используятся при синхронных импортах
+      chunkFilename: 'css/[id].[hash].css', // Чанки css. Используются при динамических импортах
     }),
 
      new HtmlWebpackPlugin({
