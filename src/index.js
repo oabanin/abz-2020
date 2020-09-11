@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style.scss';
+import './scss/styles.scss';
 
 import(/****/ './2.scss');
 
