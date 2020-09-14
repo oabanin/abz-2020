@@ -196,7 +196,8 @@ module.exports = {
 
   resolve: {
     alias: {
-      "~assets": path.resolve(__dirname, 'public/assets')
+      "~assets": path.resolve(__dirname, 'public/assets'),
+      "~components": path.resolve(__dirname, 'src/components')
     }
   }
 };
