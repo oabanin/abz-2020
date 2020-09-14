@@ -44,7 +44,7 @@ module.exports = {
       },
 
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|svg|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -174,7 +174,7 @@ module.exports = {
     }),
 
      new HtmlWebpackPlugin({
-     template:"./src/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
+     template:"./public/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
      filename:"./index.html"    //итоговое название файла
    }),
 
@@ -192,5 +192,11 @@ module.exports = {
     overlay: true,
     port: 9001,
     open: true //открыть браузер по окончанию старта сервера
+  },
+
+  resolve: {
+    alias: {
+      "~assets": path.resolve(__dirname, 'public/assets')
+    }
   }
 };
