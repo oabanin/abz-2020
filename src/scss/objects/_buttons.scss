@@ -1,0 +1,22 @@
+.button {
+    display: inline-block;
+
+    min-width: 210px;
+    padding: 10px;
+
+    font-family: inherit;
+    font-weight: 600;
+    font-size: inherit;
+    text-decoration: none;
+    text-align: center;
+    
+    border-radius: 4px;
+
+    background-color: $color-primary;
+    color: rgb(255,255,255);
+
+    &:hover {
+        background-color: $bg-color-button-hover;
+    }
+  
+}
