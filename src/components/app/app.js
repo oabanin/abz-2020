@@ -1,13 +1,16 @@
 import React from 'react';
 
 import Header from '../header';
+import Banner from '../banner';
 import Footer from '../footer';
 
 const App = () => {
 	return (
 		<>
 			<Header/>
-			App
+				<main>
+				<Banner/>
+				</main>
 			<Footer/>
 		</>)
 }

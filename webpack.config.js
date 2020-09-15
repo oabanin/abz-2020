@@ -20,6 +20,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'), //ПАПКА куда кладет файл js
     filename: 'js/[name].bundle.js',       //имя СБОРКи
+    publicPath: "/", //исправляет ошибку неправильного пути из css файла к картинкам
     chunkFilename: 'js/[id].[hash].js'     // Чанки js. Используются при динамических импортах вендорных библиотек
   },
 

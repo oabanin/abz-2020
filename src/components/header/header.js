@@ -6,7 +6,7 @@ import Menu from './components/menu';
 const Header = () => {
 	return (
 		<header className="header">
-			<div className="container">
+			<div className="container-fluid">
 				<div className="row h-100">
 					<div className="col-lg-2 d-flex align-items-center">
 						<a className="header__logo" href="#">
