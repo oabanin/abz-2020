@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from '../header';
 import Banner from '../banner';
+import About from '../about';
 import Footer from '../footer';
 
 const App = () => {
@@ -9,7 +10,8 @@ const App = () => {
 		<>
 			<Header/>
 				<main>
-				<Banner/>
+					<Banner/>
+					<About/>
 				</main>
 			<Footer/>
 		</>)
