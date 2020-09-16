@@ -1,3 +1,6 @@
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/utilities/sizing";
+
 @import "config/_index";
 @import "base/_index";
 @import "globals/_index";
@@ -5,8 +8,7 @@
 @import "utilities/_index";
 
 
-@import "~bootstrap/scss/bootstrap-grid";
-@import "~bootstrap/scss/utilities/sizing";
+
 
 @import "~components/header/header";
 @import "~components/header/components/menu/menu";
