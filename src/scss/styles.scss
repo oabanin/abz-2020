@@ -1,17 +1,18 @@
+/*Import Bootstrap Grid and Sizing Utility*/
 @import "~bootstrap/scss/bootstrap-grid";
 @import "~bootstrap/scss/utilities/sizing";
 
-@import "config/_index";
-@import "base/_index";
-@import "globals/_index";
-@import "objects/_index";
-@import "utilities/_index";
+/*Import Sass architecture of project*/
+@import "config/index";
+@import "base/index";
+@import "globals/index";
+@import "objects/index";
+@import "utilities/index";
 
-
-
-
+/*Import styles of components*/
 @import "~components/header/header";
 @import "~components/header/components/menu/menu";
 @import "~components/banner/banner";
 @import "~components/about/about";
+@import "~components/users/users";
 

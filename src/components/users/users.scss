@@ -1,0 +1,72 @@
+.users {
+  .col-md-4 {
+    border: 1px solid red;
+  }
+
+	padding-top: 160px;
+	padding-bottom: 120px;
+
+	.users__title {
+		@extend %title;
+		margin-bottom: 30px;
+	}
+
+  .users__subtitle {
+    @extend %p-text;
+
+    text-align: center;
+
+    padding-bottom: 70px;
+  }
+
+  .users__photo {
+    display:block;
+    border-radius: 50%;
+
+    margin-top: 0;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .users__info {
+    text-align: center;
+
+    color:$color-p;
+  }
+
+  .users__name {
+    font-size: $font-size-h2;
+    line-height: $line-height-h2;
+    font-weight: $font-weight-h2;
+
+    color: $color-text;
+
+    margin-bottom: 15px;
+
+    max-width: 205px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .users__job {
+    max-width: 185px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .users__email {
+
+    max-width: 205px;
+
+
+    margin-left: auto;
+    margin-right: auto;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+}

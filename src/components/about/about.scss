@@ -6,23 +6,23 @@
 		@extend %title;
 		margin-bottom: 60px;
 	}
-	
+
 	.about__logo {
 		max-width: 340px;
 		height: auto;
-	
+
 		display: block;
 		margin: 0 auto;
-	   
+
 	}
-	
+
 	.about__text {
 		padding-bottom: 40px;
 
 		.about__heading {
 			font-size: $font-size-h2;
 			font-weight: $font-weight-h2;
-			line-height: $line-height-h2;	
+			line-height: $line-height-h2;
 
 			padding-bottom: 30px;
 
@@ -30,16 +30,12 @@
 		}
 
 		p {
-			font-size: $font-size-p;
-			font-weight: $font-weight-p;
-			line-height: $line-height-p;
-			text-align: justify;
+      @extend %p-text;
 
-			color:$color-p;
-			
+			text-align: justify;
 			padding-bottom: 35px;
 
-			
+
 		}
 
 		.about__link {

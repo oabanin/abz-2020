@@ -5,3 +5,11 @@
 	color: $color-text;
 	text-align: center;
 }
+
+%p-text {
+  font-size: $font-size-p;
+  font-weight: $font-weight-p;
+  line-height: $line-height-p;
+
+  color:$color-p;
+}
