@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
+
 import Photo from './photo.jpg';
 
 const Users = () => {
@@ -24,7 +26,8 @@ const Users = () => {
             <div className="users__info">
               <h2 className="users__name">Adolph Blaine Charles David Earl Matthew Matthew</h2>
               <div className="users__job">Leading specialist of the Control Department</div>
-              <a className="users__email" href="mailto:liamgrievescasey.smith@gmail.com">liamgrievescasey.smith@gmail.com</a>
+              <ReactTooltip />
+              <a data-tip="liamgrievescasey.smith@gmail.com" className="users__email" href="mailto:liamgrievescasey.smith@gmail.com">liamgrievescasey.smith@gmail.com</a>
               <div className="users__phone">+380 50 678 03 24</div>
             </div>
           </div>
