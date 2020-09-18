@@ -41,17 +41,17 @@ const Users = () => {
     }
   ];
 
-  const users = usersDB.map(({id, ...userInfo}) => <User key={id} {...userInfo} />);
+  const users = usersDB.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
 
-	return (
-		<section className="users">
-			<div className="container-fluid">
+  return (
+    <section className="users">
+      <div className="container-fluid">
 
-				<div className="row">
-					<div className="col-md-8 offset-md-2">
-						<h1 className="users__title">Our cheerful users</h1>
-					</div>
-				</div>
+        <div className="row">
+          <div className="col-md-8 offset-md-2">
+            <h1 className="users__title">Our cheerful users</h1>
+          </div>
+        </div>
 
         <div className="row">
           <div className="col-md-6 offset-md-3">
@@ -59,14 +59,21 @@ const Users = () => {
           </div>
         </div>
 
-        <div className="row">
-        <ReactTooltip place="bottom" />
+        <div className="row mb-35">
+          <ReactTooltip place="bottom" offset={{top: -5}} />
           {users}
         </div>
 
-			</div>
-		</section>
-		)
+        <div className="row">
+          <div className="col-md-4 offset-md-4 text-center">
+            <a className="button" href="#sign-up">Show more</a>
+            
+          </div>
+        </div>
+
+      </div>
+    </section>
+  )
 }
 
 export default Users;

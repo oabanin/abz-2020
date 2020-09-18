@@ -1,10 +1,9 @@
 .users {
-  .col-md-4 {
-    border: 1px solid red;
-  }
+
+  background-color: $color-bg2;
 
 	padding-top: 160px;
-	padding-bottom: 120px;
+	padding-bottom: 160px;
 
 	.users__title {
 		@extend %title;
@@ -67,6 +66,11 @@
 
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+
+  .users__link {
+    @extend %sign-up-button;
+
   }
 
 }
