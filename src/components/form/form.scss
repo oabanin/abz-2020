@@ -1,0 +1,24 @@
+.form {
+  
+    padding-top: 160px;
+    padding-bottom: 160px;
+
+      
+    .form__title {
+        @extend %title;
+        margin-bottom: 30px;
+        
+    }
+
+    .form__subtitle {
+        @extend %p-text;
+
+        text-align: center;
+
+        padding-bottom: 70px;
+    }
+
+    .label {
+        display: block;
+    }
+}
