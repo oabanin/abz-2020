@@ -2,12 +2,12 @@
 	padding-top: 160px;
 	padding-bottom: 120px;
 
-	.about__title {
+	&__title {
 		@extend %title;
 		margin-bottom: 60px;
 	}
 
-	.about__logo {
+	&__logo {
 		max-width: 340px;
 		height: auto;
 
@@ -16,7 +16,7 @@
 
 	}
 
-	.about__text {
+	&__text {
 		padding-bottom: 40px;
 
 		.about__heading {
@@ -41,7 +41,7 @@
 		.about__link {
 			color: $color-primary;
 			font-weight: 600;
-		
+
 			text-decoration: none;
 			&:hover {
 				color: $color-button-hover;
