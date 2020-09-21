@@ -20,7 +20,7 @@ const Form = () => {
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <form className="form" action="#">
-                            <label className="label" for="form__name">Name</label>
+                            <label className="label" htmlFor="form__name">Name</label>
                             <input className="form__name" id="form__name" placeholder="Your name" />
 
                         </form>

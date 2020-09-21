@@ -42,8 +42,6 @@
 
     color: $color-text;
 
-    margin-bottom: 15px;
-
     max-width: 205px;
     margin-left: auto;
     margin-right: auto;
@@ -52,15 +50,17 @@
 
   .users__job {
     max-width: 185px;
+
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 3px;
   }
 
   .users__email {
 
     max-width: 205px;
 
-
+    margin-bottom: 3px;
     margin-left: auto;
     margin-right: auto;
 

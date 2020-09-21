@@ -38,6 +38,14 @@ const Users = () => {
       job: "Contextual advertising specialist",
       mail: "adolph.blainecharles@gmail.com",
       phone: "+380 50 678 03 24"
+    },
+    {
+      id: 5,
+      photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
+      name: "Adolph Blaine Charles David Earl Matthew Matthew",
+      job: "Contextual advertising specialist",
+      mail: "adolph.blainecharles@gmail.com",
+      phone: "+380 50 678 03 24"
     }
   ];
 
@@ -67,7 +75,7 @@ const Users = () => {
         <div className="row">
           <div className="col-md-4 offset-md-4 text-center">
             <a className="button" href="#sign-up">Show more</a>
-            
+
           </div>
         </div>
 
