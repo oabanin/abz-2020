@@ -23,14 +23,50 @@
         padding-bottom: 10px;
     }
 
-    .label {
-        display: block;
+    &__labelInput {
+      margin-bottom: 10px;
     }
-
+    
     &__name,
     &__email,
     &__phone {
-      @extend %input;
+      margin-bottom: 20px;
+
+      @extend %input-enabled;
+      &--error {
+        @extend %input-error;
+      }
+    }
+
+    &__radioTitle {
+      margin-top: 5px;
+      margin-bottom: 25px
+    }
+
+    &__labelRadio {
+      margin-bottom: 15px;
+
+      label {
+        position: relative;
+        left: 10px;
+      }
+    }
+
+    &__uploadTitle {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    &__labelUpload {
+      @extend %input-enabled;
+      margin-bottom: 35px;
+
+      display: block;
+      position: relative;
+    }
+
+    &__upload {
+      position: absolute;
     }
 
     &__submit {

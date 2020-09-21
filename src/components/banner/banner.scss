@@ -6,7 +6,7 @@
 
     min-height: 600px;
 
-    .banner__title {
+    &__title {
         font-weight: $font-weight-h1-desktop;
         font-size: $font-size-h1-desktop;
         line-height: $line-height-h1-desktop;
@@ -19,7 +19,7 @@
         margin-bottom: 34px;
     }
     
-    .banner__text {
+    &__text {
         font-weight: $font-weight-p;
         font-size: $font-size-p;
         
