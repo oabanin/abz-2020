@@ -26,30 +26,35 @@ const Form = () => {
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <form onSubmit={handleSubmit} action="#">
-                            <div className="form__labelInput">
+                            <div className="form__field">
                                 <label htmlFor="form__name">Name</label>
-                            </div>
                                 <input className="form__name" id="form__name" placeholder="Your name" />
-                            <div className="form__labelInput">
+                            </div>
+
+                            <div className="form__field">
                                 <label htmlFor="form__email">Email</label>
+                                <input className="form__email" id="form__email" placeholder="Your email" type="email" />
                             </div>
-                            <input className="form__email" id="form__email" placeholder="Your email" type="email" />
-                            <div className="form__labelInput">
+                            <div className="form__field">
                                 <label htmlFor="form__phone">Phone number</label>
+                                <input className="form__phone" id="form__phone" placeholder="+380 XX XXX XX XX" type="email" />
                             </div>
-                            <input className="form__phone" id="form__phone" placeholder="+380 XX XXX XX XX" type="email" />
                             <p className="form__radioTitle">Select your position</p>
-                            <div className="form__labelRadio">
-                                <input className="form__radio" name="form__radio" id="form__radio1" type="radio"/><label htmlFor="form__radio1">Frontend developer</label>
+                            <div className="form__radioWrapper">
+                                <input className="form__radio" name="form__radio" id="form__radio1" type="radio"/>
+                                <label className="form__radioLabel" htmlFor="form__radio1">Frontend developer</label>
                             </div>
-                            <div className="form__labelRadio">
-                                <input className="form__radio" name="form__radio" id="form__radio2" type="radio"/><label htmlFor="form__radio2">Backend developer</label>
+                            <div className="form__radioWrapper">
+                                <input className="form__radio" name="form__radio" id="form__radio2" type="radio"/>
+                                <label className="form__radioLabel" htmlFor="form__radio2">Backend developer</label>
                             </div>
-                            <div className="form__labelRadio">
-                                <input className="form__radio" name="form__radio" id="form__radio3" type="radio"/><label htmlFor="form__radio3">Designer</label>
+                            <div className="form__radioWrapper">
+                                <input className="form__radio" name="form__radio" id="form__radio3" type="radio"/>
+                                <label className="form__radioLabel" htmlFor="form__radio3">Designer</label>
                             </div>
-                            <div className="form__labelRadio">
-                                <input className="form__radio" name="form__radio" id="form__radio4" type="radio"/><label htmlFor="form__radio4">QA</label>
+                            <div className="form__radioWrapper">
+                                <input className="form__radio" name="form__radio" id="form__radio4" type="radio"/>
+                                <label className="form__radioLabel" htmlFor="form__radio4">QA</label>
                             </div>
                             <p className="form__uploadTitle">Photo</p>
                             <div className="form__uploadWrapper">

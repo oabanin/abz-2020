@@ -23,14 +23,14 @@
         padding-bottom: 10px;
     }
 
-    &__labelInput {
-      margin-bottom: 10px;
+    &__field {
+      margin-bottom: 20px;
     }
 
     &__name,
     &__email,
     &__phone {
-      margin-bottom: 20px;
+      margin-top: 10px;
 
       @extend %input-enabled;
       &--error {
@@ -43,13 +43,77 @@
       margin-bottom: 25px
     }
 
-    &__labelRadio {
+    &__radioWrapper {
       margin-bottom: 15px;
+    }
 
-      label {
-        position: relative;
-        left: 10px;
+    &__radio {
+      position: relative;
+      z-index: -111;
+      opacity:0;
+    }
+
+    &__radio:checked + &__radioLabel::after {
+      opacity: 1;
+    }
+
+    &__radio:focus + &__radioLabel,
+    &__radio:active + &__radioLabel
+     {
+
+      @extend %input-border-active;
+      @extend %input-shadow-active;
+    }
+
+    &__radioLabel {
+      position: relative;
+      left: 10px;
+
+      border: 1px solid rgba(0,0,0,0);
+      box-shadow: 0px 0px 0px 2px rgba(0,0,0,0);
+
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      padding: 5px;
+
+      &::before,
+      &::after {
+        content:"";
+        display: block;
+        position: absolute;
+
+        border-radius: 50%;
       }
+
+      &::before {
+        z-index: 1;
+
+        top: 8px;
+        left: -23px;
+
+        width: 16px;
+        height: 16px;
+
+        background-color: $color-secondary;
+      }
+
+      &::after {
+        z-index: 2;
+
+        top: 13px;
+        left: -18px;
+
+        width: 6px;
+        height: 6px;
+
+        background-color: $color-bg;
+        box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .3);
+
+        opacity: 0;
+      }
+
     }
 
     &__uploadTitle {
@@ -83,8 +147,18 @@
 
     &__upload {
       position: absolute;
-      display:none;
+      z-index: -1;
+      opacity: 0;
     }
+
+    &__labelUpload:focus-within {
+      @extend %input-border-active;
+      @extend %input-shadow-active;
+      .form__uploadButtonWrapper {
+        @extend %upload-button-left-border-active;
+      }
+    }
+
 
     &__uploadPlaceholder {
       color: $color-form-placeholder;
