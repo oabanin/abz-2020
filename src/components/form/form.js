@@ -52,9 +52,15 @@ const Form = () => {
                                 <input className="form__radio" name="form__radio" id="form__radio4" type="radio"/><label htmlFor="form__radio4">QA</label>
                             </div>
                             <p className="form__uploadTitle">Photo</p>
-                            <label className="form__labelUpload" htmlFor="form__upload">
-                                <input className="form__upload" id="form__upload" type="file"  accept=".jpg, .jpeg, .png"/>
-                            </label>
+                            <div className="form__uploadWrapper">
+                              <label className="form__labelUpload" htmlFor="form__upload">
+                                  <input className="form__upload" id="form__upload" type="file"  accept=".jpg, .jpeg, .png"/>
+                                  <div className="form__uploadPlaceholder">Upload your photo</div>
+                                  <div className="form__uploadButtonWrapper">
+                                    <span>Browse</span>
+                                  </div>
+                              </label>
+                            </div>
                             <input className="button form__submit" value="Sing up now" type="submit"/>
                         </form>
                     </div>

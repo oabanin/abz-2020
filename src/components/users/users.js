@@ -68,7 +68,7 @@ const Users = () => {
         </div>
 
         <div className="row mb-35">
-          <ReactTooltip className="tooltip" place="bottom" offset={{top: -5}} />
+          <ReactTooltip className="tooltip" place="bottom" offset={{top: -10}} />
           {users}
         </div>
 

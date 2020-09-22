@@ -26,7 +26,7 @@
     &__labelInput {
       margin-bottom: 10px;
     }
-    
+
     &__name,
     &__email,
     &__phone {
@@ -57,17 +57,64 @@
       margin-bottom: 10px;
     }
 
-    &__labelUpload {
-      @extend %input-enabled;
+    &__uploadWrapper {
       margin-bottom: 35px;
+    }
 
-      display: block;
-      position: relative;
+    &__labelUpload {
+      @extend %upload-label-common;
+      @extend %input-enabled;
+      &--error {
+        @extend %upload-label-common;
+        @extend %input-error;
+        .form__uploadButtonWrapper {
+          @extend %upload-button-left-border-error;
+        }
+      }
+
+      &:active,
+      &:focus {
+        .form__uploadButtonWrapper {
+          @extend %upload-button-left-border-active;
+        }
+      }
+
     }
 
     &__upload {
       position: absolute;
+      display:none;
     }
+
+    &__uploadPlaceholder {
+      color: $color-form-placeholder;
+    }
+
+    &__uploadButtonWrapper {
+      border-left: 1px solid $color-form-placeholder;
+
+      position: absolute;
+      top: 0px;
+      right:0;
+
+      height: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      &:active,
+      &:focus {
+        @extend %upload-button-left-border-active;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+    }
+
+
 
     &__submit {
       border:0;
