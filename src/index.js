@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {getRegisteredUsers} from './services/api';
+//import {getRegisteredUsers, getPositions} from './services/api';
 
 import App from './components/app';
 
 import './scss/styles.scss';
 
-getRegisteredUsers();
+// getPositions();
+// getPositions().then(console.log)
+// console.log(getPositions());
+// getPositions().then(data => console.log(data.positions));
+//console.log(getPositions());
+//getPositions().then(data=>console.log(data));
 
 
 ReactDOM.render(<App/>,document.getElementById('root'));

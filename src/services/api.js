@@ -2,29 +2,33 @@ import axios from 'axios';
 
 const _apiBase = "https://frontend-test-assignment-api.abz.agency/api/v1";
 
+
 const getResourse = async (url) => {
-await axios.get(`${_apiBase}${url}`)
-  .then(function (response) {
-    // handle success
-    return response;
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
+  try {
+    const response = await axios.get(`${_apiBase}${url}`);
+     if(response.data.success) {
+      return response.data;
+     }
+     else {
+      throw new Error (`Response from ${_apiBase}${url} hasn't been success`);
+     }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 
-const getRegisteredUsers = () => {
-    return getResourse('/users?page=5&count=6');
+// const getRegisteredUsers = () => {
+//     return getResourse('/users?page=5&count=6');
+// }
+
+
+const getPositions = async () => {
+  const response = await getResourse('/positions');
+  return response.positions;
 }
 
-const getPositions = ()=> {
-    return getResourse('/positions');
-}
 
 
-export {getRegisteredUsers};
+//getRegisteredUsers
+export { getPositions};

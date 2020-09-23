@@ -1,6 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
+import Position from './components/position';
+
+import {getPositions} from '../../services/api';
 
 const Form = () => {
+
+  const [positions, setPositions] = useState([]);
+
+   useEffect( ()=> {
+    async function fetchData(){
+      const pos = await getPositions();
+      setPositions(pos);
+    }
+    fetchData();
+
+   }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,6 +55,16 @@ const Form = () => {
                                 <input className="form__phone" id="form__phone" placeholder="+380 XX XXX XX XX" type="email" />
                             </div>
                             <p className="form__radioTitle">Select your position</p>
+
+                            {positions.length && positions.map(position=>(
+                                <div key={position.id} className="form__radioWrapper">
+                                <input className="form__radio" name="form__radio" id={`form__radio${position.id}`} type="radio"/>
+                                <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
+                            </div>)
+                            )}
+
+
+
                             <div className="form__radioWrapper">
                                 <input className="form__radio" name="form__radio" id="form__radio1" type="radio"/>
                                 <label className="form__radioLabel" htmlFor="form__radio1">Frontend developer</label>
