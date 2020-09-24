@@ -7,9 +7,11 @@ import {getPositions} from '../../services/api';
 const Form = () => {
 
   const [positions, setPositions] = useState([]);
+  const [position_id, setPosition_id]=useState();
+
 
    useEffect( ()=> {
-    async function fetchData(){
+    const fetchData = async () => {
       const pos = await getPositions();
       setPositions(pos);
     }
@@ -58,29 +60,14 @@ const Form = () => {
 
                             {positions.length && positions.map(position=>(
                                 <div key={position.id} className="form__radioWrapper">
-                                <input className="form__radio" name="form__radio" id={`form__radio${position.id}`} type="radio"/>
+                                <input className="form__radio" name="form__radio"
+                                id={`form__radio${position.id}`} type="radio"
+                                onChange={()=>setPosition_id(position.id)}
+                                />
                                 <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
                             </div>)
                             )}
 
-
-
-                            <div className="form__radioWrapper">
-                                <input className="form__radio" name="form__radio" id="form__radio1" type="radio"/>
-                                <label className="form__radioLabel" htmlFor="form__radio1">Frontend developer</label>
-                            </div>
-                            <div className="form__radioWrapper">
-                                <input className="form__radio" name="form__radio" id="form__radio2" type="radio"/>
-                                <label className="form__radioLabel" htmlFor="form__radio2">Backend developer</label>
-                            </div>
-                            <div className="form__radioWrapper">
-                                <input className="form__radio" name="form__radio" id="form__radio3" type="radio"/>
-                                <label className="form__radioLabel" htmlFor="form__radio3">Designer</label>
-                            </div>
-                            <div className="form__radioWrapper">
-                                <input className="form__radio" name="form__radio" id="form__radio4" type="radio"/>
-                                <label className="form__radioLabel" htmlFor="form__radio4">QA</label>
-                            </div>
                             <p className="form__uploadTitle">Photo</p>
                             <div className="form__uploadWrapper">
                               <label className="form__labelUpload" htmlFor="form__upload">
@@ -97,6 +84,7 @@ const Form = () => {
                 </div>
 
             </div>
+            Selected position: {position_id}
         </section>
     )
 
