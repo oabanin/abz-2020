@@ -6,11 +6,15 @@ import {getPositions} from '../../services/api';
 
 const Form = () => {
 
+  const {handleChange, handleSubmit,  values} = useForm(()=> console.log(values));
+  const {name, email, phone, position_id} = values;
+
+  const entries = Object.entries(values); //DELETE
+
+
   const [fetchedPositions, setFetchedPositions] = useState([]);
 
-  const [position_id, setPosition_id]=useState();
-  const [name, setName]=useState('');
-  const [email, setEmail]=useState('');
+
 
    useEffect( ()=> {
     const fetchData = async () => {
@@ -21,18 +25,6 @@ const Form = () => {
 
    }, [])
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  }
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(event);
-  }
 
     return (
         <section className="form">
@@ -58,12 +50,13 @@ const Form = () => {
                                 <input
                                   className="form__name"
                                   id="form__name"
+                                  name="name"
                                   placeholder="Your name"
-                                  onChange={handleNameChange}
+                                  onChange={handleChange}
                                   value={name}
-                                  required
+                                  //required
                                 />
-                            </div>
+                            </div>{values.name}
 
                             <div className="form__field">
                                 <label htmlFor="form__email">Email</label>
@@ -71,10 +64,11 @@ const Form = () => {
                                   className="form__email"
                                   id="form__email"
                                   placeholder="Your email"
+                                  name="email"
                                   type="email"
-                                  onChange={handleEmailChange}
+                                  onChange={handleChange}
                                   value={email}
-                                  required
+                                  //required
                                 />
                             </div>
                             <div className="form__field">
@@ -82,9 +76,12 @@ const Form = () => {
                                 <input
                                   className="form__phone"
                                   id="form__phone"
+                                  name="phone"
+                                  onChange={handleChange}
+                                  value={phone}
                                   placeholder="+380 XX XXX XX XX"
-                                  type="email"
-                                  required
+                                  type="phone"
+                                  //required
                                 />
                             </div>
                             <p className="form__radioTitle">Select your position</p>
@@ -93,10 +90,13 @@ const Form = () => {
                               <div key={position.id} className="form__radioWrapper">
                                 <input
                                   className="form__radio"
-                                  name="form__radio"
                                   id={`form__radio${position.id}`}
                                   type="radio"
-                                  onChange={()=>setPosition_id(position.id)}
+                                  name="position_id"
+                                  onChange={handleChange}
+                                  value={position.id}
+                                  // onChange={()=>setPosition_id(position.id)}
+                                  //required
                                 />
                                 <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
                               </div>)
@@ -110,7 +110,7 @@ const Form = () => {
                                     id="form__upload"
                                     type="file"
                                     accept=".jpg, .jpeg, .png"
-                                    required
+                                    //required
                                   />
                                   <div className="form__uploadPlaceholder">Upload your photo</div>
                                   <div className="form__uploadButtonWrapper">
@@ -122,10 +122,9 @@ const Form = () => {
                         </form>
                     </div>
                 </div>
-
+                              {entries}
             </div>
-            Selected position: {position_id}
-            Name: {name}
+          
         </section>
     )
 
