@@ -1,23 +1,33 @@
 import React, {useState, useEffect} from 'react';
 
-import Position from './components/position';
+import useForm from './hooks/useForm';
 
 import {getPositions} from '../../services/api';
 
 const Form = () => {
 
-  const [positions, setPositions] = useState([]);
-  const [position_id, setPosition_id]=useState();
+  const [fetchedPositions, setFetchedPositions] = useState([]);
 
+  const [position_id, setPosition_id]=useState();
+  const [name, setName]=useState('');
+  const [email, setEmail]=useState('');
 
    useEffect( ()=> {
     const fetchData = async () => {
       const pos = await getPositions();
-      setPositions(pos);
+      setFetchedPositions(pos);
     }
     fetchData();
 
    }, [])
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,33 +55,63 @@ const Form = () => {
                         <form onSubmit={handleSubmit} action="#">
                             <div className="form__field">
                                 <label htmlFor="form__name">Name</label>
-                                <input className="form__name" id="form__name" placeholder="Your name" />
+                                <input
+                                  className="form__name"
+                                  id="form__name"
+                                  placeholder="Your name"
+                                  onChange={handleNameChange}
+                                  value={name}
+                                  required
+                                />
                             </div>
 
                             <div className="form__field">
                                 <label htmlFor="form__email">Email</label>
-                                <input className="form__email" id="form__email" placeholder="Your email" type="email" />
+                                <input
+                                  className="form__email"
+                                  id="form__email"
+                                  placeholder="Your email"
+                                  type="email"
+                                  onChange={handleEmailChange}
+                                  value={email}
+                                  required
+                                />
                             </div>
                             <div className="form__field">
                                 <label htmlFor="form__phone">Phone number</label>
-                                <input className="form__phone" id="form__phone" placeholder="+380 XX XXX XX XX" type="email" />
+                                <input
+                                  className="form__phone"
+                                  id="form__phone"
+                                  placeholder="+380 XX XXX XX XX"
+                                  type="email"
+                                  required
+                                />
                             </div>
                             <p className="form__radioTitle">Select your position</p>
 
-                            {positions.length && positions.map(position=>(
-                                <div key={position.id} className="form__radioWrapper">
-                                <input className="form__radio" name="form__radio"
-                                id={`form__radio${position.id}`} type="radio"
-                                onChange={()=>setPosition_id(position.id)}
+                            {fetchedPositions.length && fetchedPositions.map(position=>(
+                              <div key={position.id} className="form__radioWrapper">
+                                <input
+                                  className="form__radio"
+                                  name="form__radio"
+                                  id={`form__radio${position.id}`}
+                                  type="radio"
+                                  onChange={()=>setPosition_id(position.id)}
                                 />
                                 <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
-                            </div>)
+                              </div>)
                             )}
 
                             <p className="form__uploadTitle">Photo</p>
                             <div className="form__uploadWrapper">
                               <label className="form__labelUpload" htmlFor="form__upload">
-                                  <input className="form__upload" id="form__upload" type="file"  accept=".jpg, .jpeg, .png"/>
+                                  <input
+                                    className="form__upload"
+                                    id="form__upload"
+                                    type="file"
+                                    accept=".jpg, .jpeg, .png"
+                                    required
+                                  />
                                   <div className="form__uploadPlaceholder">Upload your photo</div>
                                   <div className="form__uploadButtonWrapper">
                                     <span>Browse</span>
@@ -85,6 +125,7 @@ const Form = () => {
 
             </div>
             Selected position: {position_id}
+            Name: {name}
         </section>
     )
 
