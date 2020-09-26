@@ -6,11 +6,10 @@ import {getPositions} from '../../services/api';
 
 const Form = () => {
 
-  const {handleChange, handleSubmit,  values} = useForm(()=> console.log(values));
-  const {name, email, phone, position_id} = values;
+  const {handleChange, handleSubmit,  values} = useForm(()=> console.log('submiteed'));
+  //const {name, email, phone, position_id} = values;
 
-  const entries = Object.entries(values); //DELETE
-
+const entries = Object.entries(values);
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
 
@@ -53,10 +52,10 @@ const Form = () => {
                                   name="name"
                                   placeholder="Your name"
                                   onChange={handleChange}
-                                  value={name}
+                                  value={values.name || ''}
                                   //required
                                 />
-                            </div>{values.name}
+                            </div>
 
                             <div className="form__field">
                                 <label htmlFor="form__email">Email</label>
@@ -67,7 +66,7 @@ const Form = () => {
                                   name="email"
                                   type="email"
                                   onChange={handleChange}
-                                  value={email}
+                                  value={values.email || ''}
                                   //required
                                 />
                             </div>
@@ -78,7 +77,7 @@ const Form = () => {
                                   id="form__phone"
                                   name="phone"
                                   onChange={handleChange}
-                                  value={phone}
+                                  value={values.phone || ''}
                                   placeholder="+380 XX XXX XX XX"
                                   type="phone"
                                   //required

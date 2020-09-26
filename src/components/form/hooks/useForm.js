@@ -2,12 +2,7 @@ import { useState } from 'react';
 
 const useForm = (callback) => {
 
-  const [values, setValues] = useState({
-    name:"",
-    email:"",
-    phone: "",
-    position_id:""
-  });
+  const [values, setValues] = useState({});
 
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
