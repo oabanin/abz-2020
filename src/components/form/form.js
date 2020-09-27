@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
 import useForm from './hooks/useForm';
+import FormValidationRules from './formValidationRules';
 
 import {getPositions} from '../../services/api';
 
 const Form = () => {
 
-  const {handleChange, handleSubmit,  values} = useForm(()=> console.log('submiteed'));
+  const {handleChange, handleSubmit,  values, errors} = useForm(()=> console.log('submiteed'), FormValidationRules);
   //const {name, email, phone, position_id} = values;
 
 const entries = Object.entries(values);
@@ -43,7 +44,7 @@ const entries = Object.entries(values);
 
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
-                        <form onSubmit={handleSubmit} action="#">
+                        <form onSubmit={handleSubmit} action="#" noValidate>
                             <div className="form__field">
                                 <label htmlFor="form__name">Name</label>
                                 <input
@@ -66,10 +67,12 @@ const entries = Object.entries(values);
                                   name="email"
                                   type="email"
                                   onChange={handleChange}
-                                  value={values.email || ''}
+                                  value={values.email || ''} 
                                   //required
                                 />
+                                {errors.email && <div className="form__feedback error">{errors.email}</div>}
                             </div>
+                            
                             <div className="form__field">
                                 <label htmlFor="form__phone">Phone number</label>
                                 <input
@@ -122,6 +125,7 @@ const entries = Object.entries(values);
                     </div>
                 </div>
                               {entries}
+                              
             </div>
           
         </section>

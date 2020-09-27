@@ -24,19 +24,28 @@
     }
 
     &__field {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     &__name,
     &__email,
     &__phone {
       margin-top: 10px;
+      margin-bottom: 10px;
 
       @extend %input-enabled;
       &--error {
         @extend %input-error;
       }
     }
+
+    &__feedback {
+      font-size: 12px;
+        &.error {
+          color: $color-form-error;
+      }
+    }
+    
 
     &__radioTitle {
       margin-top: 5px;
