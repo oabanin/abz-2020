@@ -15,12 +15,13 @@ const useForm = (callback, validate) => {
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
     setIsSubmitting(true);
-    setErrors (validate(values));
+    setErrors(validate(values));
   };
 
   const handleChange = (event) => {
     event.persist();
     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    setErrors(validate(values));
   };
 
   return {

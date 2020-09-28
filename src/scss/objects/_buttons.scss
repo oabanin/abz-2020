@@ -9,7 +9,7 @@
     font-size: inherit;
     text-decoration: none;
     text-align: center;
-    
+
     border-radius: 4px;
 
     background-color: $color-primary;
@@ -18,5 +18,9 @@
     &:hover {
         background-color: $color-button-hover;
     }
-  
+
+    &:disabled {
+         background: #ccc;
+    }
+
 }

@@ -25,13 +25,18 @@
 
     &__field {
       margin-bottom: 10px;
+
+      label {
+        display: inline-block;
+
+        padding-bottom: 10px;
+      }
+
     }
 
     &__name,
     &__email,
     &__phone {
-      margin-top: 10px;
-      margin-bottom: 10px;
 
       @extend %input-enabled;
       &--error {
@@ -41,11 +46,14 @@
 
     &__feedback {
       font-size: 12px;
+
+      margin-top: 10px;
+
         &.error {
           color: $color-form-error;
       }
     }
-    
+
 
     &__radioTitle {
       margin-top: 5px;

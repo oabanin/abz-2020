@@ -7,19 +7,19 @@ import {getPositions} from '../../services/api';
 
 const Form = () => {
 
-  const {handleChange, handleSubmit,  values, errors} = useForm(()=> console.log('submiteed'), FormValidationRules);
+  const {handleChange, handleSubmit,  values, errors} = useForm(()=> console.log('submitted'), FormValidationRules);
   //const {name, email, phone, position_id} = values;
 
-const entries = Object.entries(values);
+  const entries = Object.entries(values);
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
-
 
 
    useEffect( ()=> {
     const fetchData = async () => {
       const pos = await getPositions();
       setFetchedPositions(pos);
+
     }
     fetchData();
 
@@ -48,7 +48,7 @@ const entries = Object.entries(values);
                             <div className="form__field">
                                 <label htmlFor="form__name">Name</label>
                                 <input
-                                  className="form__name"
+                                  className={errors.name ? "form__name--error" : "form__name"}
                                   id="form__name"
                                   name="name"
                                   placeholder="Your name"
@@ -56,39 +56,41 @@ const entries = Object.entries(values);
                                   value={values.name || ''}
                                   //required
                                 />
+                                {errors.name && <div className="form__feedback error">{errors.name}</div>}
                             </div>
 
                             <div className="form__field">
                                 <label htmlFor="form__email">Email</label>
                                 <input
-                                  className="form__email"
+                                  className={errors.email ? "form__email--error" : "form__email"}
                                   id="form__email"
                                   placeholder="Your email"
                                   name="email"
                                   type="email"
                                   onChange={handleChange}
-                                  value={values.email || ''} 
+                                  value={values.email || ''}
                                   //required
                                 />
                                 {errors.email && <div className="form__feedback error">{errors.email}</div>}
                             </div>
-                            
+
                             <div className="form__field">
                                 <label htmlFor="form__phone">Phone number</label>
                                 <input
                                   className="form__phone"
+                                  className={errors.phone ? "form__phone--error" : "form__phone"}
                                   id="form__phone"
                                   name="phone"
                                   onChange={handleChange}
                                   value={values.phone || ''}
                                   placeholder="+380 XX XXX XX XX"
                                   type="phone"
-                                  //required
                                 />
+                                {errors.phone && <div className="form__feedback error">{errors.phone}</div>}
                             </div>
                             <p className="form__radioTitle">Select your position</p>
 
-                            {fetchedPositions.length && fetchedPositions.map(position=>(
+                            {typeof fetchedPositions ==="object" && fetchedPositions.map(position=>(
                               <div key={position.id} className="form__radioWrapper">
                                 <input
                                   className="form__radio"
@@ -97,12 +99,12 @@ const entries = Object.entries(values);
                                   name="position_id"
                                   onChange={handleChange}
                                   value={position.id}
-                                  // onChange={()=>setPosition_id(position.id)}
-                                  //required
                                 />
                                 <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
                               </div>)
                             )}
+                            {errors.position_id && <div className="form__feedback error">{errors.position_id}</div>}
+                            {typeof fetchedPositions ==="string" && <div className="form__feedback error">{fetchedPositions}</div>}
 
                             <p className="form__uploadTitle">Photo</p>
                             <div className="form__uploadWrapper">
@@ -125,9 +127,9 @@ const entries = Object.entries(values);
                     </div>
                 </div>
                               {entries}
-                              
+
             </div>
-          
+
         </section>
     )
 

@@ -8,9 +8,10 @@ const getResourse = async (url) => {
     const response = await axios.get(`${_apiBase}${url}`);
      if(response.data.success) {
       return response.data;
+      //return "zalupa";
      }
      else {
-      throw new Error (`Response from ${_apiBase}${url} hasn't been success`);
+      return response.message;
      }
   } catch (error) {
     console.error(error);
@@ -24,8 +25,8 @@ const getResourse = async (url) => {
 
 
 const getPositions = async () => {
-  const response = await getResourse('/positions');
-  return response.positions;
+  const data = await getResourse('/positions');
+  return (typeof data === "string") ?  data : data.positions;
 }
 
 
