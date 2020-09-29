@@ -1,20 +1,25 @@
 import React, {useState, useEffect} from 'react';
 
-import useForm from './hooks/useForm';
-import FormValidationRules from './formValidationRules';
+import {useForm} from 'react-hook-form';
 
 import {getPositions} from '../../services/api';
 
-const Form = () => {
+//import useForm from './hooks/useForm';
+//import FormValidationRules from './formValidationRules';
 
-  const {handleChange, handleSubmit,  values, errors} = useForm(()=> console.log('submitted'), FormValidationRules);
+
+
+
+const Form = () => {
+  const {register, handleSubmit, errors} = useForm();
+  const onSubmit = data => console.log(data);
+  //const {handleChange, handleSubmit, values, errors} = useForm(()=> console.log('submitted'), FormValidationRules);
   //const {name, email, phone, position_id} = values;
 
-  const entries = Object.entries(values);
+  //const entries = Object.entries(values);
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
-
-
+  console.log(errors)
    useEffect( ()=> {
     const fetchData = async () => {
       const pos = await getPositions();
@@ -44,7 +49,7 @@ const Form = () => {
 
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
-                        <form onSubmit={handleSubmit} action="#" noValidate>
+                        <form onSubmit={handleSubmit(onSubmit)} action="#" noValidate>
                             <div className="form__field">
                                 <label htmlFor="form__name">Name</label>
                                 <input
@@ -52,11 +57,12 @@ const Form = () => {
                                   id="form__name"
                                   name="name"
                                   placeholder="Your name"
-                                  onChange={handleChange}
-                                  value={values.name || ''}
-                                  //required
+                                  ////onChange={handleChange}
+                                  //value={values.name || ''}
+
+                                  ref={register({ required: 'Name is required'})}
                                 />
-                                {errors.name && <div className="form__feedback error">{errors.name}</div>}
+                                {errors.name && <div className="form__feedback error">{errors.name.message}</div>}
                             </div>
 
                             <div className="form__field">
@@ -67,8 +73,8 @@ const Form = () => {
                                   placeholder="Your email"
                                   name="email"
                                   type="email"
-                                  onChange={handleChange}
-                                  value={values.email || ''}
+                                  ////onChange={handleChange}
+                                  //value={values.email || ''}
                                   //required
                                 />
                                 {errors.email && <div className="form__feedback error">{errors.email}</div>}
@@ -81,8 +87,8 @@ const Form = () => {
                                   className={errors.phone ? "form__phone--error" : "form__phone"}
                                   id="form__phone"
                                   name="phone"
-                                  onChange={handleChange}
-                                  value={values.phone || ''}
+                                  //onChange={handleChange}
+                                  //value={values.phone || ''}
                                   placeholder="+380 XX XXX XX XX"
                                   type="phone"
                                 />
@@ -97,8 +103,8 @@ const Form = () => {
                                   id={`form__radio${position.id}`}
                                   type="radio"
                                   name="position_id"
-                                  onChange={handleChange}
-                                  value={position.id}
+                                  //onChange={handleChange}
+                                  //value={position.id}
                                 />
                                 <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
                               </div>)
@@ -126,7 +132,7 @@ const Form = () => {
                         </form>
                     </div>
                 </div>
-                              {entries}
+
 
             </div>
 
