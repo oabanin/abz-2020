@@ -57,10 +57,17 @@ const Form = () => {
                                   id="form__name"
                                   name="name"
                                   placeholder="Your name"
-                                  ////onChange={handleChange}
-                                  //value={values.name || ''}
-
-                                  ref={register({ required: 'Name is required'})}
+                                  ref={register({
+                                    required: 'Name is required',
+                                    maxLength : {
+                                      value: 60,
+                                      message: 'Max length is 60 characters'
+                                    },
+                                    minLength : {
+                                      value: 2,
+                                      message: 'Min length is 2 characters'
+                                    }
+                                  })}
                                 />
                                 {errors.name && <div className="form__feedback error">{errors.name.message}</div>}
                             </div>
@@ -73,26 +80,45 @@ const Form = () => {
                                   placeholder="Your email"
                                   name="email"
                                   type="email"
-                                  ////onChange={handleChange}
-                                  //value={values.email || ''}
-                                  //required
+                                  ref={register({
+                                        required: 'Name is required',
+                                        pattern: {
+                                          value: /^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/,
+                                          message: 'Email address must be according to RFC2822'
+                                          }
+                                        })
+                                      }
+
                                 />
-                                {errors.email && <div className="form__feedback error">{errors.email}</div>}
+                                {errors.email && <div className="form__feedback error">{errors.email.message}</div>}
                             </div>
 
                             <div className="form__field">
                                 <label htmlFor="form__phone">Phone number</label>
                                 <input
-                                  className="form__phone"
                                   className={errors.phone ? "form__phone--error" : "form__phone"}
                                   id="form__phone"
                                   name="phone"
-                                  //onChange={handleChange}
-                                  //value={values.phone || ''}
+                                  ref={register({
+                                          required: 'Phone is required',
+                                          maxLength : {
+                                            value: 20,
+                                            message: 'Max length is 20 characters'
+                                          },
+                                          minLength : {
+                                            value: 10,
+                                            message: 'Min length is 10 characters'
+                                          },
+                                          validate: {
+                                              checkNumber: value => /^(\+38)?0\d{9}$/.test(value.replace(/[^+\d]/g, "")) || 'Phone number should start with code of Ukraine +380 or just with 0',
+                                          },
+
+                                        })
+                                      }
                                   placeholder="+380 XX XXX XX XX"
                                   type="phone"
                                 />
-                                {errors.phone && <div className="form__feedback error">{errors.phone}</div>}
+                                {errors.phone && <div className="form__feedback error">{errors.phone.message}</div>}
                             </div>
                             <p className="form__radioTitle">Select your position</p>
 

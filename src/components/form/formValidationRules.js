@@ -6,7 +6,7 @@ export default function validate(values) {
     if(!email) {
       errors.email = 'Email address is required';
     }else if (!/^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/.test(values.email)) {
-      errors.email = 'Email address is invalid';
+      errors.email = 'Email address must be a valid email according to RFC2822';
     }
 
     if(!name) {
@@ -17,7 +17,7 @@ export default function validate(values) {
 
     if(!phone) {
       errors.phone = 'Phone is required';
-    } else if(!/^(\+38)?0\d{9}$/.test(phone.replace(/[^+\d]/g, ""))){
+    } else if(!){
       errors.phone = 'Phone number should start with code of Ukraine +380';
     }
 
