@@ -13,13 +13,10 @@ import {getPositions} from '../../services/api';
 const Form = () => {
   const {register, handleSubmit, errors} = useForm();
   const onSubmit = data => console.log(data);
-  //const {handleChange, handleSubmit, values, errors} = useForm(()=> console.log('submitted'), FormValidationRules);
-  //const {name, email, phone, position_id} = values;
-
-  //const entries = Object.entries(values);
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
-  console.log(errors)
+  const [choosedFilename, setchoosedFilename] = useState(null);
+
    useEffect( ()=> {
     const fetchData = async () => {
       const pos = await getPositions();
@@ -30,7 +27,9 @@ const Form = () => {
 
    }, [])
 
-
+   const onChooseFile = (e) => {
+    setchoosedFilename(e.target.files[0].name);
+   }
     return (
         <section className="form">
             <div className="container-fluid">
@@ -129,31 +128,36 @@ const Form = () => {
                                   id={`form__radio${position.id}`}
                                   type="radio"
                                   name="position_id"
-                                  //onChange={handleChange}
-                                  //value={position.id}
+                                  value={position.id}
+                                  ref={register({required: 'Position is required'})}
                                 />
                                 <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
                               </div>)
                             )}
-                            {errors.position_id && <div className="form__feedback error">{errors.position_id}</div>}
+                            {errors.position_id && <div className="form__feedback error">{errors.position_id.message}</div>}
                             {typeof fetchedPositions ==="string" && <div className="form__feedback error">{fetchedPositions}</div>}
 
                             <p className="form__uploadTitle">Photo</p>
                             <div className="form__uploadWrapper">
-                              <label className="form__labelUpload" htmlFor="form__upload">
+                              <label className={errors.file ? "form__labelUpload--error": "form__labelUpload"} htmlFor="form__upload">
                                   <input
-                                    className="form__upload"
+                                    className="form__upload"                          
                                     id="form__upload"
                                     type="file"
                                     accept=".jpg, .jpeg, .png"
-                                    //required
+                                    name="file"
+                                    onChange={onChooseFile}
+                                    ref={register({required: 'File is required'})}
                                   />
-                                  <div className="form__uploadPlaceholder">Upload your photo</div>
+                                  <div className="form__uploadPlaceholder">{choosedFilename ? choosedFilename : "Upload your photo"}</div>
                                   <div className="form__uploadButtonWrapper">
                                     <span>Browse</span>
                                   </div>
                               </label>
                             </div>
+                            
+                            {errors.file && <div className="form__feedback error">{errors.file.message}</div>}
+
                             <input className="button form__submit" value="Sing up now" type="submit"/>
                         </form>
                     </div>
