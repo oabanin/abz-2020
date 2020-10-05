@@ -33,12 +33,7 @@ const Form = () => {
   const onChooseFile = (file, name) => {
     if (!file) return;
 
-    //const name = e.target.name;
-    //const file = e.target.files[0];
-
     clearErrors(name);
-
-    //console.log("onChooseFile", e.target.files)
     setchoosedFilename(file.name);
 
     if(file.size > maxFileSize){
@@ -49,7 +44,7 @@ const Form = () => {
       });
       return errMsg;
     } else if (file.type !=="image/jpeg") {
-      const errMsg = "File should be jpg/jpeg image";
+       const errMsg = "File should be jpg/jpeg image";
       setError(name, {
         type: "extention",
         message: errMsg
@@ -61,19 +56,19 @@ const Form = () => {
       img.src = url.createObjectURL(file);
       img.onload = function() {
         if(this.width < 70 || this.height < 70) {
+          url.revokeObjectURL(this.src);
           const errMsg = "File should be with resolution at least 70x70px!";
           setError(name, {
             type: "resolution",
             message: errMsg
           });
+
           return errMsg;
         }
       }
 
-      return;
+      return true;
     }
-
-
 
   }
   return (
@@ -193,24 +188,7 @@ const Form = () => {
                     accept=".jpg, .jpeg, .png"
                     name="file"
                     onChange={(e) => onChooseFile(e.target.files[0],e.target.name)}
-                    ref={register({ required: 'File is required', validate: (value)=> {
-                      onChooseFile(value, 'file');
-
-                      console.log(value[0]);
-
-                      // if(value[0].size > maxFileSize){
-                      //       setError(name, {
-                      //         type: "validate",
-                      //         message: "File size must not exceed 5MB"
-                      //       });
-                      //       //return "File size must not exceed 5MB";
-                      //     }
-
-
-
-                    }
-
-                  })}
+                    ref={register({ required: 'File is required', validate: (files)=> onChooseFile(files[0], 'file')})}
                   />
                   <div className="form__uploadPlaceholder">{choosedFilename ? choosedFilename : "Upload your photo"}</div>
                   <div className="form__uploadButtonWrapper">
