@@ -11,8 +11,11 @@ const maxFileSize=5*1024**2;
 
 
 const Form = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const { register, handleSubmit, setError, clearErrors, errors } = useForm();
+  const onSubmit = data => {
+    console.log(data);
+    console.log("submitted");
+  };
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
   const [choosedFilename, setchoosedFilename] = useState(null);
@@ -27,22 +30,49 @@ const Form = () => {
 
   }, [])
 
-  const onChooseFile = (e) => {
-    if (!e.target.files[0]) return;
-    const file = e.target.files[0];
+  const onChooseFile = (file, name) => {
+    if (!file) return;
+
+    //const name = e.target.name;
+    //const file = e.target.files[0];
+
+    clearErrors(name);
+
+    //console.log("onChooseFile", e.target.files)
     setchoosedFilename(file.name);
-    
+
     if(file.size > maxFileSize){
-      errors[e.target.name] = { message: "File size must not exceed 5MB" };
+      const errMsg = "File size must not exceed 5MB";
+      setError(name, {
+        type: "size",
+        message: errMsg
+      });
+      return errMsg;
     } else if (file.type !=="image/jpeg") {
-      errors[e.target.name] = { message: "File should be jpg/jpeg image" };
+      const errMsg = "File should be jpg/jpeg image";
+      setError(name, {
+        type: "extention",
+        message: errMsg
+      });
+      return errMsg;
+    } else {
+      const url = window.URL || window.webkitURL;
+      const img = new Image();
+      img.src = url.createObjectURL(file);
+      img.onload = function() {
+        if(this.width < 70 || this.height < 70) {
+          const errMsg = "File should be with resolution at least 70x70px!";
+          setError(name, {
+            type: "resolution",
+            message: errMsg
+          });
+          return errMsg;
+        }
+      }
+
+      return;
     }
 
-    
-
-
-    
-    
 
 
   }
@@ -162,8 +192,25 @@ const Form = () => {
                     type="file"
                     accept=".jpg, .jpeg, .png"
                     name="file"
-                    onChange={onChooseFile}
-                    ref={register({ required: 'File is required' })}
+                    onChange={(e) => onChooseFile(e.target.files[0],e.target.name)}
+                    ref={register({ required: 'File is required', validate: (value)=> {
+                      onChooseFile(value, 'file');
+
+                      console.log(value[0]);
+
+                      // if(value[0].size > maxFileSize){
+                      //       setError(name, {
+                      //         type: "validate",
+                      //         message: "File size must not exceed 5MB"
+                      //       });
+                      //       //return "File size must not exceed 5MB";
+                      //     }
+
+
+
+                    }
+
+                  })}
                   />
                   <div className="form__uploadPlaceholder">{choosedFilename ? choosedFilename : "Upload your photo"}</div>
                   <div className="form__uploadButtonWrapper">
