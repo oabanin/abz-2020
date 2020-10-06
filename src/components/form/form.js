@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { getPositions } from '../../services/api';
+import { getPositions, getToken, userRegisterRequest } from '../../services/api';
 
 const maxFileSize=5*1024**2;
 
 
 const Form = () => {
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
-  const onSubmit = data => {
-    console.log(data);
-    console.log("submitted");
+
+  const onSubmit = async(data) => {
+    const token = await getToken();
+    const response = await userRegisterRequest({...data, token})
   };
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
