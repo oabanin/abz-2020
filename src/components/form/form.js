@@ -4,9 +4,6 @@ import { useForm } from 'react-hook-form';
 
 import { getPositions } from '../../services/api';
 
-//import useForm from './hooks/useForm';
-//import FormValidationRules from './formValidationRules';
-
 const maxFileSize=5*1024**2;
 
 
@@ -121,9 +118,17 @@ const Form = () => {
                   name="email"
                   type="email"
                   ref={register({
-                    required: 'Name is required',
+                    required: 'Email is required',
+                    maxLength: {
+                      value: 100,
+                      message: 'Max length is 100 characters'
+                    },
+                    minLength: {
+                      value: 2,
+                      message: 'Min length is 2 characters'
+                    },
                     pattern: {
-                      value: /^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/,
+                      value: /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/,
                       message: 'Email address must be according to RFC2822'
                     }
                   })
@@ -141,16 +146,8 @@ const Form = () => {
                   name="phone"
                   ref={register({
                     required: 'Phone is required',
-                    maxLength: {
-                      value: 20,
-                      message: 'Max length is 20 characters'
-                    },
-                    minLength: {
-                      value: 10,
-                      message: 'Min length is 10 characters'
-                    },
                     validate: {
-                      checkNumber: value => /^(\+38)?0\d{9}$/.test(value.replace(/[^+\d]/g, "")) || 'Phone number should start with code of Ukraine +380 or just with 0',
+                      checkNumber: value => /^[\+]{0,1}380([0-9]{9})$/.test(value.replace(/[^+\d]/g, "")) || 'Phone number should start with code of Ukraine +380',
                     },
 
                   })
