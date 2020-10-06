@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ErrorBoundary from '../error-boundary';
 import Header from '../header';
 import Banner from '../banner';
 import About from '../about';
@@ -15,7 +16,9 @@ const App = () => {
 					<Banner/>
 					<About/>
 					<Users/>
-					<Form/>
+					<ErrorBoundary>
+						<Form/>
+					</ErrorBoundary>
 				</main>
 			<Footer/>
 		</>)

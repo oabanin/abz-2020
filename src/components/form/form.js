@@ -6,17 +6,19 @@ import { getPositions, getToken, userRegisterRequest } from '../../services/api'
 
 const maxFileSize=5*1024**2;
 
-
+//const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
+const deletePhoneSymbols = (phone) => phone;
 const Form = () => {
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
 
   const onSubmit = async(data) => {
     const token = await getToken();
-    const response = await userRegisterRequest({...data, token})
+    const response = await userRegisterRequest({...data, phone: deletePhoneSymbols(data.phone), token})
   };
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
   const [choosedFilename, setchoosedFilename] = useState(null);
+  const [modal, setModal] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -204,7 +206,7 @@ const Form = () => {
 
 
       </div>
-
+                {modal}
     </section>
   )
 
