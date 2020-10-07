@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
 import { useForm } from 'react-hook-form';
+
+import ErrBtn from '../err-btn';
 
 import { getPositions, getToken, userRegisterRequest } from '../../services/api';
 
@@ -8,12 +9,20 @@ const maxFileSize=5*1024**2;
 
 //const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 const deletePhoneSymbols = (phone) => phone;
+
 const Form = () => {
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
 
   const onSubmit = async(data) => {
     const token = await getToken();
-    const response = await userRegisterRequest({...data, phone: deletePhoneSymbols(data.phone), token})
+    try{
+    const response = await userRegisterRequest({...data, phone: deletePhoneSymbols(data.phone), token});
+    }
+    catch(e){
+      throw new Error('ssssssssssssssssss');
+      //console.log('ssssssssssss');
+      //console.dir(e);
+    }
   };
 
   const [fetchedPositions, setFetchedPositions] = useState([]);
@@ -31,9 +40,13 @@ const Form = () => {
   }, [])
 
   const onChooseFile = (file, name) => {
-    if (!file) return;
 
-    clearErrors(name);
+    if (!file) {//Сбрасываем ошибки и имя файла если ранее был выбран
+      setchoosedFilename(null);
+      clearErrors(name);
+      return;
+    }
+
     setchoosedFilename(file.name);
 
     if(file.size > maxFileSize){
@@ -71,6 +84,7 @@ const Form = () => {
     }
 
   }
+
   return (
     <section className="form">
       <div className="container-fluid">
@@ -200,6 +214,7 @@ const Form = () => {
               {errors.file && <div className="form__feedback error">{errors.file.message}</div>}
 
               <input className="button form__submit" value="Sing up now" type="submit" />
+              <ErrBtn/>
             </form>
           </div>
         </div>

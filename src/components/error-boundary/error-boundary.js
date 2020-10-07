@@ -12,6 +12,8 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    console.log("componentDidCatch");
+    //setState({ hasError: true });
     // Можно также сохранить информацию об ошибке в соответствующую службу журнала ошибок
     //logErrorToMyService(error, errorInfo);
   }
@@ -19,10 +21,10 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // Можно отрендерить запасной UI произвольного вида
-      return <h1>Что-то пошло не так.</h1>;
+      return <h1>В данном компоненте произошла ошибка, попробуйте перезагрузить страницу</h1>;
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 
