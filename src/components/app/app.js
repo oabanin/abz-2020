@@ -11,16 +11,20 @@ import Footer from '../footer';
 const App = () => {
 	return (
 		<>
-			<Header/>
-				<main>
-					<Banner/>
-					<About/>
-					<Users/>
-					<ErrorBoundary>
-						<Form/>
-					</ErrorBoundary>
-				</main>
-			<Footer/>
+      <ErrorBoundary>
+  			<Header/>
+  				<main>
+  					<Banner/>
+  					<About/>
+            <ErrorBoundary>
+  					   <Users/>
+            </ErrorBoundary>
+  					<ErrorBoundary>
+  						 <Form/>
+  					</ErrorBoundary>
+  				</main>
+  			<Footer/>
+      </ErrorBoundary>
 		</>)
 }
 

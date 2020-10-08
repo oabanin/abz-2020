@@ -7,23 +7,30 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
-    console.log("componentDidCatch");
-    //setState({ hasError: true });
-    // Можно также сохранить информацию об ошибке в соответствующую службу журнала ошибок
-    //logErrorToMyService(error, errorInfo);
-  }
-
-  render() {
+    render() {
     if (this.state.hasError) {
-      // Можно отрендерить запасной UI произвольного вида
-      return <h1>В данном компоненте произошла ошибка, попробуйте перезагрузить страницу</h1>;
-    }
+      return (
+      <section className="error">
+        <div className="container-fluid">
 
+          <div className="row">
+            <div className="col-md-8 offset-md-2">
+              <h1 className="error__title">Error in Component</h1>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-6 offset-md-3">
+              <p className="error__subtitle">Try to reload page</p>
+            </div>
+          </div>
+        </div>
+      </section>);
+
+    }
     return this.props.children;
   }
 }

@@ -1,0 +1,21 @@
+.error {
+
+    padding-top: 160px;
+    padding-bottom: 160px;
+
+    &__title {
+        @extend %title;
+        margin-bottom: 30px;
+
+    }
+
+    &__subtitle {
+        @extend %p-text;
+
+        text-align: center;
+
+        padding-bottom: 10px;
+    }
+
+
+}
