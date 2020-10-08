@@ -2,21 +2,8 @@ import axios from 'axios';
 
 const _apiBase = "https://frontend-test-assignment-api.abz.agency/api/v1";
 
-
 const getResourse = async (url) => {
-
-
-  try {
-    const response = await axios.get(`${_apiBase}${url}`);
-    if (response.data.success) {
-      return response.data;
-    }
-    else if (response.data.message) {
-      return response.data.message;
-    }
-  } catch (error) {
-    console.error(error);
-  }
+    return await axios.get(`${_apiBase}${url}`);
 }
 
 
@@ -42,7 +29,7 @@ const getResourse = async (url) => {
 
 const getPositions = async () => {
   const data = await getResourse('/positions');
-  return (typeof data === "string") ? data : data.positions;
+  return data.positions;
 }
 
 const getToken = async () => {
@@ -51,6 +38,7 @@ const getToken = async () => {
 }
 
 const userRegisterRequest = async ({ name, email, phone, file: { 0: file }, position_id, token }) => {
+
   const formData = new FormData();
   formData.append('position_id', position_id);
   formData.append('name', name);
@@ -108,13 +96,11 @@ const userRegisterRequest = async ({ name, email, phone, file: { 0: file }, posi
         'Token': token
       }
     });
-    if (response.data.success) {
-      return response.data;
-    }
-
+    return response.data;
   } catch (error) {
-    //console.error(error.response.data.message);
-    throw new Error(error.response.data.message);
+    console.dir(error);
+    console.error(error.response.data);
+
   }
 
 }

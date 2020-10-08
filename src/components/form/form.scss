@@ -44,14 +44,11 @@
       }
     }
 
-    &__feedback {
+    &__error {
       font-size: 12px;
-
+      color: $color-form-error;
       margin-top: 10px;
 
-        &.error {
-          color: $color-form-error;
-      }
     }
 
 

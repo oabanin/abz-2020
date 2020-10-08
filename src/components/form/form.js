@@ -13,37 +13,63 @@ const deletePhoneSymbols = (phone) => phone;
 const Form = () => {
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
 
-  const onSubmit = async(data) => {
-    const token = await getToken();
-    try{
-    const response = await userRegisterRequest({...data, phone: deletePhoneSymbols(data.phone), token});
-    }
-    catch(e){
-      throw new Error('ssssssssssssssssss');
-      //console.log('ssssssssssss');
-      //console.dir(e);
-    }
-  };
-
   const [fetchedPositions, setFetchedPositions] = useState([]);
   const [choosedFilename, setchoosedFilename] = useState(null);
-  const [modal, setModal] = useState(null);
+  const [apiError, setApiError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const pos = await getPositions();
-      setFetchedPositions(pos);
+      try{
+        const pos = await getPositions();
+        setFetchedPositions(pos);
+      }
+      catch(error){
+        onApiError(error);
+      }
+      finally {
+        setLoading(false);
+      }
 
     }
     fetchData();
 
   }, [])
 
-  const onChooseFile = (file, name) => {
 
-    if (!file) {//Сбрасываем ошибки и имя файла если ранее был выбран
+  const onApiError = (err) => {
+    console.log('Onerror ', err);
+    setLoading(false);
+    setApiError(err);
+  }
+
+  const onSubmit = async(data) => {
+
+    //response.data.success
+    //response.data.message
+
+    //error.response.data.message
+    //error.response.data.fails.name[0]
+    //error.response.data.success
+
+    //error.response = undefined;
+
+    const token = await getToken();
+    try{
+    const response = await userRegisterRequest({...data, phone: deletePhoneSymbols(data.phone), token});
+    }
+    catch(error){
+      console.log('error cathc')
+      console.log(error);
+    }
+  };
+
+
+  const onChooseFile = (file, name) => {
+    clearErrors(name); //Сбрасываем ошибки
+
+    if (!file) {//Сбрасываем имя файла если ранее был выбран
       setchoosedFilename(null);
-      clearErrors(name);
       return;
     }
 
@@ -85,6 +111,7 @@ const Form = () => {
 
   }
 
+
   return (
     <section className="form">
       <div className="container-fluid">
@@ -123,7 +150,7 @@ const Form = () => {
                     }
                   })}
                 />
-                {errors.name && <div className="form__feedback error">{errors.name.message}</div>}
+                {errors.name && <div className="form__error">{errors.name.message}</div>}
               </div>
 
               <div className="form__field">
@@ -152,7 +179,7 @@ const Form = () => {
                   }
 
                 />
-                {errors.email && <div className="form__feedback error">{errors.email.message}</div>}
+                {errors.email && <div className="form__error">{errors.email.message}</div>}
               </div>
 
               <div className="form__field">
@@ -172,7 +199,7 @@ const Form = () => {
                   placeholder="+380 XX XXX XX XX"
                   type="phone"
                 />
-                {errors.phone && <div className="form__feedback error">{errors.phone.message}</div>}
+                {errors.phone && <div className="form__error">{errors.phone.message}</div>}
               </div>
               <p className="form__radioTitle">Select your position</p>
 
@@ -189,8 +216,8 @@ const Form = () => {
                   <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
                 </div>)
               )}
-              {errors.position_id && <div className="form__feedback error">{errors.position_id.message}</div>}
-              {typeof fetchedPositions === "string" && <div className="form__feedback error">{fetchedPositions}</div>}
+              {errors.position_id && <div className="form__error">{errors.position_id.message}</div>}
+              {typeof fetchedPositions === "string" && <div className="form__error">{fetchedPositions}</div>}
 
               <p className="form__uploadTitle">Photo</p>
               <div className="form__uploadWrapper">
@@ -202,7 +229,7 @@ const Form = () => {
                     accept=".jpg, .jpeg, .png"
                     name="file"
                     onChange={(e) => onChooseFile(e.target.files[0],e.target.name)}
-                    ref={register({ required: 'File is required', validate: (files)=> onChooseFile(files[0], 'file')})}
+                    ref={ register({ required: 'File is required', validate: (files)=> onChooseFile(files[0], 'file')})}
                   />
                   <div className="form__uploadPlaceholder">{choosedFilename ? choosedFilename : "Upload your photo"}</div>
                   <div className="form__uploadButtonWrapper">
@@ -211,17 +238,19 @@ const Form = () => {
                 </label>
               </div>
 
-              {errors.file && <div className="form__feedback error">{errors.file.message}</div>}
+              {errors.file && <div className="form__error">{errors.file.message}</div>}
 
-              <input className="button form__submit" value="Sing up now" type="submit" />
+              <input
+                className="button form__submit"
+                value="Sing up now"
+                type="submit"
+                disabled={apiError || loading}
+              />
               <ErrBtn/>
             </form>
           </div>
         </div>
-
-
       </div>
-                {modal}
     </section>
   )
 
