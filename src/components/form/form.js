@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import ErrBtn from '../err-btn';
+import Positions from './components/positions';
+
+import ErrBtn from '../err-btn'; //delete
+import Spinner from "../spinner";
 
 import { getPositions, getToken, userRegisterRequest } from '../../services/api';
 
@@ -13,34 +16,44 @@ const deletePhoneSymbols = (phone) => phone;
 const Form = () => {
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
 
-  const [fetchedPositions, setFetchedPositions] = useState([]);
   const [choosedFilename, setchoosedFilename] = useState(null);
-  const [apiError, setApiError] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+  const [fetchedPositions, setFetchedPositions] = useState([]);
+  const [loadingPositions, setLoadingPositions] = useState(true);
+  const [apiErrorMsgPositions, setApiErrorMsgPositions] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    fetchPositions();
+  }, [])
+
+  const fetchPositions = async () => {
       try{
-        const pos = await getPositions();
-        setFetchedPositions(pos);
+        const { data } = await getPositions();
+        if(data.success){
+          setFetchedPositions(data.positions);
+        } else {
+          throw Error ("The API doesn't return success");
+        }
       }
       catch(error){
         onApiError(error);
       }
       finally {
-        setLoading(false);
+        setLoadingPositions(false);
       }
 
     }
-    fetchData();
-
-  }, [])
 
 
-  const onApiError = (err) => {
-    console.log('Onerror ', err);
-    setLoading(false);
-    setApiError(err);
+  const onApiError = (error) => {
+    console.error(error);
+    //console.dir(error);
+    if(error.response?.data?.message) {
+      setApiErrorMsgPositions(error.response.data.message);
+    } else {
+      setApiErrorMsgPositions(error.message);
+    }
+
   }
 
   const onSubmit = async(data) => {
@@ -111,6 +124,12 @@ const Form = () => {
 
   }
 
+
+  const hasData = !(loadingPositions || apiErrorMsgPositions);
+
+  const positionsList = hasData
+    ? <Positions fetchedPositions={fetchedPositions} errors={errors} register={register}/>
+    : null;
 
   return (
     <section className="form">
@@ -202,23 +221,9 @@ const Form = () => {
                 {errors.phone && <div className="form__error">{errors.phone.message}</div>}
               </div>
               <p className="form__radioTitle">Select your position</p>
-
-              {typeof fetchedPositions === "object" && fetchedPositions.map(position => (
-                <div key={position.id} className="form__radioWrapper">
-                  <input
-                    className="form__radio"
-                    id={`form__radio${position.id}`}
-                    type="radio"
-                    name="position_id"
-                    value={position.id}
-                    ref={register({ required: 'Position is required' })}
-                  />
-                  <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
-                </div>)
-              )}
-              {errors.position_id && <div className="form__error">{errors.position_id.message}</div>}
-              {typeof fetchedPositions === "string" && <div className="form__error">{fetchedPositions}</div>}
-
+                { loadingPositions ? <Spinner/> : null}
+                { apiErrorMsgPositions ? <div className="form__error">{apiErrorMsgPositions}</div> : null }
+                { positionsList }
               <p className="form__uploadTitle">Photo</p>
               <div className="form__uploadWrapper">
                 <label className={errors.file ? "form__labelUpload--error" : "form__labelUpload"} htmlFor="form__upload">
@@ -244,7 +249,7 @@ const Form = () => {
                 className="button form__submit"
                 value="Sing up now"
                 type="submit"
-                disabled={apiError || loading}
+                disabled={apiErrorMsgPositions || loadingPositions}
               />
               <ErrBtn/>
             </form>

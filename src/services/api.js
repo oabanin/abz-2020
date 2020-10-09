@@ -3,23 +3,10 @@ import axios from 'axios';
 const _apiBase = "https://frontend-test-assignment-api.abz.agency/api/v1";
 
 const getResourse = async (url) => {
+    console.log("api get request to", url); //DELETE
     return await axios.get(`${_apiBase}${url}`);
 }
 
-
-/*const getResourse = async (url) => {
-  try {
-    const response = await axios.get(`${_apiBase}${url}`);
-    if (response.data.success) {
-      return response.data;
-    }
-    else if (response.data.message) {
-      return response.data.message;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}*/
 
 
 // const getRegisteredUsers = () => {
@@ -28,8 +15,7 @@ const getResourse = async (url) => {
 //getRegisteredUsers
 
 const getPositions = async () => {
-  const data = await getResourse('/positions');
-  return data.positions;
+  return await getResourse('/positions');
 }
 
 const getToken = async () => {
