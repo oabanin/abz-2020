@@ -8,7 +8,7 @@ import Spinner from "../spinner";
 
 import { getPositions, getToken, userRegisterRequest } from '../../services/api';
 
-const maxFileSize=5*1024**2;
+const maxFileSize = 5 * 1024 ** 2;
 
 //const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 const deletePhoneSymbols = (phone) => phone;
@@ -22,59 +22,50 @@ const Form = () => {
   const [loadingPositions, setLoadingPositions] = useState(true);
   const [apiErrorMsgPositions, setApiErrorMsgPositions] = useState(null);
 
+  const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
+  const [apiFailsOnSubmit, setApiFailsOnSubmit] = useState(null);
+  const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
+
   useEffect(() => {
     fetchPositions();
   }, [])
 
   const fetchPositions = async () => {
-      try{
-        const { data } = await getPositions();
-        if(data.success){
-          setFetchedPositions(data.positions);
-        } else {
-          throw Error ("The API doesn't return success");
-        }
-      }
-      catch(error){
-        onApiError(error);
-      }
-      finally {
-        setLoadingPositions(false);
-      }
-
+    try {
+      const { data } = await getPositions();
+      if (!data.success) throw Error("The API doesn't return positions");
+      setFetchedPositions(data.positions);
     }
-
-
-  const onApiError = (error) => {
-    console.error(error);
-    //console.dir(error);
-    if(error.response?.data?.message) {
-      setApiErrorMsgPositions(error.response.data.message);
-    } else {
-      setApiErrorMsgPositions(error.message);
+    catch (error) {
+      onApiError(error, setApiErrorMsgPositions);
+    }
+    finally {
+      setLoadingPositions(false);
     }
 
   }
 
-  const onSubmit = async(data) => {
+  const onApiError = (error, setStateFunc) => {
+    console.error(error);
+    error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
+    
+  }
 
-    //response.data.success
-    //response.data.message
-
-    //error.response.data.message
-    //error.response.data.fails.name[0]
-    //error.response.data.success
-
-    //error.response = undefined;
-
-    const token = await getToken();
-    try{
-    const response = await userRegisterRequest({...data, phone: deletePhoneSymbols(data.phone), token});
+  const onSubmit = async (submittedData) => {
+    console.log(submittedData);
+    try {
+      const tokenResponse = await getToken();
+      if (!tokenResponse.data.success) throw Error("The API doesn't return token");
+      const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
+      setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
     }
-    catch(error){
-      console.log('error cathc')
-      console.log(error);
+    catch (error) {
+      onApiError(error, setApiErrorMsgOnSubmit);
+      if(error.response?.data?.fails) setApiFailsOnSubmit(error.response.data.fails);
     }
+
+
+
   };
 
 
@@ -88,15 +79,15 @@ const Form = () => {
 
     setchoosedFilename(file.name);
 
-    if(file.size > maxFileSize){
+    if (file.size > maxFileSize) {
       const errMsg = "File size must not exceed 5MB";
       setError(name, {
         type: "size",
         message: errMsg
       });
       return errMsg;
-    } else if (file.type !=="image/jpeg") {
-       const errMsg = "File should be jpg/jpeg image";
+    } else if (file.type !== "image/jpeg") {
+      const errMsg = "File should be jpg/jpeg image";
       setError(name, {
         type: "extention",
         message: errMsg
@@ -106,8 +97,8 @@ const Form = () => {
       const url = window.URL || window.webkitURL;
       const img = new Image();
       img.src = url.createObjectURL(file);
-      img.onload = function() {
-        if(this.width < 70 || this.height < 70) {
+      img.onload = function () {
+        if (this.width < 70 || this.height < 70) {
           url.revokeObjectURL(this.src);
           const errMsg = "File should be with resolution at least 70x70px!";
           setError(name, {
@@ -125,10 +116,8 @@ const Form = () => {
   }
 
 
-  const hasData = !(loadingPositions || apiErrorMsgPositions);
-
-  const positionsList = hasData
-    ? <Positions fetchedPositions={fetchedPositions} errors={errors} register={register}/>
+  const positionsList = !(loadingPositions || apiErrorMsgPositions)
+    ? <Positions fetchedPositions={fetchedPositions} errors={errors} register={register} />
     : null;
 
   return (
@@ -221,9 +210,9 @@ const Form = () => {
                 {errors.phone && <div className="form__error">{errors.phone.message}</div>}
               </div>
               <p className="form__radioTitle">Select your position</p>
-                { loadingPositions ? <Spinner/> : null}
-                { apiErrorMsgPositions ? <div className="form__error">{apiErrorMsgPositions}</div> : null }
-                { positionsList }
+              {loadingPositions ? <Spinner /> : null}
+              {apiErrorMsgPositions ? <div className="form__error">{apiErrorMsgPositions}</div> : null}
+              {positionsList}
               <p className="form__uploadTitle">Photo</p>
               <div className="form__uploadWrapper">
                 <label className={errors.file ? "form__labelUpload--error" : "form__labelUpload"} htmlFor="form__upload">
@@ -233,8 +222,8 @@ const Form = () => {
                     type="file"
                     accept=".jpg, .jpeg, .png"
                     name="file"
-                    onChange={(e) => onChooseFile(e.target.files[0],e.target.name)}
-                    ref={ register({ required: 'File is required', validate: (files)=> onChooseFile(files[0], 'file')})}
+                    onChange={(e) => onChooseFile(e.target.files[0], e.target.name)}
+                    ref={register({ required: 'File is required', validate: (files) => onChooseFile(files[0], 'file') })}
                   />
                   <div className="form__uploadPlaceholder">{choosedFilename ? choosedFilename : "Upload your photo"}</div>
                   <div className="form__uploadButtonWrapper">
@@ -251,11 +240,13 @@ const Form = () => {
                 type="submit"
                 disabled={apiErrorMsgPositions || loadingPositions}
               />
-              <ErrBtn/>
+              <ErrBtn />
             </form>
           </div>
         </div>
       </div>
+      {apiErrorMsgOnSubmit}
+      {apiSuccessMsgOnSubmit}
     </section>
   )
 

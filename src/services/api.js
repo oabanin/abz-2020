@@ -19,8 +19,7 @@ const getPositions = async () => {
 }
 
 const getToken = async () => {
-  const data = await getResourse('/token');
-  return data.token;
+  return await getResourse('/token');
 }
 
 const userRegisterRequest = async ({ name, email, phone, file: { 0: file }, position_id, token }) => {
