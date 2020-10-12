@@ -31,7 +31,7 @@ const userRegisterRequest = async ({ name, email, phone, file: { 0: file }, posi
   formData.append('phone', phone);
   formData.append('photo', file);
   for(var pair of formData.entries()) {
-    console.log(pair[0]+ ', '+ pair[1]);
+    //console.log(pair[0]+ ', '+ pair[1]);
  }
 
 
@@ -74,20 +74,16 @@ const userRegisterRequest = async ({ name, email, phone, file: { 0: file }, posi
 
 
 
-  try {
-    const response = await axios.post(`${_apiBase}/users`, formData, {
+
+    return await axios.post(`${_apiBase}/users`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Token': token
       }
     });
-    return response.data;
-  } catch (error) {
-    console.dir(error);
-    console.error(error.response.data);
-
-  }
 
 }
+
+
 
 export { getPositions, getToken, userRegisterRequest };

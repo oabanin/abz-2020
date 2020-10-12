@@ -46,22 +46,35 @@ const Form = () => {
   }
 
   const onApiError = (error, setStateFunc) => {
-    console.error(error);
+    console.dir(error);
     error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
-    
+
   }
 
   const onSubmit = async (submittedData) => {
-    console.log(submittedData);
     try {
       const tokenResponse = await getToken();
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
       setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
+      console.log("successfully register");
     }
     catch (error) {
       onApiError(error, setApiErrorMsgOnSubmit);
-      if(error.response?.data?.fails) setApiFailsOnSubmit(error.response.data.fails);
+      if(error.response?.data?.fails) {
+        setApiFailsOnSubmit(error.response.data.fails); //delete
+        for(let name in error.response.data.fails){
+          console.log(name, error.response.data.fails[name]);
+          //setError(name, "apiError", error.response.data.fails[name][0])
+        }
+      //
+      //   type: "extention",
+      //   message: errMsg
+      // });
+
+
+
+      }
     }
 
 
@@ -221,7 +234,7 @@ const Form = () => {
                     id="form__upload"
                     type="file"
                     accept=".jpg, .jpeg, .png"
-                    name="file"
+                    name="photo"
                     onChange={(e) => onChooseFile(e.target.files[0], e.target.name)}
                     ref={register({ required: 'File is required', validate: (files) => onChooseFile(files[0], 'file') })}
                   />
@@ -245,8 +258,11 @@ const Form = () => {
           </div>
         </div>
       </div>
-      {apiErrorMsgOnSubmit}
-      {apiSuccessMsgOnSubmit}
+        {apiErrorMsgOnSubmit}
+        {apiSuccessMsgOnSubmit}
+        {apiFailsOnSubmit && Object.keys(apiFailsOnSubmit).map(name => (
+          <li key={name}>{apiFailsOnSubmit[name]}</li>
+        ))}
     </section>
   )
 
