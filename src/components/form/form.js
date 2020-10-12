@@ -23,7 +23,6 @@ const Form = () => {
   const [apiErrorMsgPositions, setApiErrorMsgPositions] = useState(null);
 
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
-  const [apiFailsOnSubmit, setApiFailsOnSubmit] = useState(null);
   const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
 
   useEffect(() => {
@@ -46,17 +45,18 @@ const Form = () => {
   }
 
   const onApiError = (error, setStateFunc) => {
-    //console.dir(error);
-    //error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
-
+    error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
   }
 
   const onSubmit = async (submittedData) => {
+    setApiSuccessMsgOnSubmit(null);
+    setApiErrorMsgOnSubmit(null);
+
     try {
       const tokenResponse = await getToken();
       console.log(tokenResponse);
       console.log(submittedData);
-      
+
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
       setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
@@ -64,32 +64,16 @@ const Form = () => {
       console.log("successfully register");
     }
     catch (error) {
- 
-      console.dir(error);
       onApiError(error, setApiErrorMsgOnSubmit);
-      if(error.response?.data?.fails) {
-        setApiFailsOnSubmit(error.response.data.fails); //delete
-        for(let inputName in error.response.data.fails){
-          console.log(inputName, error.response.data.fails[name][0]);
+      if (error.response?.data?.fails) {
+        for (let inputName in error.response.data.fails) {
           setError(inputName, {
             type: "apiError",
-            message: error.response.data.fails[name][0]
+            message: error.response.data.fails[inputName][0]
           });
-
-          //setError(name, "apiError", error.response.data.fails[name][0])
         }
-      //
-      //   type: "extention",
-      //   message: errMsg
-      // });
-
-
-
       }
     }
-
-
-
   };
 
 
@@ -225,7 +209,14 @@ const Form = () => {
                     validate: {
                       checkNumber: value => /^[\+]{0,1}380([0-9]{9})$/.test(value.replace(/[^+\d]/g, "")) || 'Phone number should start with code of Ukraine +380',
                     },
-
+                    maxLength: {
+                      value: 13,
+                      message: 'Max length is 13 characters'
+                    },
+                    minLength: {
+                      value: 12,
+                      message: 'Min length is 12 characters'
+                    },
                   })
                   }
                   placeholder="+380 XX XXX XX XX"
@@ -239,15 +230,17 @@ const Form = () => {
               {positionsList}
               <p className="form__uploadTitle">Photo</p>
               <div className="form__uploadWrapper">
-                <label className={errors.file ? "form__labelUpload--error" : "form__labelUpload"} htmlFor="form__upload">
+                <label className={errors.photo ? "form__labelUpload--error" : "form__labelUpload"} htmlFor="form__upload">
                   <input
                     className="form__upload"
                     id="form__upload"
                     type="file"
-                    accept=".jpg, .jpeg, .png"
                     name="photo"
                     onChange={(e) => onChooseFile(e.target.files[0], e.target.name)}
-                    ref={register({ required: 'File is required', validate: (files) => onChooseFile(files[0], 'photo') })}
+                    ref={register({
+                      required: 'File is required',
+                      validate: (files) => onChooseFile(files[0], 'photo')
+                    })}
                   />
                   <div className="form__uploadPlaceholder">{choosedFilename ? choosedFilename : "Upload your photo"}</div>
                   <div className="form__uploadButtonWrapper">
@@ -255,7 +248,6 @@ const Form = () => {
                   </div>
                 </label>
               </div>
-
               {errors.photo && <div className="form__error">{errors.photo.message}</div>}
 
               <input
@@ -269,11 +261,11 @@ const Form = () => {
           </div>
         </div>
       </div>
-        {apiErrorMsgOnSubmit}
-        {apiSuccessMsgOnSubmit}
-        {apiFailsOnSubmit && Object.keys(apiFailsOnSubmit).map(name => (
-          <li key={name}>{apiFailsOnSubmit[name]}</li>
-        ))}
+      {apiErrorMsgOnSubmit}
+      {apiSuccessMsgOnSubmit}
+      {/* {apiFailsOnSubmit && Object.keys(apiFailsOnSubmit).map(name => (
+        <li key={name}>{apiFailsOnSubmit[name]}</li>
+      ))} */}
     </section>
   )
 
