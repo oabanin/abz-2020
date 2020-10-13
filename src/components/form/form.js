@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Positions from './components/positions';
+//import Modal from './components/modal';
+import ReactModal from 'react-modal';
+
 
 import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
@@ -10,8 +13,7 @@ import { getPositions, getToken, userRegisterRequest } from '../../services/api'
 
 const maxFileSize = 5 * 1024 ** 2;
 
-//const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
-const deletePhoneSymbols = (phone) => phone;
+const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
 const Form = () => {
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
@@ -25,6 +27,7 @@ const Form = () => {
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
   const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
   const [disabledSubmit, setSubmitDisabled] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchPositions();
@@ -49,7 +52,9 @@ const Form = () => {
     error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
   }
 
-  const onSubmit = async (submittedData) => {
+  const onSubmit = async (submittedData, e) => {
+    console.log(e.target);
+    e.target.reset();
     setApiSuccessMsgOnSubmit(null);
     setApiErrorMsgOnSubmit(null);
     setSubmitDisabled(true);
@@ -62,6 +67,7 @@ const Form = () => {
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
       setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
+      e.target.reset();
       console.log("successfully register");
     }
     catch (error) {
@@ -211,11 +217,11 @@ const Form = () => {
                   ref={register({
                     required: 'Phone is required',
                     validate: {
-                      checkNumber: value => /^[\+]{0,1}380([0-9]{9})$/.test(value.replace(/[^+\d]/g, "")) || 'Phone number should start with code of Ukraine +380',
+                      checkNumber: value => /^[\+]{0,1}380([0-9]{9})$/.test(deletePhoneSymbols(value)) || 'Phone number should start with code of Ukraine +380',
                     },
                     maxLength: {
-                      value: 13,
-                      message: 'Max length is 13 characters'
+                      value: 18,
+                      message: 'Max length is 18 characters'
                     },
                     minLength: {
                       value: 12,
@@ -270,6 +276,12 @@ const Form = () => {
       {/* {apiFailsOnSubmit && Object.keys(apiFailsOnSubmit).map(name => (
         <li key={name}>{apiFailsOnSubmit[name]}</li>
       ))} */}
+      <ReactModal
+      isOpen={true}
+      overlayClassName={"modal__overlay"}
+      className={"modal__content"}
+      >
+      ssssss</ReactModal>
     </section>
   )
 
