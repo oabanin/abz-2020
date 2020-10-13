@@ -24,6 +24,7 @@ const Form = () => {
 
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
   const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
+  const [disabledSubmit, setSubmitDisabled] = useState(false);
 
   useEffect(() => {
     fetchPositions();
@@ -51,6 +52,7 @@ const Form = () => {
   const onSubmit = async (submittedData) => {
     setApiSuccessMsgOnSubmit(null);
     setApiErrorMsgOnSubmit(null);
+    setSubmitDisabled(true);
 
     try {
       const tokenResponse = await getToken();
@@ -60,7 +62,6 @@ const Form = () => {
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
       setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
-
       console.log("successfully register");
     }
     catch (error) {
@@ -73,6 +74,9 @@ const Form = () => {
           });
         }
       }
+    }
+    finally {
+      setSubmitDisabled(false);
     }
   };
 
@@ -254,7 +258,7 @@ const Form = () => {
                 className="button form__submit"
                 value="Sing up now"
                 type="submit"
-                disabled={apiErrorMsgPositions || loadingPositions}
+                disabled={apiErrorMsgPositions || loadingPositions || disabledSubmit}
               />
               <ErrBtn />
             </form>
