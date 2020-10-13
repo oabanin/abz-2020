@@ -281,7 +281,9 @@ const Form = () => {
       overlayClassName={"modal__overlay"}
       className={"modal__content"}
       >
-      ssssss</ReactModal>
+      ssssss
+      
+      </ReactModal>
     </section>
   )
 
