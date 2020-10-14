@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Positions from './components/positions';
-//import Modal from './components/modal';
+import ModalContent from './components/modal';
 import ReactModal from 'react-modal';
-
 
 import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
@@ -12,6 +11,7 @@ import Spinner from "../spinner";
 import { getPositions, getToken, userRegisterRequest } from '../../services/api';
 
 const maxFileSize = 5 * 1024 ** 2;
+
 
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
@@ -281,8 +281,7 @@ const Form = () => {
       overlayClassName={"modal__overlay"}
       className={"modal__content"}
       >
-      ssssss
-      
+        <ModalContent/>
       </ReactModal>
     </section>
   )
