@@ -14,17 +14,15 @@
 
     background-color: rgba(0, 0, 0, .5);
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
 
-    transform: translate(-50%, -50%);
-
-    width: 395px;
-    height: 190px;
+    max-width: 395px;
+    min-height: 190px;
 
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 4px;
@@ -32,56 +30,81 @@
 
     overflow: auto;
     outline: none;
+
+    display: flex;
+    flex-direction: column;
   }
 
   &__container {
-    margin: 15px;
+    padding: 15px;
+    
+    &:not(:last-of-type) {
+      border-bottom: 1px solid rgb(236, 238, 241);
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &__close {
+    max-width: none;
+    border:0;
+    outline: none;
+    cursor: pointer;
+    padding-left: 10px;
+
+    background-color: #fff;
   }
 
   &__title {
-    font-size: 24px;
-    line-height: 1.25;
+
+    font-family: $font-family-primary;
+    font-weight: 400;
+    font-size: $font-size-h2;
+    line-height: $line-height-h2;
     color: rgb(0, 0, 0);
 
   }
 
-  &__body {
-    font-size: 16px;
-    font-family: "OpenSans";
-    color: rgb(76, 75, 75);
-    line-height: 1.5;
-
-    width: 336px;
-    height: 17px;
-
-
-
-
+  &__text {
+    color: $color-p;
+    line-height: $line-height-p;
+    font-size: $font-size-p;
+    font-family: $font-family-p;
+    font-weight: $font-weight-p;
   }
 
   &__footer {
-    margin-top: 10px;
-    text-align: right;
+     text-align: right;
   }
 
   &__btn {
+    min-width: 80px;
+    height: 38px;
 
-      border-radius: 4px;
-      background-color: rgb(239, 91, 76);
-      width: 80px;
-      height: 38px;
-      font-size: 16px;
-      font-family: "OpenSans";
-      color: rgb(254, 254, 254);
-      line-height: 1.2;
-      text-align: center;
-      border:none;
+    padding: 5px 10px;
 
+    font-size: $font-size-p;
+    font-family: $font-family-primary;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    color: rgb(254, 254, 254);
 
+    background-color: $color-primary;
+
+    border:0;
+    border-radius: 4px;
+
+    cursor: pointer;
 
 
   }
 
 }
+
 
 
