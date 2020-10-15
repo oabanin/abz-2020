@@ -1,13 +1,13 @@
 import React from 'react';
 import ImgClose from './close.svg'
 
-const Modal = () => {
+const Modal = ({closeModal}) => {
   return (
     <>
       <div className="modal__container">
         <div className="modal__header">
           <h3 className="modal__title">Congratulations</h3>
-          <button className="modal__close">
+          <button onClick={closeModal} className="modal__close">
             <img src={ImgClose} />
           </button>
         </div>
@@ -20,7 +20,7 @@ const Modal = () => {
       <div className="modal__container">
         <div className="modal__footer">
 
-          <button className="modal__btn">Great</button>
+          <button onClick={closeModal} className="modal__btn">Great</button>
         </div>
       </div>
 

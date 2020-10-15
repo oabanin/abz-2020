@@ -27,7 +27,7 @@ const Form = () => {
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
   const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
   const [disabledSubmit, setSubmitDisabled] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     fetchPositions();
@@ -46,6 +46,10 @@ const Form = () => {
       setLoadingPositions(false);
     }
 
+  }
+
+  const closeModal =() => {
+    setShowModal(false);
   }
 
   const onApiError = (error, setStateFunc) => {
@@ -277,11 +281,12 @@ const Form = () => {
         <li key={name}>{apiFailsOnSubmit[name]}</li>
       ))} */}
       <ReactModal
-      isOpen={true}
-      overlayClassName={"modal__overlay"}
-      className={"modal__content"}
+        isOpen={showModal}
+        overlayClassName={"modal__overlay"}
+        className={"modal__content"}
+        onRequestClose={closeModal}
       >
-        <ModalContent/>
+        <ModalContent closeModal={closeModal}/>
       </ReactModal>
     </section>
   )
