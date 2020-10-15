@@ -25,9 +25,9 @@ const Form = () => {
   const [apiErrorMsgPositions, setApiErrorMsgPositions] = useState(null);
 
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
-  const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
+  //const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
   const [disabledSubmit, setSubmitDisabled] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchPositions();
@@ -48,7 +48,7 @@ const Form = () => {
 
   }
 
-  const closeModal =() => {
+  const closeModal = () => {
     setShowModal(false);
   }
 
@@ -57,9 +57,7 @@ const Form = () => {
   }
 
   const onSubmit = async (submittedData, e) => {
-    console.log(e.target);
-    e.target.reset();
-    setApiSuccessMsgOnSubmit(null);
+    //setApiSuccessMsgOnSubmit(null);
     setApiErrorMsgOnSubmit(null);
     setSubmitDisabled(true);
 
@@ -70,9 +68,11 @@ const Form = () => {
 
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
-      setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
+      //setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
+      setShowModal(true);
       e.target.reset();
-      console.log("successfully register");
+      setchoosedFilename(null);
+
     }
     catch (error) {
       onApiError(error, setApiErrorMsgOnSubmit);
@@ -83,6 +83,9 @@ const Form = () => {
             message: error.response.data.fails[inputName][0]
           });
         }
+      }
+      else {
+        setShowModal(true);
       }
     }
     finally {
@@ -275,18 +278,18 @@ const Form = () => {
           </div>
         </div>
       </div>
-      {apiErrorMsgOnSubmit}
-      {apiSuccessMsgOnSubmit}
-      {/* {apiFailsOnSubmit && Object.keys(apiFailsOnSubmit).map(name => (
-        <li key={name}>{apiFailsOnSubmit[name]}</li>
-      ))} */}
-      <ReactModal
+           <ReactModal
         isOpen={showModal}
         overlayClassName={"modal__overlay"}
         className={"modal__content"}
         onRequestClose={closeModal}
       >
-        <ModalContent closeModal={closeModal}/>
+        <ModalContent
+          closeModal={closeModal}
+          title={apiErrorMsgOnSubmit ? "Error" : "Congratulations"}
+          text={apiErrorMsgOnSubmit ? apiErrorMsgOnSubmit : "You have successfully passed the registration"}
+          btnText={apiErrorMsgOnSubmit ? "Ok" : "Great"}
+        />
       </ReactModal>
     </section>
   )
