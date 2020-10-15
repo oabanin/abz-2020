@@ -278,8 +278,8 @@ const Form = () => {
           </div>
         </div>
       </div>
-     
-       <ReactModal
+
+      <ReactModal
         isOpen={showModal}
         overlayClassName={"modal__overlay"}
         className={"modal__content"}
