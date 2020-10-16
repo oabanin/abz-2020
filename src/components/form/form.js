@@ -52,6 +52,17 @@ const Form = () => {
     setShowModal(false);
   }
 
+  const onAfterOpenModal = ()=> {
+    const scrollWidth = window.innerWidth - document.body.offsetWidth + 'px'; 
+    document.body.style.paddingRight=scrollWidth;
+    document.body.style.overflow="hidden";
+  }     
+  const onAfterCloseModal = ()=> {
+    document.body.style.paddingRight="";
+    document.body.style.overflow="auto";
+  }     
+
+
   const onApiError = (error, setStateFunc) => {
     error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
   }
@@ -284,6 +295,8 @@ const Form = () => {
         overlayClassName={"ReactModal__Overlay"}
         className={"ReactModal__Content"}
         onRequestClose={closeModal}
+        onAfterOpen={onAfterOpenModal}     
+        onAfterClose={onAfterCloseModal}
       >
         <ModalContent
           closeModal={closeModal}
