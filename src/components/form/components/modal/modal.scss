@@ -1,7 +1,31 @@
 
-.modal {
+.ReactModal {
+  &__Content{
+    max-width: 395px;
+    min-height: 190px;
 
-  &__overlay {
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 4px;
+    background: rgb(255, 255, 255);
+
+    overflow-x:hidden;
+    overflow-y:auto;
+    outline: none;
+
+    display: flex;
+    flex-direction: column;
+
+    transform: translate(0, -100%);
+    opacity:0;
+    transition: all .8s ease;
+  }
+
+  &__Content--after-open {
+    transform: translate(0, 0);
+    opacity:1;
+  }
+
+  &__Overlay {
     position: fixed;
     top: 0;
     right: 0;
@@ -18,23 +42,13 @@
     justify-content: center;
     align-items: center;
   }
+}
 
-  &__content {
 
-    max-width: 395px;
-    min-height: 190px;
 
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: 4px;
-    background: rgb(255, 255, 255);
 
-    overflow-x:hidden;
-    overflow-y:auto;
-    outline: none;
+.modal {
 
-    display: flex;
-    flex-direction: column;
-  }
 
   &__container {
     padding: 15px;
