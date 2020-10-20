@@ -1,20 +1,8 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import User from './components/user';
+import {
+	FETCH_USERS
+	} from '../constants/ActionTypes';
 
-import { useSelector, useDispatch } from "react-redux";
-// import {
-//   login,
-// } from "./loginSlice";
-
-
-//import Photo from './photo.jpg';
-
-const Users = () => {
-
-  const dispatch = useDispatch();
-
-  const usersDB = [
+   const initialState = [
     {
       id: 1,
       photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
@@ -57,40 +45,14 @@ const Users = () => {
     }
   ];
 
-  const users = usersDB.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
+const usersReducer = (state = initialState, action) => {
+	switch(action.type) {
+	case FETCH_USERS:
+		return action.users
 
-  return (
-    <section className="users">
-      <div className="container-fluid">
-
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <h1 className="users__title">Our cheerful users</h1>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <p className="users__subtitle">Attention! Sorting users by registration date</p>
-          </div>
-        </div>
-
-        <div className="row mb-35">
-          <ReactTooltip className="tooltip" place="bottom" offset={{top: -10}} />
-          {users}
-        </div>
-
-        <div className="row">
-          <div className="col-md-4 offset-md-4 text-center">
-            <a className="button" href="#sign-up">Show more</a>
-
-          </div>
-        </div>
-
-      </div>
-      
-    </section>
-  )
+	default:
+		return state;
+	}
 }
 
-export default Users;
+export default usersReducer;

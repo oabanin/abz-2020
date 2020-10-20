@@ -1,0 +1,18 @@
+
+const initialState = {
+	users:[],
+	positions:[],
+	
+	links: {
+	        "next_url": "",
+	        "prev_url": ""
+	    },
+	token: "",
+	fails:{}
+}
+
+const reducer = (state=initialState, action) {
+
+	default:
+	return state;
+}

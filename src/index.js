@@ -4,7 +4,14 @@ import ReactDOM from 'react-dom';
 import App from './components/app';
 import ReactModal from 'react-modal';
 
+import { Provider } from 'react-redux'
+import store from "./store";
+
 import './scss/styles.scss';
 
 ReactModal.setAppElement('#root');
-ReactDOM.render(<App/>,document.getElementById('root'));
+ReactDOM.render(
+	<Provider store={store}>
+		<App/>
+	</Provider>
+    ,document.getElementById('root'));
