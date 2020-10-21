@@ -1,5 +1,5 @@
 import {
-	FETCH_USERS
+	USERS_FETCHED
 	} from '../constants/ActionTypes';
 
    const initialState = [
@@ -47,7 +47,7 @@ import {
 
 const usersReducer = (state = initialState, action) => {
 	switch(action.type) {
-	case FETCH_USERS:
+	case USERS_FETCHED:
 		return action.users
 
 	default:
