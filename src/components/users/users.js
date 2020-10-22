@@ -2,20 +2,20 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import User from './components/user';
 
+import Spinner from "../spinner";
+
 //import Photo from './photo.jpg';
 
 import {
   setError,
   setLoading,
   setUsers,
-  selectError, 
+  selectError,
   selectLoading,
-  selectUsers,   
+  selectUsers,
 } from '../../features/users/usersSlice';
 
 import { useSelector, useDispatch } from "react-redux";
-
-
 
 const Users = () => {
 
@@ -23,6 +23,9 @@ const Users = () => {
   const usersFromStore = useSelector(selectUsers);
 
   const userList = usersFromStore.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
+
+  if(selectLoading) return <Spinner />;
+  if(selectError) return "Error";
 
   return (
     <section className="users">
@@ -53,7 +56,7 @@ const Users = () => {
         </div>
 
       </div>
-      
+
     </section>
   )
 }
