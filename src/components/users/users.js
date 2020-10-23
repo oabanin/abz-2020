@@ -9,12 +9,11 @@ import { getResourse } from '../../services/api';
 //import Photo from './photo.jpg';
 
 import {
-  setError,
-  setLoading,
   setUsers,
   selectError,
   selectLoading,
   selectUsers,
+  fetchUsers
 } from '../../features/users/usersSlice';
 
 import { useSelector, useDispatch } from "react-redux";
@@ -28,44 +27,8 @@ const Users = () => {
   const isError = useSelector(selectError);
 
   useEffect(()=>{
-    fetchUsers();
+    dispatch(fetchUsers('/users?page=1&count=6'));
   },[])
-
-  const fetchUsers = async() => {
-    try {
-      const { data } = await getResourse('/users?page=1&count=6');
-      console.log(data.users);
-      dispatch(setUsers(data.users));
-    }
-    catch (error) {
-
-    }
-  }
-
-
-
-/*  useEffect(() => {
-    fetchPositions();
-  }, [])
-
-  const fetchPositions = async () => {
-    try {
-      const { data } = await getPositions();
-      if (!data.success) throw Error("The API doesn't return positions");
-      setFetchedPositions(data.positions);
-    }
-    catch (error) {
-      onApiError(error, setApiErrorMsgPositions);
-    }
-    finally {
-      setLoadingPositions(false);
-    }
-
-  }*/
-
-
-
-
 
   const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
 

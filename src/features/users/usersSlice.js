@@ -1,58 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getResourse } from '../../services/api';
 
 export const usersSlice = createSlice({
     name: 'users',
     initialState: {
-        users: [{
-            id: 1,
-            photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
-            name: "MaximillianRedux",
-            job: "Leading specialist of the Control Department",
-            mail: "controldepartment@gmail",
-            phone: "+380 50 678 03 24"
-        },
-        {
-            id: 2,
-            photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
-            name: "Adolph Blaine Charles David Earl Matthew Matthew",
-            job: "Contextual advertising specialist",
-            mail: "adolph.blainecharles@gmail.com",
-            phone: "+380 50 678 03 24"
-        },
-        {
-            id: 3,
-            photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
-            name: "Adolph Blaine Charles David Earl Matthew Matthew",
-            job: "Contextual advertising specialist",
-            mail: "adolph.blainecharles@gmail.com",
-            phone: "+380 50 678 03 24"
-        },
-        {
-            id: 4,
-            photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
-            name: "Adolph Blaine Charles David Earl Matthew Matthew",
-            job: "Contextual advertising specialist",
-            mail: "adolph.blainecharles@gmail.com",
-            phone: "+380 50 678 03 24"
-        },
-        {
-            id: 5,
-            photo: "https://frontend-test-assignment-api.abz.agency/images/users/5e54ff59e5a4548.jpeg",
-            name: "Adolph Blaine Charles David Earl Matthew Matthew",
-            job: "Contextual advertising specialist",
-            mail: "adolph.blainecharles@gmail.com",
-            phone: "+380 50 678 03 24"
-        }
-        ],
+        users: [],
         isError: false,
-        isLoading: false
+        isLoading: true
     },
     reducers: {
         setError: (state, action) => {
             state.isError = action.payload;
         },
         setLoading: (state, action) => {
-            state.loading = action.payload;
+            state.isLoading = action.payload;
         },
         setUsers: (state, action) => {
             state.users = action.payload;
@@ -60,7 +21,25 @@ export const usersSlice = createSlice({
     },
 });
 
-export const {setError, setLoading, setUsers} = usersSlice.actions;
+const {setError, setLoading} = usersSlice.actions;
+
+export const {setUsers} = usersSlice.actions;
+
+export const fetchUsers = url => async (dispatch) => {
+
+    try {
+      const { data } = await getResourse(url);
+      dispatch(setLoading(false));
+      dispatch(setUsers(data.users));
+
+    }
+    catch (error) {
+      dispatch(setError(true));
+    }
+
+
+};
+
 
 export const selectUsers = state => state.users.users;
 export const selectError = state => state.users.isError;
