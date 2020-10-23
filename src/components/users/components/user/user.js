@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const User = ({photo, name, job, mail, phone}) => {
+const User = ({email, name, phone, position, photo}) => {
 
   const nodeEmail = useRef();
   const nodeName=useRef();
@@ -30,8 +30,8 @@ const User = ({photo, name, job, mail, phone}) => {
             <img className="users__photo" src={photo}/>
             <div className="users__info">
               <h2 ref={nodeName} className="users__name" style={{ marginBottom: (isNameMultiline ? "10px" : "15px") }}>{name}</h2>
-              <div className="users__job">{job}</div>
-              <a ref={nodeEmail} data-tip-disable={isTooltipDisable} data-tip={mail} className="users__email" href={`mailto:${mail}`}>{mail}</a>
+              <div className="users__position">{position}</div>
+              <a ref={nodeEmail} data-tip-disable={isTooltipDisable} data-tip={email} className="users__email" href={`mailto:${email}`}>{email}</a>
               <div className="users__phone">{phone}</div>
             </div>
       </div>

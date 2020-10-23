@@ -60,7 +60,7 @@ export const usersSlice = createSlice({
     },
 });
 
-export const {setError, setLoading, setData} = usersSlice.actions;
+export const {setError, setLoading, setUsers} = usersSlice.actions;
 
 export const selectUsers = state => state.users.users;
 export const selectError = state => state.users.isError;

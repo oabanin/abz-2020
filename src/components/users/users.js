@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import User from './components/user';
 
 import Spinner from "../spinner";
+
+import { getResourse } from '../../services/api';
 
 //import Photo from './photo.jpg';
 
@@ -20,12 +22,55 @@ import { useSelector, useDispatch } from "react-redux";
 const Users = () => {
 
   const dispatch = useDispatch();
-  const usersFromStore = useSelector(selectUsers);
 
-  const userList = usersFromStore.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
+  const users = useSelector(selectUsers);
+  const isLoading = useSelector(selectLoading);
+  const isError = useSelector(selectError);
 
-  if(selectLoading) return <Spinner />;
-  if(selectError) return "Error";
+  useEffect(()=>{
+    fetchUsers();
+  },[])
+
+  const fetchUsers = async() => {
+    try {
+      const { data } = await getResourse('/users?page=1&count=6');
+      console.log(data.users);
+      dispatch(setUsers(data.users));
+    }
+    catch (error) {
+
+    }
+  }
+
+
+
+/*  useEffect(() => {
+    fetchPositions();
+  }, [])
+
+  const fetchPositions = async () => {
+    try {
+      const { data } = await getPositions();
+      if (!data.success) throw Error("The API doesn't return positions");
+      setFetchedPositions(data.positions);
+    }
+    catch (error) {
+      onApiError(error, setApiErrorMsgPositions);
+    }
+    finally {
+      setLoadingPositions(false);
+    }
+
+  }*/
+
+
+
+
+
+  const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
+
+  if(isLoading) return <Spinner />;
+  if(isError) return "Error";
 
   return (
     <section className="users">
