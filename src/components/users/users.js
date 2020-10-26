@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
-import User from './components/user';
 
+import User from './components/user';
 import Spinner from "../spinner";
 
-import { getResourse } from '../../services/api';
 
 //import Photo from './photo.jpg';
 
 import {
-  setUsers,
   selectError,
   selectLoading,
   selectUsers,
@@ -22,6 +20,7 @@ const Users = () => {
 
   const dispatch = useDispatch();
 
+  
   const users = useSelector(selectUsers);
   const isLoading = useSelector(selectLoading);
   const isError = useSelector(selectError);

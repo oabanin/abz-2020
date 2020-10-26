@@ -8,19 +8,16 @@ import ErrorBoundary from './components/error-boundary';
 import { ApiServiceProvider } from './components/api-service-context';
 import * as api from './services/api';
 
-console.log(api);
-
 import store from "./store";
 
 import './scss/styles.scss';
-
 
 ReactModal.setAppElement('#root');
 ReactDOM.render(
   <React.StrictMode>
   	<Provider store={store}>
   	  <ErrorBoundary>
-  	    <ApiServiceProvider>
+  	    <ApiServiceProvider value={api}>
   	      <App/>
   	    </ApiServiceProvider>
   	  </ErrorBoundary>

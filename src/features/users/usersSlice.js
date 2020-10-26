@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { getResourse } from '../../services/api';
 
 export const usersSlice = createSlice({

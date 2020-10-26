@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Positions from './components/positions';
@@ -7,8 +7,8 @@ import ReactModal from 'react-modal';
 
 import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
-
-import { getPositions, getToken, userRegisterRequest } from '../../services/api';
+import ApiContext from '../api-service-context';
+//import { getPositions, getToken, userRegisterRequest } from '../../services/api';
 
 const maxFileSize = 5 * 1024 ** 2;
 
@@ -16,6 +16,10 @@ const maxFileSize = 5 * 1024 ** 2;
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
 const Form = () => {
+
+  const api = useContext(ApiContext);
+  const { getPositions, getToken, userRegisterRequest } = api;
+
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
 
   const [choosedFilename, setchoosedFilename] = useState(null);
