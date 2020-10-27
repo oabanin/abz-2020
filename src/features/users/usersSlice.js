@@ -38,9 +38,13 @@ export const fetchUsers = url => async (dispatch) => {
       dispatch(setError(true));
     }
 
-
 };
 
+export const usersRequested = () => {
+    dispatch(setLoading(true));
+    dispatch(setUsers([]));
+    dispatch(setError(false));
+}
 
 export const selectUsers = state => state.users.users;
 export const selectError = state => state.users.isError;
