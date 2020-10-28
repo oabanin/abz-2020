@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import PhotoCover from '~assets/photo-cover.svg';
+
+console.log(PhotoCover)
+
 const User = ({email, name, phone, position, photo}) => {
+
+  console.log(photo);
 
   const nodeEmail = useRef();
   const nodeName=useRef();
@@ -27,7 +33,11 @@ const User = ({email, name, phone, position, photo}) => {
 
   return(
      <div className="col-md-4">
-            <img className="users__photo" src={photo}/>
+            <img className="users__photo" 
+            //src={photo} 
+            src='ssss'
+            alt={name}
+            onError={e => e.target.src = PhotoCover}/>
             <div className="users__info">
               <h2 ref={nodeName} className="users__name" style={{ marginBottom: (isNameMultiline ? "10px" : "15px") }}>{name}</h2>
               <div className="users__position">{position}</div>

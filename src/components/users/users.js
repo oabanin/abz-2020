@@ -18,22 +18,21 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Users = () => {
 
-  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchUsers('/users?page=1&count=6'));
+  },[])
 
+  const dispatch = useDispatch();
   
   const users = useSelector(selectUsers);
   const isLoading = useSelector(selectLoading);
   const isError = useSelector(selectError);
 
-  useEffect(()=>{
-    dispatch(fetchUsers('/users?page=1&count=6'));
-  },[])
-
-  const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
-
   if(isLoading) return <Spinner />;
   if(isError) return "Error";
 
+  const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
+3
   return (
     <section className="users">
       <div className="container-fluid">

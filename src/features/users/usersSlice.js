@@ -6,12 +6,12 @@ export const usersSlice = createSlice({
     name: 'users',
     initialState: {
         users: [],
-        isError: false,
+        usersError: null,
         isLoading: true
     },
     reducers: {
         setError: (state, action) => {
-            state.isError = action.payload;
+            state.usersError = action.payload;
         },
         setLoading: (state, action) => {
             state.isLoading = action.payload;
@@ -35,7 +35,7 @@ export const fetchUsers = url => async (dispatch) => {
 
     }
     catch (error) {
-      dispatch(setError(true));
+      dispatch(setError(error));
     }
 
 };
@@ -43,11 +43,11 @@ export const fetchUsers = url => async (dispatch) => {
 export const usersRequested = () => {
     dispatch(setLoading(true));
     dispatch(setUsers([]));
-    dispatch(setError(false));
+    dispatch(setError(null));
 }
 
 export const selectUsers = state => state.users.users;
-export const selectError = state => state.users.isError;
+export const selectError = state => state.users.usersError;
 export const selectLoading = state => state.users.isLoading;
 
 export default usersSlice.reducer;
