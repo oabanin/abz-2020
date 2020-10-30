@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import PhotoCover from '~assets/photo-cover.svg';
 
-console.log(PhotoCover)
-
 const User = ({email, name, phone, position, photo}) => {
-
-  console.log(photo);
-
   const nodeEmail = useRef();
   const nodeName=useRef();
 

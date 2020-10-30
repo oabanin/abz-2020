@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getResourse } from '../../services/api';
-
 export const usersSlice = createSlice({
     name: 'users',
     initialState: {
@@ -26,7 +24,7 @@ const {setError, setLoading} = usersSlice.actions;
 
 export const {setUsers} = usersSlice.actions;
 
-export const fetchUsers = url => async (dispatch) => {
+export const fetchUsers = (url, getResourse) => async (dispatch) => {
 
     try {
       const { data } = await getResourse(url);

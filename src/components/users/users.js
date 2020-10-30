@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import ReactTooltip from 'react-tooltip';
+import { useSelector, useDispatch,  } from "react-redux";
 
 import User from './components/user';
 import Spinner from "../spinner";
-
+import ApiContext from '../api-service-context';
 
 //import Photo from './photo.jpg';
 
@@ -14,12 +15,13 @@ import {
   fetchUsers
 } from '../../features/users/usersSlice';
 
-import { useSelector, useDispatch } from "react-redux";
+
 
 const Users = () => {
+  const api = useContext(ApiContext);
 
   useEffect(()=>{
-    dispatch(fetchUsers('/users?page=1&count=6'));
+    dispatch(fetchUsers('/users?page=1&count=6', api.getResourse));
   },[])
 
   const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const Users = () => {
         <div className="row mb-35">
           <ReactTooltip className="tooltip" place="bottom" offset={{top: -10}} />
           {userList}
-          {isLoadingMore && <Spinner />}
+          {/* {isLoadingMore && <Spinner />} */}
         </div>
 
         <div className="row">
