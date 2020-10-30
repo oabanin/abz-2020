@@ -26,13 +26,14 @@ const Users = () => {
   
   const users = useSelector(selectUsers);
   const isLoading = useSelector(selectLoading);
-  const isError = useSelector(selectError);
+  //const isError = useSelector(selectError);
+
 
   if(isLoading) return <Spinner />;
-  if(isError) return "Error";
+  //if(isError) return "Error";
 
   const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
-3
+
   return (
     <section className="users">
       <div className="container-fluid">
@@ -52,6 +53,7 @@ const Users = () => {
         <div className="row mb-35">
           <ReactTooltip className="tooltip" place="bottom" offset={{top: -10}} />
           {userList}
+          {isLoadingMore && <Spinner />}
         </div>
 
         <div className="row">

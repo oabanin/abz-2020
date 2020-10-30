@@ -34,8 +34,7 @@ const User = ({email, name, phone, position, photo}) => {
   return(
      <div className="col-md-4">
             <img className="users__photo" 
-            //src={photo} 
-            src='ssss'
+            src={photo} 
             alt={name}
             onError={e => e.target.src = PhotoCover}/>
             <div className="users__info">
