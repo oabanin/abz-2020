@@ -4,35 +4,36 @@ import { useSelector, useDispatch,  } from "react-redux";
 
 import User from './components/user';
 import Spinner from "../spinner";
-import ApiContext from '../api-service-context';
 
 //import Photo from './photo.jpg';
 
 import {
   selectError,
-  selectLoading,
+  selectFirstLoading,
+  selectNextLoading,
   selectUsers,
-  fetchUsers
+  fetchUsers,
+  fetchMoreUsers
 } from '../../features/users/usersSlice';
 
 
 
 const Users = () => {
-  const api = useContext(ApiContext);
 
   useEffect(()=>{
-    dispatch(fetchUsers('/users?page=1&count=6', api.getResourse));
+    dispatch(fetchUsers());
   },[])
 
   const dispatch = useDispatch();
   
   const users = useSelector(selectUsers);
-  const isLoading = useSelector(selectLoading);
-  //const isError = useSelector(selectError);
+  const isFirstLoading = useSelector(selectFirstLoading);
+  const isNextLoading = useSelector(selectNextLoading);
+  const isError = useSelector(selectError);
 
 
-  if(isLoading) return <Spinner />;
-  //if(isError) return "Error";
+  //if(isFirstLoading) return <Spinner />;
+  if(isError) return isError;
 
   const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
 
@@ -55,12 +56,12 @@ const Users = () => {
         <div className="row mb-35">
           <ReactTooltip className="tooltip" place="bottom" offset={{top: -10}} />
           {userList}
-          {/* {isLoadingMore && <Spinner />} */}
+          {isFirstLoading && <Spinner />}
         </div>
 
         <div className="row">
           <div className="col-md-4 offset-md-4 text-center">
-            <a className="button" href="#sign-up">Show more</a>
+            <button className="button" onClick={()=>dispatch(fetchMoreUsers('/users?page=3&count=6'))}>Show more</button>
 
           </div>
         </div>

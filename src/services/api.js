@@ -6,6 +6,10 @@ const getResourse = async (url) => {
     return await axios.get(`${_apiBase}${url}`);
 }
 
+const getUsers = async () => {
+  return await getResourse('/users?page=1&count=6');
+}
+
 const getPositions = async () => {
   return await getResourse('/positions');
 }
@@ -15,7 +19,6 @@ const getToken = async () => {
 }
 
 const userRegisterRequest = async ({ name, email, phone, photo: { 0: photo }, position_id, token }) => {
-
   const formData = new FormData();
   formData.append('position_id', position_id);
   formData.append('name', name);
@@ -34,5 +37,4 @@ const userRegisterRequest = async ({ name, email, phone, photo: { 0: photo }, po
 
 }
 
-
-export { getPositions, getToken, userRegisterRequest, getResourse };
+export { getPositions, getToken, userRegisterRequest, getResourse, getUsers };
