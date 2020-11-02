@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getUsers, getResourse } from '../../services/api';
+import axios from 'axios';
 
 export const usersSlice = createSlice({
     name: 'users',
@@ -8,41 +9,30 @@ export const usersSlice = createSlice({
         users: [],
         nextUrl: null,
         error: null,
-        isFirstLoading: false,
-        isNextLoading: false
+        isLoading: false,
     },
     reducers: {
         startLoading: state => {
-            state.isFirstLoading = true;
+            state.isLoading = true;
         },
         usersSuccess: (state, action) => {
             state.users = action.payload.users;
             state.nextUrl = action.payload.links.next_url;
-            state.isFirstLoading = false;
+            state.isLoading = false;
         },
         usersError: (state, action) => {
-            state.isFirstLoading = false;
+            state.isLoading = false;
             state.error = action.payload;
         },
-        startNextLoading: state => {
-            state.isNextLoading = true;
-        },
-
-
-        setNextLoading: (state, action) => {
-            state.isNextLoading = action.payload;
-        },
-        setNextUrl: (state, action) => {
-            state.nextUrl = action.payload;
-        },
-
-        addUsers: (state, action) => {
-            state.users.push(action.payload);
+        usersAddMore: (state, action) => {
+            state.isLoading = false;
+            state.users.push(...action.payload.users);
+            state.nextUrl = action.payload.links.next_url;
         }
     },
 });
 
-const { startLoading, usersSuccess, setError, setFirstLoading, setNextLoading, setUsers, setNextUrl } = usersSlice.actions;
+const { startLoading, usersSuccess, usersAddMore} = usersSlice.actions;
 
 export const fetchUsers = () => async (dispatch) => {
     dispatch(startLoading());
@@ -56,15 +46,15 @@ export const fetchUsers = () => async (dispatch) => {
 };
 
 export const fetchMoreUsers = () => async (dispatch, getState) => {
-    dispatch(startNextLoading());
+    dispatch(startLoading());
     try {
-        const { data } = await getUsers();
-        dispatch(usersSuccess(data));
+        const { data } = await axios.get(getState().users.nextUrl);
+        dispatch(usersAddMore(data));
     }
     catch (error) {
         dispatch(usersError(error.message));
     }
-    console.log(getState().users.nextUrl);
+
 };
 
 // export const usersRequested = () => {
@@ -75,8 +65,7 @@ export const fetchMoreUsers = () => async (dispatch, getState) => {
 
 export const selectUsers = state => state.users.users;
 export const selectError = state => state.users.error;
-export const selectFirstLoading = state => state.users.isFirstLoading;
-export const selectNextLoading = state => state.users.isNextLoading;
+export const selectLoading = state => state.users.isLoading;
 export const selectNextUrl = state => state.users.nextUrl;
 
 export default usersSlice.reducer;

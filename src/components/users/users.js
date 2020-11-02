@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { useSelector, useDispatch,  } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 
 import User from './components/user';
 import Spinner from "../spinner";
@@ -9,14 +9,12 @@ import Spinner from "../spinner";
 
 import {
   selectError,
-  selectFirstLoading,
-  selectNextLoading,
+  selectLoading,
+  selectNextUrl,
   selectUsers,
   fetchUsers,
   fetchMoreUsers
 } from '../../features/users/usersSlice';
-
-
 
 const Users = () => {
 
@@ -27,13 +25,9 @@ const Users = () => {
   const dispatch = useDispatch();
   
   const users = useSelector(selectUsers);
-  const isFirstLoading = useSelector(selectFirstLoading);
-  const isNextLoading = useSelector(selectNextLoading);
+  const isLoading = useSelector(selectLoading);
+  const nextUrl = useSelector(selectNextUrl);
   const isError = useSelector(selectError);
-
-
-  //if(isFirstLoading) return <Spinner />;
-  if(isError) return isError;
 
   const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
 
@@ -56,15 +50,21 @@ const Users = () => {
         <div className="row mb-35">
           <ReactTooltip className="tooltip" place="bottom" offset={{top: -10}} />
           {userList}
-          {isFirstLoading && <Spinner />}
         </div>
+        {isLoading && <Spinner />}
+        {isError && isError}
+        {nextUrl && 
+          <div className="row">
+            <div className="col-md-4 offset-md-4 text-center">
+              <button 
+              className="button" 
+              onClick={()=>dispatch(fetchMoreUsers())}
+              disabled={isLoading}
+              >Show more</button>
 
-        <div className="row">
-          <div className="col-md-4 offset-md-4 text-center">
-            <button className="button" onClick={()=>dispatch(fetchMoreUsers('/users?page=3&count=6'))}>Show more</button>
-
-          </div>
+            </div>
         </div>
+        }
 
       </div>
 

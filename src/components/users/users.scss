@@ -45,6 +45,9 @@
     max-width: 205px;
     margin-left: auto;
     margin-right: auto;
+   
+    text-overflow: ellipsis;
+    overflow: hidden;
 
   }
 

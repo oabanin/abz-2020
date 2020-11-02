@@ -33,7 +33,7 @@ const User = ({email, name, phone, position, photo}) => {
             alt={name}
             onError={e => e.target.src = PhotoCover}/>
             <div className="users__info">
-              <h2 ref={nodeName} className="users__name" style={{ marginBottom: (isNameMultiline ? "10px" : "15px") }}>{name}</h2>
+              <h2 ref={nodeName} className="users__name" >{name}</h2>
               <div className="users__position">{position}</div>
               <a ref={nodeEmail} data-tip-disable={isTooltipDisable} data-tip={email} className="users__email" href={`mailto:${email}`}>{email}</a>
               <div className="users__phone">{phone}</div>
@@ -43,3 +43,4 @@ const User = ({email, name, phone, position, photo}) => {
 }
 
 export default User;
+

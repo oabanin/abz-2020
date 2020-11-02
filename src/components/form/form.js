@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useDispatch} from "react-redux";
 import { useForm } from 'react-hook-form';
 
 import Positions from './components/positions';
@@ -8,14 +9,15 @@ import ReactModal from 'react-modal';
 import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
 import ApiContext from '../api-service-context';
-//import { getPositions, getToken, userRegisterRequest } from '../../services/api';
+
+import { fetchUsers} from '../../features/users/usersSlice';
 
 const maxFileSize = 5 * 1024 ** 2;
-
-
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
 const Form = () => {
+
+  const dispatch = useDispatch();
 
   const api = useContext(ApiContext);
   const { getPositions, getToken, userRegisterRequest } = api;
@@ -31,7 +33,7 @@ const Form = () => {
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
   //const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
   const [disabledSubmit, setSubmitDisabled] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchPositions();
@@ -39,6 +41,7 @@ const Form = () => {
 
   const fetchPositions = async () => {
     try {
+      console.log("fetching positions");
       const { data } = await getPositions();
       if (!data.success) throw Error("The API doesn't return positions");
       setFetchedPositions(data.positions);
@@ -72,21 +75,18 @@ const Form = () => {
   }
 
   const onSubmit = async (submittedData, e) => {
-    //setApiSuccessMsgOnSubmit(null);
     setApiErrorMsgOnSubmit(null);
     setSubmitDisabled(true);
 
     try {
       const tokenResponse = await getToken();
-      console.log(tokenResponse);
-      console.log(submittedData);
-
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
       //setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
       setShowModal(true);
       e.target.reset();
       setchoosedFilename(null);
+      dispatch(fetchUsers());
 
     }
     catch (error) {
