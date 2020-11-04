@@ -164,7 +164,7 @@ const Form = () => {
     <section className="form">
       <div className="container-fluid">
 
-        <div className="row">
+        <div className="row" id="form">
           <div className="col-md-8 offset-md-2">
             <h1 className="form__title">Register to get a work</h1>
           </div>

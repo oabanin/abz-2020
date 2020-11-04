@@ -1,5 +1,6 @@
 import React from 'react';
 import AboutLogo from '~assets/man-laptop-v1.svg';
+import { Link } from "react-scroll";
 
 const About = () => {
 	return (
@@ -20,13 +21,19 @@ const About = () => {
 							<p>We will evaluate how clean your approach to writing CSS and Javascript code is. You can use any CSS and Javascript 3rd party libraries without any restriction.</p>
 							<p>If 3rd party css/javascript libraries are added to the project via bower/npm/yarn you will get bonus points. If you use any task runner (gulp/webpack) you will get bonus points as well. Slice service directory page P​SD mockup​ into HTML5/CSS3. </p>
 
-							<a className="about__link" href="#sign-up">Sing up now</a>
+							<Link
+								className="about__link"
+								to="form"
+								spy={true}
+								smooth={true}
+								offset={-70}
+								duration={500}>Sing up now</Link>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		)
+	)
 }
 
 export default About;
