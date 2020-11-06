@@ -12,13 +12,14 @@ const Banner = () => {
 							We kindly remind you that your test assignment should be submitted as a link to github/bitbucket repository. Please be patient, we consider and respond to every application that meets minimum requirements. We look forward to your submission. Good luck! The photo has to scale in the banner area on the different screens
 						</p>
 						<Link
-						    className="button"
+							className="button"
 							to="form"
 							spy={true}
 							smooth={true}
 							offset={-70}
 							duration={500}
-						>Sing up now</Link>
+						>Sing up now
+						</Link>
 					</div>
 				</div>
 
