@@ -35,7 +35,7 @@ const Users = () => {
     <section className="users">
       <div className="container-fluid">
 
-        <div className="row">
+        <div className="row"  id="users">
           <div className="col-md-8 offset-md-2">
             <h1 className="users__title">Our cheerful users</h1>
           </div>

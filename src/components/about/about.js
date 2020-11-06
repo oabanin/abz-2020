@@ -4,9 +4,9 @@ import { Link } from "react-scroll";
 
 const About = () => {
 	return (
-		<section className="about">
+		<section className="about" >
 			<div className="container-fluid">
-				<div className="row">
+				<div className="row" id="about">
 					<div className="col-md-8 offset-md-2">
 						<h1 className="about__title">Let's get acquainted</h1>
 					</div>
