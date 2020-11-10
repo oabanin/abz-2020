@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { useSelector, useDispatch} from "react-redux";
 
 import User from './components/user';
 import Spinner from "../spinner";
+import ApiContext from '../api-service-context';
 
 //import Photo from './photo.jpg';
 
@@ -18,8 +19,10 @@ import {
 
 const Users = () => {
 
+  const {getUsers, getUrl} = useContext(ApiContext);
+  
   useEffect(()=>{
-    dispatch(fetchUsers());
+    dispatch(fetchUsers(getUsers));
   },[])
 
   const dispatch = useDispatch();
@@ -58,7 +61,7 @@ const Users = () => {
             <div className="col-md-4 offset-md-4 text-center">
               <button 
               className="button" 
-              onClick={()=>dispatch(fetchMoreUsers())}
+              onClick={()=>dispatch(fetchMoreUsers(getUrl))}
               disabled={isLoading}
               >Show more</button>
 

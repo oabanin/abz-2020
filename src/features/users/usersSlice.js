@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getUsers, getResourse } from '../../services/api';
-import axios from 'axios';
+//import axios from 'axios';
 
 export const usersSlice = createSlice({
     name: 'users',
@@ -32,9 +31,9 @@ export const usersSlice = createSlice({
     },
 });
 
-const { startLoading, usersSuccess, usersAddMore} = usersSlice.actions;
+const { startLoading, usersSuccess, usersAddMore, usersError} = usersSlice.actions;
 
-export const fetchUsers = () => async (dispatch) => {
+export const fetchUsers = (getUsers) => async (dispatch) => {
     dispatch(startLoading());
     try {
         const { data } = await getUsers();
@@ -45,10 +44,10 @@ export const fetchUsers = () => async (dispatch) => {
     }
 };
 
-export const fetchMoreUsers = () => async (dispatch, getState) => {
+export const fetchMoreUsers = (getUrl) => async (dispatch, getState) => {
     dispatch(startLoading());
     try {
-        const { data } = await axios.get(getState().users.nextUrl);
+        const { data } = await getUrl(getState().users.nextUrl);
         dispatch(usersAddMore(data));
     }
     catch (error) {

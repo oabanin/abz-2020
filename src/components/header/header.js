@@ -10,7 +10,7 @@ const Header = () => {
 			<div className="container-fluid">
 				<div className="row h-100">
 					<div className="col-lg-2 d-flex align-items-center">
-						<Link 
+						<a
 						className="header__logo" 
 						onClick={()=>animateScroll.scrollToTop()}
 						>
@@ -18,7 +18,7 @@ const Header = () => {
 							 src={Logo}
 							 alt="Logo"
 							 />
-						</Link>
+						</a>
 					</div>
 					<div className="col-lg-6 offset-lg-4">
 						<Menu/>

@@ -2,6 +2,10 @@ import axios from 'axios';
 
 const _apiBase = "https://frontend-test-assignment-api.abz.agency/api/v1";
 
+const getUrl = async (url) => {
+  return await axios.get(url);
+}
+
 const getResourse = async (url) => {
   return await axios.get(`${_apiBase}${url}`);
 }
@@ -34,4 +38,4 @@ const userRegisterRequest = async ({ name, email, phone, photo: { 0: photo }, po
 
 }
 
-export { getPositions, getToken, userRegisterRequest, getResourse, getUsers };
+export { getPositions, getToken, userRegisterRequest, getResourse, getUsers, getUrl };
