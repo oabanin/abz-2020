@@ -2,6 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import PhotoCover from '~assets/photo-cover.svg';
 
+// const useTooltip = (node) => {
+//   const [isTooltipDisable, setTooltipDisable] = useState(true);
+
+//   const compareEmailScrollSize = () => {
+//     const scrollWidthLargerClientWidth = node.current.scrollWidth > nodeEmail.current.clientWidth;
+//     setTooltipDisable(!scrollWidthLargerClientWidth);
+//   };
+
+// }
+
 const User = ({email, name, phone, position, photo}) => {
   const nodeEmail = useRef();
   const nodeName=useRef();

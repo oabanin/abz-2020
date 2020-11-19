@@ -24,13 +24,17 @@ const Users = () => {
   useEffect(()=>{
     dispatch(fetchUsers(getUsers));
   },[])
-
+  
   const dispatch = useDispatch();
   
   const users = useSelector(selectUsers);
   const isLoading = useSelector(selectLoading);
   const nextUrl = useSelector(selectNextUrl);
   const isError = useSelector(selectError);
+
+  useEffect(()=> {
+    ReactTooltip.rebuild();
+  }, [users]);
 
   const userList = users.map(({ id, ...userInfo }) => <User key={id} {...userInfo} />);
 
