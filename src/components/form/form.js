@@ -3,55 +3,52 @@ import ReactModal from 'react-modal';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 
+//Custom hooks
 import { usePositions } from './usePositions';
 import { useModal } from './useModal';
+import { useMyForm } from './useMyForm';
+
+//Context with API
+import ApiContext from '../api-service-context';
+
+//Components
 import Positions from './components/positions';
 import ModalContent from './components/modal';
 import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
-import ApiContext from '../api-service-context';
 
+//Redux
 import { fetchUsers } from '../../features/users/usersSlice';
 
 const maxFileSize = 5 * 1024 ** 2;
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
-
-
-
 const Form = () => {
 
-  const { getPositions, getToken, userRegisterRequest } = useContext(ApiContext);
+  const { getUsers, getPositions, getToken, userRegisterRequest } = useContext(ApiContext);
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
-  const { apiErrorMsgPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
+  const { errorPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
   const modal = useModal();
-
-  const [choosedFilename, setchoosedFilename] = useState(null);
+  const { choosedFilename, clearChoosedFilename, chooseFilename, submitError, clearSubmitError, setSubmitError, disabledSubmitBtn, enableSubmitBtn, disableSubmitBtn } = useMyForm();
   const dispatch = useDispatch();
 
 
-  const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
-  const [disabledSubmit, setSubmitDisabled] = useState(false);
-
-
-
   const onSubmit = async (submittedData, e) => {
-    setApiErrorMsgOnSubmit(null);
-    setSubmitDisabled(true);
+    clearSubmitError();
+    disableSubmitBtn();
 
     try {
       const tokenResponse = await getToken();
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
-      const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
-      //setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
-      openModal();
+      await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
+      modal.openModal();
       e.target.reset();
-      setchoosedFilename(null);
-      dispatch(fetchUsers());
-
+      clearChoosedFilename();
+      dispatch(fetchUsers(getUsers));
+      enableSubmitBtn();
     }
     catch (error) {
-      error.response?.data?.message ? setApiErrorMsgOnSubmit(error.response.data.message) : setApiErrorMsgOnSubmit(error.message);
+      error.response?.data?.message ? setSubmitError(error.response.data.message) : setSubmitError(error.message);
       if (error.response?.data?.fails) {
         for (let inputName in error.response.data.fails) {
           setError(inputName, {
@@ -61,11 +58,11 @@ const Form = () => {
         }
       }
       else {
-        openModal();
+        modal.openModal();
       }
     }
     finally {
-      setSubmitDisabled(false);
+      enableSubmitBtn();
     }
   };
 
@@ -74,11 +71,11 @@ const Form = () => {
     clearErrors(name); //Сбрасываем ошибки
 
     if (!file) {//Сбрасываем имя файла если ранее был выбран
-      setchoosedFilename(null);
+      clearChoosedFilename();
       return;
     }
 
-    setchoosedFilename(file.name);
+    chooseFilename(file.name);
 
     if (file.size > maxFileSize) {
       const errMsg = "File size must not exceed 5MB";
@@ -117,7 +114,7 @@ const Form = () => {
   }
 
 
-  const positionsList = !(loadingPositions || apiErrorMsgPositions)
+  const positionsList = !(loadingPositions || errorPositions)
     ? <Positions fetchedPositions={fetchedPositions} errors={errors} register={register} />
     : null;
 
@@ -219,7 +216,7 @@ const Form = () => {
               </div>
               <p className="form__radioTitle">Select your position</p>
               {loadingPositions ? <Spinner /> : null}
-              {apiErrorMsgPositions ? <div className="form__error">{apiErrorMsgPositions}</div> : null}
+              {errorPositions ? <div className="form__error">{errorPositions}</div> : null}
               {positionsList}
               <p className="form__uploadTitle">Photo</p>
               <div className="form__uploadWrapper">
@@ -247,7 +244,7 @@ const Form = () => {
                 className="button form__submit"
                 value="Sing up now"
                 type="submit"
-                disabled={apiErrorMsgPositions || loadingPositions || disabledSubmit}
+                disabled={errorPositions || loadingPositions || disabledSubmitBtn}
               />
               <ErrBtn />
             </form>
@@ -262,9 +259,9 @@ const Form = () => {
       >
         <ModalContent
           closeModal={modal.closeModal}
-          title={apiErrorMsgOnSubmit ? "Error" : "Congratulations"}
-          text={apiErrorMsgOnSubmit ? apiErrorMsgOnSubmit : "You have successfully passed the registration"}
-          btnText={apiErrorMsgOnSubmit ? "Ok" : "Great"}
+          title={submitError ? "Error" : "Congratulations"}
+          text={submitError ? submitError : "You have successfully passed the registration"}
+          btnText={submitError ? "Ok" : "Great"}
         />
       </ReactModal>
     </section>

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 const usePositions = (apiCallback) => {
     const [fetchedPositions, setFetchedPositions] = useState([]);
     const [loadingPositions, setLoadingPositions] = useState(true);
-    const [apiErrorMsgPositions, setApiErrorMsgPositions] = useState(null);
+    const [errorPositions, setApiErrorMsgPositions] = useState(null);
   
     useEffect(() => {
       fetchPositions();
@@ -24,7 +24,7 @@ const usePositions = (apiCallback) => {
   
     }
   
-    return {fetchedPositions, loadingPositions, apiErrorMsgPositions} 
+    return {fetchedPositions, loadingPositions, errorPositions} 
   
   }
 
