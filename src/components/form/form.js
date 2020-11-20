@@ -1,73 +1,52 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useDispatch} from "react-redux";
+import React, { useState, useContext } from 'react';
+import ReactModal from 'react-modal';
+import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 
+import { usePositions } from './usePositions';
 import Positions from './components/positions';
 import ModalContent from './components/modal';
-import ReactModal from 'react-modal';
-
 import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
 import ApiContext from '../api-service-context';
 
-import { fetchUsers} from '../../features/users/usersSlice';
+import { fetchUsers } from '../../features/users/usersSlice';
 
 const maxFileSize = 5 * 1024 ** 2;
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
+
+
+
 const Form = () => {
 
-  const dispatch = useDispatch();
-
-  const api = useContext(ApiContext);
-  const { getPositions, getToken, userRegisterRequest } = api;
-
+  const { getPositions, getToken, userRegisterRequest } = useContext(ApiContext);
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
+  const { apiErrorMsgPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
 
   const [choosedFilename, setchoosedFilename] = useState(null);
+  const dispatch = useDispatch();
 
-  const [fetchedPositions, setFetchedPositions] = useState([]);
-  const [loadingPositions, setLoadingPositions] = useState(true);
-  const [apiErrorMsgPositions, setApiErrorMsgPositions] = useState(null);
+
 
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
-  //const [apiSuccessMsgOnSubmit, setApiSuccessMsgOnSubmit] = useState(null);
   const [disabledSubmit, setSubmitDisabled] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    fetchPositions();
-  }, [])
-
-  const fetchPositions = async () => {
-    try {
-      console.log("fetching positions");
-      const { data } = await getPositions();
-      if (!data.success) throw Error("The API doesn't return positions");
-      setFetchedPositions(data.positions);
-    }
-    catch (error) {
-      onApiError(error, setApiErrorMsgPositions);
-    }
-    finally {
-      setLoadingPositions(false);
-    }
-
-  }
 
   const closeModal = () => {
     setShowModal(false);
   }
 
-  const onAfterOpenModal = ()=> {
-    const scrollWidth = window.innerWidth - document.body.offsetWidth + 'px'; 
-    document.body.style.paddingRight=scrollWidth;
-    document.body.style.overflow="hidden";
-  }     
-  const onAfterCloseModal = ()=> {
-    document.body.style.paddingRight="";
-    document.body.style.overflow="auto";
-  }     
+  const onAfterOpenModal = () => {
+    const scrollWidth = window.innerWidth - document.body.offsetWidth + 'px';
+    document.body.style.paddingRight = scrollWidth;
+    document.body.style.overflow = "hidden";
+  }
+  const onAfterCloseModal = () => {
+    document.body.style.paddingRight = "";
+    document.body.style.overflow = "auto";
+  }
 
 
   const onApiError = (error, setStateFunc) => {
@@ -295,11 +274,11 @@ const Form = () => {
       </div>
 
       <ReactModal
-        isOpen={showModal}
         overlayClassName={"ReactModal__Overlay"}
         className={"ReactModal__Content"}
+        isOpen={showModal}
         onRequestClose={closeModal}
-        onAfterOpen={onAfterOpenModal}     
+        onAfterOpen={onAfterOpenModal}
         onAfterClose={onAfterCloseModal}
       >
         <ModalContent
