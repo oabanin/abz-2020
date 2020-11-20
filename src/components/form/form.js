@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 
 import { usePositions } from './usePositions';
+import { useModal } from './useModal';
 import Positions from './components/positions';
 import ModalContent from './components/modal';
 import ErrBtn from '../err-btn'; //delete
@@ -23,35 +24,16 @@ const Form = () => {
   const { getPositions, getToken, userRegisterRequest } = useContext(ApiContext);
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
   const { apiErrorMsgPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
+  const modal = useModal();
 
   const [choosedFilename, setchoosedFilename] = useState(null);
   const dispatch = useDispatch();
 
 
-
   const [apiErrorMsgOnSubmit, setApiErrorMsgOnSubmit] = useState(null);
   const [disabledSubmit, setSubmitDisabled] = useState(false);
 
-  const [showModal, setShowModal] = useState(false);
 
-  const closeModal = () => {
-    setShowModal(false);
-  }
-
-  const onAfterOpenModal = () => {
-    const scrollWidth = window.innerWidth - document.body.offsetWidth + 'px';
-    document.body.style.paddingRight = scrollWidth;
-    document.body.style.overflow = "hidden";
-  }
-  const onAfterCloseModal = () => {
-    document.body.style.paddingRight = "";
-    document.body.style.overflow = "auto";
-  }
-
-
-  const onApiError = (error, setStateFunc) => {
-    error.response?.data?.message ? setStateFunc(error.response.data.message) : setStateFunc(error.message);
-  }
 
   const onSubmit = async (submittedData, e) => {
     setApiErrorMsgOnSubmit(null);
@@ -62,14 +44,14 @@ const Form = () => {
       if (!tokenResponse.data.success) throw Error("The API doesn't return token");
       const userRegisterResponse = await userRegisterRequest({ ...submittedData, phone: deletePhoneSymbols(submittedData.phone), token: tokenResponse.data.token });
       //setApiSuccessMsgOnSubmit(userRegisterResponse.data.message);
-      setShowModal(true);
+      openModal();
       e.target.reset();
       setchoosedFilename(null);
       dispatch(fetchUsers());
 
     }
     catch (error) {
-      onApiError(error, setApiErrorMsgOnSubmit);
+      error.response?.data?.message ? setApiErrorMsgOnSubmit(error.response.data.message) : setApiErrorMsgOnSubmit(error.message);
       if (error.response?.data?.fails) {
         for (let inputName in error.response.data.fails) {
           setError(inputName, {
@@ -79,7 +61,7 @@ const Form = () => {
         }
       }
       else {
-        setShowModal(true);
+        openModal();
       }
     }
     finally {
@@ -276,13 +258,10 @@ const Form = () => {
       <ReactModal
         overlayClassName={"ReactModal__Overlay"}
         className={"ReactModal__Content"}
-        isOpen={showModal}
-        onRequestClose={closeModal}
-        onAfterOpen={onAfterOpenModal}
-        onAfterClose={onAfterCloseModal}
+        {...modal.bind}
       >
         <ModalContent
-          closeModal={closeModal}
+          closeModal={modal.closeModal}
           title={apiErrorMsgOnSubmit ? "Error" : "Congratulations"}
           text={apiErrorMsgOnSubmit ? apiErrorMsgOnSubmit : "You have successfully passed the registration"}
           btnText={apiErrorMsgOnSubmit ? "Ok" : "Great"}
