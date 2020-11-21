@@ -13,7 +13,7 @@ const Menu = () => {
 					offset={-70}
 					duration={500}
 				>
-				About
+				About me
 				</Link>
 				<a className="menu__link" href="#relationships">Relationships</a>
 				<a className="menu__link" href="#requirements">Requirements</a>

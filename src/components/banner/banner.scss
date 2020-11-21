@@ -12,22 +12,28 @@
         font-size: $font-size-h1-desktop;
         line-height: $line-height-h1-desktop;
         text-transform: uppercase;
+        letter-spacing: -0.5px;
 
         color: $color-banner-text;
 
-        max-width: 540px;
-        margin-top: 116px;
-        margin-bottom: 34px;
+        max-width: 525px;
+        margin-top: 107px;
+        margin-bottom: 25px;
+
+       
+
     }
 
     &__text {
         font-weight: $font-weight-p;
         font-size: $font-size-p;
+        line-height: $line-height-p;
+        letter-spacing: -0.08px;
 
         color: $color-banner-text;
 
-        max-width: 540px;
-        margin-bottom: 38px;
+        max-width: 538px;
+        margin-bottom: 34px;
     }
 
 }

@@ -1,10 +1,11 @@
 .about {
-	padding-top: 160px;
+	padding-top: 154px;
 	padding-bottom: 120px;
 
 	&__title {
 		@extend %title;
-		margin-bottom: 60px;
+		margin-bottom: 70px;
+		letter-spacing: -1px;
 	}
 
 	&__logo {
@@ -12,7 +13,8 @@
 		height: auto;
 
 		display: block;
-		margin: 0 auto;
+		margin-top: 3px;
+		margin-left: 24px;
 
 	}
 
@@ -23,8 +25,8 @@
 			font-size: $font-size-h2;
 			font-weight: $font-weight-h2;
 			line-height: $line-height-h2;
-
-			padding-bottom: 30px;
+			letter-spacing: 0.17px;
+			padding-bottom: 19px;
 
 			color: $color-text;
 		}
@@ -33,12 +35,15 @@
       @extend %p-text;
 
 			text-align: justify;
-			padding-bottom: 35px;
+			
+			padding-bottom: 25px;
 
 
 		}
 
 		.about__link {
+			margin-top: 5px;
+
 			color: $color-primary;
 			font-weight: 600;
 

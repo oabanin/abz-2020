@@ -2,12 +2,12 @@
 
   background-color: $color-bg2;
 
-	padding-top: 160px;
+	padding-top: 150px;
 	padding-bottom: 160px;
 
 	&__title {
 		@extend %title;
-		margin-bottom: 30px;
+		margin-bottom: 18px;
 	}
 
   &__subtitle {
@@ -15,7 +15,7 @@
 
     text-align: center;
 
-    padding-bottom: 70px;
+    padding-bottom: 76px;
   }
 
   &__photo {
