@@ -22,10 +22,15 @@ $line-height-h1-mobile: 1.13;
 $font-family-h2: $font-family-primary;
 $font-weight-h2: $font-weight-primary;
 $font-size-h2: 24px;
-$line-height-h2: 1.2083;
+$line-height-h2: 1.22;
 
 /* Paragraph */
 $font-family-p: $font-family-primary;
 $font-weight-p: $font-weight-primary;
 $font-size-p:16px;
 $line-height-p : 1.5;
+
+/*Form*/
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+$font-family-form: 'PT Sans', sans-serif;
+$font-weight-form: 400;

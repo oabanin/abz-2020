@@ -14,7 +14,6 @@ import ApiContext from '../api-service-context';
 //Components
 import Positions from './components/positions';
 import ModalContent from './components/modal';
-import ErrBtn from '../err-btn'; //delete
 import Spinner from "../spinner";
 
 //Redux
@@ -23,13 +22,12 @@ import { fetchUsers } from '../../features/users/usersSlice';
 const maxFileSize = 5 * 1024 ** 2;
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
-
-
 const Form = () => {
 
   const { getUsers, getPositions, getToken, userRegisterRequest } = useContext(ApiContext);
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
-  const { errorPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
+  let { errorPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
+  fetchedPositions = [{ "id": 1, "name": "Frontend developer" }, { "id": 2, "name": "Backend developer" }, { "id": 3, "name": "Designer" }, { "id": 4, "name": "QA" }];
   const modal = useModal();
   const { choosedFilename, clearChoosedFilename, chooseFilename, submitError, clearSubmitError, setSubmitError, disabledSubmitBtn, enableSubmitBtn, disableSubmitBtn } = useMyForm();
   const dispatch = useDispatch();
@@ -248,7 +246,6 @@ const Form = () => {
                 type="submit"
                 disabled={errorPositions || loadingPositions || disabledSubmitBtn}
               />
-              <ErrBtn />
             </form>
           </div>
         </div>

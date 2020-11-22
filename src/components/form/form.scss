@@ -1,17 +1,17 @@
 .form {
 
     //DELETE
-    .col-md-6 {
-      border: 1px solid;
-    }
+    // .col-md-6 {
+    //   border: 1px solid;
+    // }
 
-    padding-top: 160px;
-    padding-bottom: 160px;
+    padding-top: 150px;
+    padding-bottom: 165px;
 
 
     &__title {
         @extend %title;
-        margin-bottom: 30px;
+        margin-bottom: 18px;
 
     }
 
@@ -20,16 +20,20 @@
 
         text-align: center;
 
-        padding-bottom: 10px;
+        padding-bottom: 28px;
     }
 
     &__field {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
 
       label {
         display: inline-block;
 
         padding-bottom: 10px;
+        
+        font-family: $font-family-form;
+        font-weight: $font-weight-form;
+
       }
 
     }
@@ -45,20 +49,28 @@
     }
 
     &__error {
+      font-family: $font-family-form;
+      font-weight: $font-weight-form;
+
       font-size: 12px;
       color: $color-form-error;
-      margin-top: 10px;
+
+      margin-top: 7px;
 
     }
 
 
     &__radioTitle {
+      font-family: $font-family-form;
+      font-weight: $font-weight-form;
+      font-size: $font-size-p;
+
       margin-top: 5px;
-      margin-bottom: 25px
+      margin-bottom: 16px;
     }
 
     &__radioWrapper {
-      margin-bottom: 15px;
+      margin-bottom: 8px;
     }
 
     &__radio {
@@ -80,6 +92,10 @@
     }
 
     &__radioLabel {
+      font-family: $font-family-form;
+      font-weight: $font-weight-form;
+      font-size: $font-size-p;
+
       position: relative;
       left: 10px;
 
@@ -90,7 +106,7 @@
 
       cursor: pointer;
 
-      padding: 5px;
+      padding: 5px 5px 5px 0px;
 
       &::before,
       &::after {
@@ -126,8 +142,12 @@
     }
 
     &__uploadTitle {
-      margin-top: 20px;
-      margin-bottom: 10px;
+      font-family: $font-family-form;
+      font-weight: $font-weight-form;
+      font-size: $font-size-p;
+
+      margin-top: 19px;
+      margin-bottom: 8px;
     }
 
     &__uploadWrapper {
@@ -170,6 +190,10 @@
 
 
     &__uploadPlaceholder {
+      font-family: $font-family-form;
+      font-weight: $font-weight-form;
+      font-size: $font-size-p;
+
       color: $color-form-placeholder;
       width: 83%;
 
@@ -209,6 +233,6 @@
       border:0;
 
       display: block;
-      margin: 0 auto;
+      margin: 38px auto 0;
     }
 }

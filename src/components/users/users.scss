@@ -5,6 +5,14 @@
 	padding-top: 150px;
 	padding-bottom: 160px;
 
+  &__card {
+    padding-bottom: 52px;
+
+    &:nth-last-of-type(-n+3) {
+      padding-bottom: 27px;
+    }
+  }
+
 	&__title {
 		@extend %title;
 		margin-bottom: 18px;
@@ -23,7 +31,7 @@
     border-radius: 50%;
 
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     margin-left: auto;
     margin-right: auto;
 
@@ -57,12 +65,14 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 3px;
+    margin-top: 12px
   }
 
   &__email {
 
     max-width: 205px;
 
+    letter-spacing: -0.13px;
     margin-bottom: 3px;
     margin-left: auto;
     margin-right: auto;
