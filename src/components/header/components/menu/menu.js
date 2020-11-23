@@ -13,10 +13,25 @@ const Menu = () => {
 					offset={-70}
 					duration={500}
 				>
-				About me
+					About me
 				</Link>
-				<a className="menu__link" href="#relationships">Relationships</a>
-				<a className="menu__link" href="#requirements">Requirements</a>
+				<Link
+					className="menu__link"
+					to="form"
+					spy={true}
+					smooth={true}
+					offset={-70}
+					duration={500}
+				>Relationships
+				</Link>
+				<Link
+					className="menu__link"
+					to="form"
+					spy={true}
+					smooth={true}
+					offset={-70}
+					duration={500}
+				> Requirements</Link>
 				<Link
 					className="menu__link"
 					to="users"

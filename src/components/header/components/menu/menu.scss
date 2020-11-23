@@ -4,6 +4,9 @@
     align-items: center;
     height: 100%;
 
+    @include for-size(tablet) {
+        display: none;
+    }
 }
 
 .menu__link {

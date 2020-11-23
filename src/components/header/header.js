@@ -9,19 +9,19 @@ const Header = () => {
 		<header className="header">
 			<div className="container-fluid">
 				<div className="row h-100">
-					<div className="col-lg-2 d-flex align-items-center">
+					<div className="col-lg-2 col-md-2 col-sm-2 d-flex align-items-center">
 						<a
-						className="header__logo" 
-						onClick={()=>animateScroll.scrollToTop()}
+							className="header__logo"
+							onClick={() => animateScroll.scrollToTop()}
 						>
-							<img 
-							 src={Logo}
-							 alt="Logo"
-							 />
+							<img
+								src={Logo}
+								alt="Logo"
+							/>
 						</a>
 					</div>
-					<div className="col-lg-6 offset-lg-4">
-						<Menu/>
+					<div className="col-lg-6 offset-lg-4 col-md-8 offset-md-2 col-sm-2 offset-sm-2 ">
+						<Menu />
 					</div>
 				</div>
 			</div>

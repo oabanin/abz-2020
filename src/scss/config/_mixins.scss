@@ -1,0 +1,56 @@
+@mixin for-size($size) {
+    @if $size == desktop {
+        @media(min-width: 769px) {
+            @content;
+        }
+    } @else if($size==tablet){
+        @media(max-width: 768px) {
+            @content;
+        }
+    }
+}
+
+
+
+
+
+
+// @mixin for-size($size) {
+//     @if $size == desktop2k {
+//       @media (min-width: $desktop2k) {
+//         @content;
+//       }
+//     } @else if $size == desktop {
+//       @media (min-width: $desktop) {
+//         @content;
+//       }
+//     } @else if $size == tablet {
+//       @media (min-width: $tablet) {
+//         @content;
+//       }
+//     }
+// }
+  
+
+
+// @mixin for-size($size)
+//   @if $size == phone-only
+//     @media (max-width: 599px)
+//       @content
+//   @else if $size == tablet-portrait-up 
+//     @media (min-width: 600px) 
+//       @content
+//   @else if $size == tablet-landscape-up
+//     @media (min-width: 900px) 
+//       @content
+//   @else if $size == desktop-up
+//     @media (min-width: 1200px)
+//       @content
+//   @else if $size == big-desktop-up
+//     @media (min-width: 1800px) 
+//       @content
+
+// @function rem($size) {
+// $remSize: $size / 16;
+// @return #{$remSize}rem;
+// }
