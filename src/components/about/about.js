@@ -12,10 +12,10 @@ const About = () => {
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-lg-5">
+					<div className="col-lg-5 col-sm-4">
 						<img className="about__logo" src={AboutLogo} />
 					</div>
-					<div className="col-lg-7">
+					<div className="col-lg-7 col-sm-8">
 						<div className="about__text">
 							<h2 className="about__heading">I am cool frontend developer</h2>
 							<p>We will evaluate how clean your approach to writing CSS and Javascript code is. You can use any CSS and Javascript 3rd party libraries without any restriction.</p>

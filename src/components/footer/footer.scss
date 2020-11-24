@@ -10,6 +10,9 @@
         align-items: center;
         justify-content: center;
 
+        @include for-size(tablet){
+            padding-left: 10px;
+        }
     }
 }
 

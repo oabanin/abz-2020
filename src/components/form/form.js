@@ -136,7 +136,7 @@ const Form = () => {
 
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <form onSubmit={handleSubmit(onSubmit)} action="#" noValidate>
+            <form className="form__form" onSubmit={handleSubmit(onSubmit)} action="#" noValidate>
               <div className="form__field">
                 <label htmlFor="form__name">Name</label>
                 <input

@@ -3,7 +3,12 @@
 	font-size: $font-size-h1-desktop;
 	line-height: 1;
 	color: $color-text;
-	text-align: center;
+  text-align: center;
+  
+  @include for-size(tablet) {
+    font-weight: $font-weight-h1-tablet;
+    font-size: $font-size-h1-tablet;
+  }
 }
 
 %p-text {
@@ -55,6 +60,7 @@
   font-family: $font-family-form;
   font-weight: $font-weight-form;
   font-size: $font-size-p;
+  
 
   border: 1px solid $color-form-placeholder;
 

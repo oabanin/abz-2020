@@ -3,14 +3,28 @@
   background-color: $color-bg2;
 
 	padding-top: 150px;
-	padding-bottom: 160px;
+  padding-bottom: 160px;
+  
+  @include for-size(tablet){
+    padding-top: 69px;
+  }
 
   &__card {
     padding-bottom: 52px;
 
+    @include for-size(tablet){
+      padding-bottom: 60px;
+    }
+
     &:nth-last-of-type(-n+3) {
       padding-bottom: 27px;
+
+      @include for-size(tablet){
+        padding-bottom: 31px;
+      }
     }
+
+
   }
 
 	&__title {

@@ -2,10 +2,17 @@
 	padding-top: 154px;
 	padding-bottom: 120px;
 
+	@include for-size(tablet) {
+		padding-top: 116px;
+	  }
+
 	&__title {
 		@extend %title;
 		margin-bottom: 70px;
 		letter-spacing: -1px;
+		@include for-size(tablet) {
+			letter-spacing: -0.5px;
+		  }
 	}
 
 	&__logo {
@@ -16,15 +23,29 @@
 		margin-top: 3px;
 		margin-left: 24px;
 
+		@include for-size(tablet) {
+			max-width: 249px;
+			margin-top: 0px;
+			margin-left: 0px;
+		  }
+
 	}
 
 	&__text {
 		padding-bottom: 40px;
+		@include for-size(tablet){
+			padding-left: 32px;
+			letter-spacing: -0.3px;
+		}
+		
 
 		.about__heading {
 			font-size: $font-size-h2;
 			font-weight: $font-weight-h2;
 			line-height: $line-height-h2;
+
+
+
 			letter-spacing: 0.17px;
 			padding-bottom: 19px;
 
@@ -37,7 +58,9 @@
 			text-align: justify;
 			
 			padding-bottom: 25px;
-
+			@include for-size(tablet){
+				letter-spacing: -0.3px;
+			}
 
 		}
 

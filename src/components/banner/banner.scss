@@ -19,26 +19,21 @@
         min-height: 500px;
     }
 
-    // @include for-size(tablet) {
-    //     padding: rem(105) rem(24) rem(0) rem(24);
-    //   }
-    //   @include for-size(desktop) {
-    //     padding: rem(126) rem(47) rem(5) rem(47);
-    //   }
-    //   @include for-size(desktop2k) {
-    //     padding: rem(126) rem(15) rem(5) rem(15);
-    //   }
-
-    //   $desktop2k: 2560px;
-    // $desktop: 1024px;
-    // $tablet: 768px;
-
-
 
     &__title {
         font-weight: $font-weight-h1-desktop;
         font-size: $font-size-h1-desktop;
         line-height: $line-height-h1-desktop;
+
+        @include for-size(tablet) {
+        font-weight: $font-weight-h1-tablet;
+        font-size: $font-size-h1-tablet;
+        line-height: $line-height-h1-tablet;
+        max-width: 410px;
+        margin-top: 60px;
+        margin-bottom: 27px;
+        }
+
         text-transform: uppercase;
         letter-spacing: -0.5px;
 
@@ -53,6 +48,9 @@
     }
 
     &__text {
+        @include for-size(tablet) {
+        max-width: 486px;
+        }
         font-weight: $font-weight-p;
         font-size: $font-size-p;
         line-height: $line-height-p;

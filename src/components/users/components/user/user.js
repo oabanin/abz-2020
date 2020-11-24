@@ -12,7 +12,7 @@ const User = ({ email, name, phone, position, photo }) => {
   phone = phone.split('').map((num, i) => i === 3 || i === 5 || i === 8 || i === 10 ? num + " " : num).join('');
 
   return (
-    <div className="col-md-4 users__card">
+    <div className="col-md-4 col-sm-4 users__card">
       <img className="users__photo"
         src={photo}
         alt={name}
