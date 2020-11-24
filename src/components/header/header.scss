@@ -6,4 +6,16 @@
     top: 0px;
     z-index: 1000;
     box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+
+    &__burger {
+        @include for-size(desktop){
+            display: none;
+        }
+        @include for-size(tablet) {
+            display: flex;
+        }
+        
+        align-items: center;
+        height: 100%;
+    }
 }

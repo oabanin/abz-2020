@@ -1,3 +1,6 @@
+/*override the Bootstrap variable’s default value*/
+@import "config/_bootstrap-overrides";
+
 /*Import Bootstrap Grid and Sizing Utility*/
 @import "~bootstrap/scss/bootstrap-grid";
 @import "~bootstrap/scss/utilities/sizing";
@@ -20,4 +23,5 @@
 @import "~components/form/components/modal/modal";
 @import "~components/footer/footer";
 @import "~components/spinner/spinner";
+
 

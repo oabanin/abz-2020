@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, animateScroll } from "react-scroll";
+import { animateScroll } from "react-scroll";
 
 import Logo from '~assets/logo.svg';
+import BurgerMenuIcon from '~assets/menu-icon.svg';
 import Menu from './components/menu';
 
 const Header = () => {
@@ -20,8 +21,13 @@ const Header = () => {
 							/>
 						</a>
 					</div>
-					<div className="col-lg-6 offset-lg-4 col-md-8 offset-md-2 col-sm-2 offset-sm-2 ">
+					<div className="col-lg-6 offset-lg-4 col-md-8 offset-md-2 col-sm-1 offset-sm-9">
 						<Menu />
+						<div className="header__burger">
+							<img
+								src={BurgerMenuIcon}
+								alt="Burger Menu Icon" />
+						</div>
 					</div>
 				</div>
 			</div>
