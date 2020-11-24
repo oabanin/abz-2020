@@ -21,7 +21,7 @@
   }
 
   &__Content--after-open {
-    transform: perspective(600px) rotateX(0deg) translate(0, 0);
+    transform: perspective(600px) rotateX(0deg) translate(0, -128px);
     opacity:1;
   }
 
@@ -92,6 +92,7 @@
     font-size: $font-size-h2;
     line-height: $line-height-h2;
     color: rgb(0, 0, 0);
+    min-width: 340px;
 
   }
 
