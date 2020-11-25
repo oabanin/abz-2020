@@ -1,9 +1,5 @@
 .form {
 
-    //DELETE
-    // .col-md-6 {
-    //   border: 1px solid;
-    // }
 
     padding-top: 150px;
     padding-bottom: 165px;
@@ -11,17 +7,18 @@
     @include for-size(tablet){
       padding-top: 71px;
       padding-bottom: 120px;
-      
+
     }
-    
+
     &__form {
       @include for-size(tablet){
         max-width: 467px;
-        margin-left: 124px;
+        margin: 0 auto;
+        transform: translate(3px, 0px);
       }
-  
+
     }
- 
+
     &__title {
         @extend %title;
         margin-bottom: 18px;
@@ -56,7 +53,7 @@
         display: inline-block;
 
         padding-bottom: 10px;
-        
+
         font-family: $font-family-form;
         font-weight: $font-weight-form;
 

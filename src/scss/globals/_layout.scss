@@ -2,6 +2,11 @@
    max-width:1170px;
    padding-right: 30px;
    padding-left: 30px;
+
+   @include for-size(mobile) {
+    padding-right: 15px;
+    padding-left: 15px;
+   }
 }
 
 .text-center {

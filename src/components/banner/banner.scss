@@ -2,9 +2,9 @@
     background-image:url('~assets/banner-photo.webp');
     background-repeat:no-repeat;
     max-width:100%;
-    
+
     @include for-size(desktop) {
-        background-size: cover;    
+        background-size: cover;
         min-height: 600px;
             //Retina
             @media  screen and (-webkit-min-device-pixel-ratio: 2),
@@ -13,7 +13,7 @@
                 background-image:url('~assets/banner-photo@2x.webp');
             }
     }
-       
+
     @include for-size(tablet) {
         background-size: 1026px auto;
         min-height: 500px;
@@ -34,6 +34,14 @@
         margin-bottom: 27px;
         }
 
+        @include for-size(mobile) {
+          text-align: center;
+          margin-top: 68px;
+          margin-bottom: 18px;
+          font-size: 32px;
+          letter-spacing: -1px;
+        }
+
         text-transform: uppercase;
         letter-spacing: -0.5px;
 
@@ -43,13 +51,16 @@
         margin-top: 107px;
         margin-bottom: 25px;
 
-       
+
 
     }
 
     &__text {
         @include for-size(tablet) {
-        max-width: 486px;
+            max-width: 486px;
+        }
+        @include for-size(mobile) {
+            text-align:center;
         }
         font-weight: $font-weight-p;
         font-size: $font-size-p;
