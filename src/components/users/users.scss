@@ -4,9 +4,14 @@
 
 	padding-top: 150px;
   padding-bottom: 160px;
-  
+
   @include for-size(tablet){
     padding-top: 69px;
+  }
+
+  @include for-size(mobile){
+    padding-top: 49px;
+    padding-bottom: 83px;
   }
 
   &__card {
@@ -16,13 +21,29 @@
       padding-bottom: 60px;
     }
 
+    @include for-size(mobile) {
+      padding-bottom: 38px;
+    }
+
     &:nth-last-of-type(-n+3) {
       padding-bottom: 27px;
 
       @include for-size(tablet){
         padding-bottom: 31px;
       }
+
+      @include for-size(mobile){
+        padding-bottom: 38px;
+      }
     }
+
+    @include for-size(mobile){
+    &:last-of-type {
+        padding-bottom: 30px;
+      }
+    }
+
+
 
 
   }
@@ -30,6 +51,10 @@
 	&__title {
 		@extend %title;
 		margin-bottom: 18px;
+
+      @include for-size(mobile){
+      margin-bottom: rem(9);
+    }
 	}
 
   &__subtitle {
@@ -38,6 +63,11 @@
     text-align: center;
 
     padding-bottom: 76px;
+
+    @include for-size(mobile) {
+      padding-bottom: 36px;
+
+    }
   }
 
   &__photo {
@@ -67,7 +97,7 @@
     max-width: 205px;
     margin-left: auto;
     margin-right: auto;
-   
+
     text-overflow: ellipsis;
     overflow: hidden;
 

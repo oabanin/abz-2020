@@ -10,11 +10,19 @@
 
     }
 
+    @include for-size(mobile){
+      padding-bottom:82px;
+    }
+
     &__form {
       @include for-size(tablet){
         max-width: 467px;
         margin: 0 auto;
         transform: translate(3px, 0px);
+      }
+
+      @include for-size(tablet){
+        transform: translate(0, 0);
       }
 
     }
@@ -39,6 +47,12 @@
         @include for-size(tablet){
           max-width: 460px;
           margin: 0 auto;
+        }
+
+        @include for-size(mobile){
+          line-height: 1.4;
+          letter-spacing: -0.3px;
+          max-width: 300px;
         }
     }
 
@@ -262,5 +276,9 @@
 
       display: block;
       margin: 38px auto 0;
+
+      @include for-size(mobile) {
+        margin-top:40px;
+      }
     }
 }

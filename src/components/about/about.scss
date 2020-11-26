@@ -6,8 +6,9 @@
 		padding-top: 116px;
 	  }
 
-	  @include for-size(tablet) {
+	  @include for-size(mobile) {
 		padding-top: 75px;
+    padding-bottom: 60px;
 	  }
 
 	&__title {
@@ -20,7 +21,7 @@
 		@include for-size(mobile) {
 			margin-bottom: 36px;
 		}
-		  
+
 	}
 
 	&__logo {
@@ -50,7 +51,13 @@
 			padding-left: 32px;
 			letter-spacing: -0.3px;
 		}
-		
+
+    @include for-size(mobile) {
+      margin: 0 auto;
+      padding-top: 39px;
+      padding-left:0;
+    }
+
 
 		.about__heading {
 			font-size: $font-size-h2;
@@ -69,7 +76,7 @@
       @extend %p-text;
 
 			text-align: justify;
-			
+
 			padding-bottom: 25px;
 			@include for-size(tablet){
 				letter-spacing: -0.3px;
@@ -87,6 +94,10 @@
 			&:hover {
 				color: $color-button-hover;
 			}
+
+      @include for-size(mobile) {
+        text-align: center;
+      }
 
 		}
 	}
