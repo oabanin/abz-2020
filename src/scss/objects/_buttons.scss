@@ -17,6 +17,12 @@
 
     cursor: pointer;
 
+    @include for-size(mobile) {
+        display: block;
+        width: 210px;
+        margin: 0 auto;
+    }
+
     &:hover {
         background-color: $color-button-hover;
     }

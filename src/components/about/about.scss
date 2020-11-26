@@ -6,6 +6,10 @@
 		padding-top: 116px;
 	  }
 
+	  @include for-size(tablet) {
+		padding-top: 75px;
+	  }
+
 	&__title {
 		@extend %title;
 		margin-bottom: 70px;
@@ -13,9 +17,14 @@
 		@include for-size(tablet) {
 			letter-spacing: -0.5px;
 		  }
+		@include for-size(mobile) {
+			margin-bottom: 36px;
+		}
+		  
 	}
 
 	&__logo {
+		width: 100%;
 		max-width: 340px;
 		height: auto;
 
@@ -27,6 +36,10 @@
 			max-width: 249px;
 			margin-top: 0px;
 			margin-left: 0px;
+		  }
+		  @include for-size(tablet) {
+			max-width: 285px;
+			margin: 0 auto;
 		  }
 
 	}

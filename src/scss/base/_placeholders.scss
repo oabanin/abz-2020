@@ -9,7 +9,14 @@
     font-weight: $font-weight-h1-tablet;
     font-size: $font-size-h1-tablet;
   }
+  @include for-size(mobile) {
+    font-weight:$font-weight-h1-mobile;
+    font-size: $font-size-h1-mobile;
+    line-height:$line-height-h1-mobile; 
+  }
 }
+
+
 
 %p-text {
   font-size: $font-size-p;
