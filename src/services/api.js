@@ -10,8 +10,8 @@ const getResourse = async (url) => {
   return await axios.get(`${_apiBase}${url}`);
 }
 
-const getUsers = async () => {
-  return await getResourse('/users?page=1&count=6');
+const getUsers = async (usersCount) => {
+  return await getResourse(`/users?page=1&count=${usersCount}`);
 }
 
 const getPositions = async () => {

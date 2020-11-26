@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { useSelector, useDispatch } from "react-redux";
+import { useMediaQuery } from 'react-responsive'
 
 import User from './components/user';
 import Spinner from "../spinner";
@@ -20,9 +21,10 @@ import {
 const Users = () => {
 
   const { getUsers, getUrl } = useContext(ApiContext);
+  const isMobile = useMediaQuery({ query: '(max-width: 360px)' });
 
   useEffect(() => {
-    dispatch(fetchUsers(getUsers));
+    dispatch(fetchUsers(getUsers, isMobile ? 3 : 6));
   }, [])
 
   const dispatch = useDispatch();
@@ -37,11 +39,11 @@ const Users = () => {
   //   { "id": 6, "name": "Liamgrievescasey Smith Wiam", "email": "liamgrievescasey.smith@gmail.com", "phone": "+380506780324", "position": "Lead designer", "position_id": 1, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a65973cf06.jpeg" }];
 
 
-     const users = [
-    { "id": 1, "name": "Maximillian", "email": "controldepartment@gmail", "phone": "+380506780324", "position": "Leading Specialist of the Control Department", "position_id": 2, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a6596d3bb1.jpeg" },
-    { "id": 2, "name": "Adolph Blaine Charles David Earl Matthew Matthew", "email": "adolph.blainecharles@gmail.com", "phone": "+380506780324", "position": "Contextual advertising specialist", "position_id": 3, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a6596f0072.jpeg" },
-    { "id": 3, "name": "Elizabeth", "email": "elisabet.front@gmail.com", "phone": "+380506780324", "position": "Frontend developer", "position_id": 3, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a659709143.jpeg" }];
-  //const users = useSelector(selectUsers);
+  // const users = [
+  //   { "id": 1, "name": "Maximillian", "email": "controldepartment@gmail", "phone": "+380506780324", "position": "Leading Specialist of the Control Department", "position_id": 2, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a6596d3bb1.jpeg" },
+  //   { "id": 2, "name": "Adolph Blaine Charles David Earl Matthew Matthew", "email": "adolph.blainecharles@gmail.com", "phone": "+380506780324", "position": "Contextual advertising specialist", "position_id": 3, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a6596f0072.jpeg" },
+  //   { "id": 3, "name": "Elizabeth", "email": "elisabet.front@gmail.com", "phone": "+380506780324", "position": "Frontend developer", "position_id": 3, "registration_timestamp": 1604494937, "photo": "https://frontend-test-assignment-api.abz.agency/images/users/5fa2a659709143.jpeg" }];
+  const users = useSelector(selectUsers);
   const isLoading = useSelector(selectLoading);
   const nextUrl = useSelector(selectNextUrl);
   const isError = useSelector(selectError);

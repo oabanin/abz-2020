@@ -44,7 +44,7 @@ const Form = () => {
       modal.openModal();
       e.target.reset();
       clearChoosedFilename();
-      dispatch(fetchUsers(getUsers));
+      dispatch(fetchUsers(getUsers, 6));
       enableSubmitBtn();
     }
     catch (error) {

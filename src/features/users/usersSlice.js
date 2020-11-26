@@ -31,12 +31,12 @@ export const usersSlice = createSlice({
     },
 });
 
-const { startLoading, usersSuccess, usersAddMore, usersError} = usersSlice.actions;
+const { startLoading, usersSuccess, usersAddMore, usersError } = usersSlice.actions;
 
-export const fetchUsers = (getUsers) => async (dispatch) => {
+export const fetchUsers = (getUsers, usersCount) => async (dispatch) => {
     dispatch(startLoading());
     try {
-        const { data } = await getUsers();
+        const { data } = await getUsers(usersCount);
         dispatch(usersSuccess(data));
     }
     catch (error) {
