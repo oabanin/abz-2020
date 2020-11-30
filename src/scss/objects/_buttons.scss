@@ -32,3 +32,14 @@
     }
 
 }
+
+.burgerBtn{
+    border: none;
+    
+    width: 20px;
+    height: 15px;
+    background-image: url('~assets/menu-icon.svg');
+    background-repeat: no-repeat;
+
+    cursor: pointer;
+}
