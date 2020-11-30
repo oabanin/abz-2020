@@ -24,8 +24,8 @@ const App = () => {
 					<Form />
 				</ErrorBoundary>
 			</main>
-			<BurgerMenu />
 			<Footer />
+      <BurgerMenu />
 		</>)
 }
 
