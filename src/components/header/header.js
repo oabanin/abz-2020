@@ -1,10 +1,13 @@
 import React from 'react';
 import HeaderLogo from "./components/header-logo"
 import Menu from './components/menu';
+import BurgerMenu from './components/burger-menu';
+
 
 const Header = () => {
 	return (
 		<header className="header">
+			<BurgerMenu />
 			<div className="container-fluid">
 				<div className="row h-100">
 					<div className="col-lg-2 col-md-2 col-sm-6 col-6 d-flex align-items-center">

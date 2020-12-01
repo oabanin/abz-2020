@@ -8,12 +8,13 @@ import About from '../about';
 import Users from '../users';
 import Form from '../form';
 import Footer from '../footer';
-import BurgerMenu from '../header/components/burger-menu';
+
 
 const App = () => {
 	return (
 		<>
 			<Header />
+
 			<main>
 				<Banner />
 				<About />
@@ -25,7 +26,7 @@ const App = () => {
 				</ErrorBoundary>
 			</main>
 			<Footer />
-      <BurgerMenu />
+
 		</>)
 }
 
