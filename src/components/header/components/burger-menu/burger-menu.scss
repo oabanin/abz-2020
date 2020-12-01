@@ -1,15 +1,22 @@
 .overlay {
+  width: calc(100vw - 290px);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  background-color: rgba(0,0,0, .5);
 
 }
 
 .burger {
 
-
-  &__header {
-    margin-top: 12px;
-    padding-left: 15px;
-    margin-bottom: 9px;
-  }
+  //display: none;
+  // &__header {
+  //   margin-top: 12px;
+  //   padding-left: 15px;
+  //   margin-bottom: 9px;
+  // }
 
 
   font-weight: $font-weight-p;
@@ -17,22 +24,26 @@
   line-height: $line-height-p;
 
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 0;
-  z-index: 3;
+  z-index: 30;
   max-height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
 
   background-color: white;
 
 
-  width: rem(291);
+  width: 290;
   height: auto;
 
   ul li {
     list-style: none;
     padding-bottom: 19px;
     padding-left: 15px;
+
+    &:first-of-type {
+      border-top: 1px solid $hr-color;
+    }
 
     &:nth-of-type(5n){
       padding-bottom: 24px;

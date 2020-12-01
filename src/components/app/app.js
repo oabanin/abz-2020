@@ -14,7 +14,6 @@ const App = () => {
 	return (
 		<>
 			<Header />
-
 			<main>
 				<Banner />
 				<About />
@@ -25,6 +24,7 @@ const App = () => {
 					<Form />
 				</ErrorBoundary>
 			</main>
+			<div className="overlay" />
 			<Footer />
 
 		</>)
