@@ -24,7 +24,6 @@ const App = () => {
 					<Form />
 				</ErrorBoundary>
 			</main>
-			<div className="overlay" />
 			<Footer />
 
 		</>)

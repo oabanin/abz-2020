@@ -22,10 +22,10 @@ function BurgerMenu() {
   ];
   return (
     <div className="burger">
-      {/* <div className="burger__header">
+    <div className="overlay" />
+      <div className="burger__header">
         <HeaderLogo />
-      </div> */}
-      {/* <hr /> */}
+      </div>
       <div className="burger__content">
         <ul>
           {items.map(item =>
