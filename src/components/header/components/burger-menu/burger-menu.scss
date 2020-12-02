@@ -1,17 +1,35 @@
 .overlay {
-  width: calc(100vw - 290px);
+  //width: calc(100vw - 290px);
+  width: 100vw;
+  
   height: 100vh;
   position: fixed;
   top: 0;
+  left:0;
+  //left: 290px;
   right: 0;
-  z-index: 5;
+  bottom:0;
+  z-index: 3;
   background-color: rgba(0,0,0, .5);
+
+  transform: translateX(-100%);
+  transition: transform .1s linear ;
+  
+  &.active {
+    transform: translateX(0);
+    
+  }
 
 }
 
 .burger {
+  transform: translateX(-100%);
+  transition: transform .1s linear ;
 
-  //display: none;
+  &.active {
+    transform: translateX(0);
+  }
+
   &__header {
     margin-top: 12px;
     padding-left: 15px;
@@ -24,14 +42,14 @@
   line-height: $line-height-p;
 
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 0;
   z-index: 30;
+
   max-height: 100vh;
   overflow-y: scroll;
 
   background-color: white;
-
 
   width: 290;
   height: auto;

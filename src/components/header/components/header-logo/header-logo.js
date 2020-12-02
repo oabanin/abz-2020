@@ -3,12 +3,15 @@ import { animateScroll } from "react-scroll";
 
 import Logo from '~assets/logo.svg';
 
-function HeaderLogo() {
+function HeaderLogo({ closeBurger = () => { } }) {
     return (
         <>
             <a
                 className="header__logo"
-                onClick={() => animateScroll.scrollToTop()}
+                onClick={() => {
+                    animateScroll.scrollToTop()
+                    closeBurger();
+                }}
             >
                 <img
                     src={Logo}

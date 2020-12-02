@@ -20,8 +20,8 @@
     }
 
     @include for-size(mobile) {
-        background-position: center;
-        background-size: 681px;
+        background-position: 52% 50%;
+        background-size: cover;
         min-height: 400px;
     }
 
