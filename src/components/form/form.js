@@ -27,7 +27,7 @@ const Form = () => {
   const { getUsers, getPositions, getToken, userRegisterRequest } = useContext(ApiContext);
   const { register, handleSubmit, setError, clearErrors, errors } = useForm();
   let { errorPositions, loadingPositions, fetchedPositions } = usePositions(getPositions);
-  fetchedPositions = [{ "id": 1, "name": "Frontend developer" }, { "id": 2, "name": "Backend developer" }, { "id": 3, "name": "Designer" }, { "id": 4, "name": "QA" }];
+  //fetchedPositions = [{ "id": 1, "name": "Frontend developer" }, { "id": 2, "name": "Backend developer" }, { "id": 3, "name": "Designer" }, { "id": 4, "name": "QA" }];
   const modal = useModal();
   const { choosedFilename, clearChoosedFilename, chooseFilename, submitError, clearSubmitError, setSubmitError, disabledSubmitBtn, enableSubmitBtn, disableSubmitBtn } = useMyForm();
   const dispatch = useDispatch();
