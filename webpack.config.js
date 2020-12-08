@@ -4,7 +4,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //плагин очистки dist
 const HtmlWebpackPlugin = require('html-webpack-plugin');       //плагин генерации html файла (автоматически или по шаблону,можно использовать шаблонизаторы)
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин бандлинга css в отдельный файл  
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин бандлинга css в отдельный файл
 //Плагины запускаются после лоадеров
 
 // const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
@@ -16,11 +16,11 @@ module.exports = {
     //print: './src/print.js',
     //styles: './src/sass/style.scss'
   },
-  
+
   output: {
     path: path.resolve(__dirname, 'dist'), //ПАПКА куда кладет файл js
     filename: 'js/[name].bundle.js',       //имя СБОРКи
-    publicPath: "/", //исправляет ошибку неправильного пути из css файла к картинкам
+    publicPath: "./", //исправляет ошибку неправильного пути из css файла к картинкам
     chunkFilename: 'js/[id].[hash].js'     // Чанки js. Используются при динамических импортах вендорных библиотек
   },
 
@@ -50,7 +50,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[ext]', 
+              name: 'img/[name].[ext]',
             },
           },
           //  Image compress
@@ -105,7 +105,7 @@ module.exports = {
       // },
 
       // //Compile SCSS to separateCSS without Plugin
-      // {  
+      // {
       //   test: /\.scss$/,
       //   exclude: /node_modules/,
       //   use: [
@@ -118,10 +118,10 @@ module.exports = {
       // },
 
 
-      
-      // { 
-      //   test: /checked\.svg$/, 
-      //   loader: 'svg-inline-loader' 
+
+      // {
+      //   test: /checked\.svg$/,
+      //   loader: 'svg-inline-loader'
       // },
 
 
@@ -179,7 +179,7 @@ module.exports = {
      filename:"./index.html"    //итоговое название файла
    }),
 
-  //   //inline SVG 
+  //   //inline SVG
   //   new HtmlWebpackInlineSVGPlugin({
   //       runPreEmit: true, //If true plugin doesn't needy any loader
   //   }),
