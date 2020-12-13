@@ -1,44 +1,42 @@
 const path = require('path');
-
-
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //плагин очистки dist
 const HtmlWebpackPlugin = require('html-webpack-plugin');       //плагин генерации html файла (автоматически или по шаблону,можно использовать шаблонизаторы)
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин бандлинга css в отдельный файл
+const resolve = require('./webpack.config.resolve');  // алиасы в отдельном файле
 //Плагины запускаются после лоадеров
-
 // const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
 
 
 module.exports = {
   entry: {
-    "abz-app": './src/index.js',
+    app: [path.resolve(__dirname, 'src/index.js')],
     //print: './src/print.js',
     //styles: './src/sass/style.scss'
   },
-
+  resolve,
   output: {
     path: path.resolve(__dirname, 'dist'), //ПАПКА куда кладет файл js
     filename: 'js/[name].bundle.js',       //имя СБОРКи
-    publicPath: "./", //исправляет ошибку неправильного пути из css файла к картинкам
+    publicPath: "/", //исправляет ошибку неправильного пути из css файла к картинкам
+    //publicPath: "/", //исправляет ошибку неправильного пути из css файла к картинкам
     chunkFilename: 'js/[id].[hash].js'     // Чанки js. Используются при динамических импортах вендорных библиотек
   },
 
   module: { //LOADERS
     rules: [
       {
-         test:/\.(js|jsx)$/,
-         exclude:/node_modules/,
-         use: {
-           loader:'babel-loader',
-         },
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
 
       {
-        test: /\.scss$/,
+        test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          'css-loader', // Translates CSS into CommonJS
           'postcss-loader',
           'sass-loader'  //задом наперед, сначала sass-loader (превращает в css), затем postcss-loader, затем css-loader, затем MiniCssExtractPlugin.loader
         ]
@@ -96,11 +94,11 @@ module.exports = {
       // {
       //   test: /\.(woff|woff2|eot|ttf|otf)$/,
       //   use: [{
-	     //        loader: 'file-loader',
-	     //        options: {
-	     //          name: 'fonts/[name].[hash].[ext]', //if [path] path goes from src, node_modules etc.
-	     //        },
-	     //      },
+      //        loader: 'file-loader',
+      //        options: {
+      //          name: 'fonts/[name].[hash].[ext]', //if [path] path goes from src, node_modules etc.
+      //        },
+      //      },
       //   	],
       // },
 
@@ -126,7 +124,7 @@ module.exports = {
 
 
 
-        //SVG as data: data:image/svg+xml
+      //SVG as data: data:image/svg+xml
       // {
       //   test: /\.svg$/,
       //   use: [
@@ -167,22 +165,22 @@ module.exports = {
   },//End Module
 
   plugins: [
-     new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(),
 
     new MiniCssExtractPlugin({
       filename: 'css/[name].[hash].css',    //используятся при синхронных импортах
       chunkFilename: 'css/[id].[hash].css', // Чанки css. Используются при динамических импортах
     }),
 
-     new HtmlWebpackPlugin({
-     template:"./public/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
-     filename:"./index.html"    //итоговое название файла
-   }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
+      filename: "./index.html"    //итоговое название файла
+    }),
 
-  //   //inline SVG
-  //   new HtmlWebpackInlineSVGPlugin({
-  //       runPreEmit: true, //If true plugin doesn't needy any loader
-  //   }),
+    //   //inline SVG
+    //   new HtmlWebpackInlineSVGPlugin({
+    //       runPreEmit: true, //If true plugin doesn't needy any loader
+    //   }),
 
   ],
   devtool: 'inline-source-map',
@@ -195,10 +193,5 @@ module.exports = {
     open: true //открыть браузер по окончанию старта сервера
   },
 
-  resolve: {
-    alias: {
-      "~assets": path.resolve(__dirname, 'public/assets'),
-      "~components": path.resolve(__dirname, 'src/components')
-    }
-  }
+
 };
