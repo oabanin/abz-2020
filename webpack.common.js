@@ -14,7 +14,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js',       //имя СБОРКи
         publicPath: '/',
-        chunkFilename: 'js/[id].[hash].js'     // Чанки js. Используются при динамических импортах вендорных библиотек
+        chunkFilename: 'js/[id].[contenthash].js'     // Чанки js. Используются при динамических импортах вендорных библиотек
     },
     module: {
         rules: [
@@ -44,8 +44,8 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash].css',    //используятся при синхронных импортах
-            chunkFilename: 'css/[id].[hash].css', // Чанки css. Используются при динамических импортах
+            filename: 'css/[name].[contenthash].css',    //используятся при синхронных импортах
+            chunkFilename: 'css/[id].[contenthash].css', // Чанки css. Используются при динамических импортах
         }),
 
 
