@@ -9,12 +9,16 @@ module.exports = merge(common, {
     mode: 'production',
     output: { publicPath: '/abz-2020/' },
     optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+
         usedExports: true,
         minimize: true,
         minimizer: [
             new TerserPlugin({
-        test: /\.js(\?.*)?$/i,
-      }),
+                test: /\.js(\?.*)?$/i,
+            }),
         ],
     },
     module: {
