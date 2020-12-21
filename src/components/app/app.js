@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import ErrorBoundary from '../error-boundary';
-import Header from '../header';
-import Banner from '../banner';
-// import About from '../about';
-// import Users from '../users';
-// import Form from '../form';
-// import Footer from '../footer';
+//import Header from '../header';
+//import Banner from '../banner';
+import Spinner from '../spinner';
 
-import About from 'bundle-loader?lazy!../about';
-import Users from 'bundle-loader?lazy!../users';
-import Form from 'bundle-loader?lazy!../form';
-import Footer from 'bundle-loader?lazy!../footer';
+//import About from '../about';
+//import Users from '../users';
+//import Form from '../form';
+
+
+//import Footer from '../footer';
+
+const Header = React.lazy(() => import('../header'));
+const Banner = React.lazy(() => import('../banner'));
+const Form = React.lazy(() => import('../form'));
+
+const Users = React.lazy(() => import('../users'));
+const About = React.lazy(() => import('../about'));
+const Footer = React.lazy(() => import('../footer'));
+
 
 
 
@@ -19,18 +27,31 @@ import Footer from 'bundle-loader?lazy!../footer';
 const App = () => {
 	return (
 		<>
-			<Header />
+			<Suspense fallback={<Spinner />}>
+				<Header />
+			</Suspense>
 			<main>
-				<Banner />
-				<About />
+				<Suspense fallback={<Spinner />}>
+					<Banner />
+				</Suspense>
+				<Suspense fallback={<Spinner />}>
+					<About />
+				</Suspense>
 				<ErrorBoundary>
-					<Users />
+					<Suspense fallback={<Spinner />}>
+						<Users />
+					</Suspense>
 				</ErrorBoundary>
 				<ErrorBoundary>
-					<Form />
+					<Suspense fallback={<Spinner />}>
+						<Form />
+					</Suspense>
 				</ErrorBoundary>
+
 			</main>
-			<Footer />
+			<Suspense fallback={<Spinner />}>
+				<Footer />
+			</Suspense>
 
 		</>)
 }
