@@ -6,7 +6,6 @@ import ReactModal from 'react-modal';
 
 import App from './components/app';
 
-//import LoadHome from 'bundle-loader?lazy!./pages/home';
 
 
 import ErrorBoundary from './components/error-boundary';
