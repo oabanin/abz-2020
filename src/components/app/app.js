@@ -33,9 +33,11 @@ const App = () => {
 				</ErrorBoundary>
 
 			</main>
-			<Suspense fallback={<Spinner />}>
-				<Footer />
-			</Suspense>
+			<ErrorBoundary>
+				<Suspense fallback={<Spinner />}>
+					<Footer />
+				</Suspense>
+			</ErrorBoundary>
 
 		</>)
 }

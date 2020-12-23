@@ -14,7 +14,7 @@ module.exports = merge(common, {
         },
 
         usedExports: true,
-        minimize: true,
+        minimize: true, // false - отключить минимизацию, по умолчанию используется
         minimizer: [
             new TerserPlugin({
                 test: /\.js(\?.*)?$/i,
