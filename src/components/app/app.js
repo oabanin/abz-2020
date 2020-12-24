@@ -11,8 +11,6 @@ const Users = React.lazy(() => import(/* webpackChunkName: "UsersComponent" */ '
 const Footer = React.lazy(() => import(/* webpackChunkName: "FooterComponent" */ '../footer'));
 
 
-
-
 const App = () => {
 	return (
 		<>

@@ -9,7 +9,7 @@ module.exports = merge(common, {
     mode: 'production',
     output: {
         publicPath: '/abz-2020/',
-        //chunkFilename: 'js/[id].[chunkhash:8].chunk.js'     // названия чанков js. Используются при динамических импортах  вендорных библиотек, REact-lazy или другого отдел ( или нескольних entry points с dependsOn)для Code Splitting, без этой опции будут похожи на filename. если есть то magicComments - webpackChunkName не будут работать 
+        chunkFilename: 'js/[name].[chunkhash:8].chunk.js'     // названия чанков js. Используются при динамических импортах  вендорных библиотек, REact-lazy или другого отдел ( или нескольних entry points с dependsOn)для Code Splitting, без этой опции будут похожи на filename. magicComments (webpackChunkName) работает если есть name 
     },
     optimization: {
         splitChunks: {
@@ -17,7 +17,7 @@ module.exports = merge(common, {
         },
 
         usedExports: true,
-        minimize: false, // false - отключить минимизацию, по умолчанию используется
+        minimize: true, // false - отключить минимизацию, по умолчанию используется
         minimizer: [
             new TerserPlugin({
                 test: /\.js(\?.*)?$/i,

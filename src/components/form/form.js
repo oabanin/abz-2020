@@ -19,6 +19,9 @@ import Spinner from "../spinner";
 //Redux
 import { fetchUsers } from '../../features/users/usersSlice';
 
+//ChunkCss
+import './form.scss'
+
 const maxFileSize = 5 * 1024 ** 2;
 const deletePhoneSymbols = (phone) => phone.replace(/[^+\d]/g, "");
 
