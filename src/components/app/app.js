@@ -6,10 +6,9 @@ import Banner from '../banner';
 import About from '../about';
 import Spinner from '../spinner';
 
-const Form = React.lazy(() => import('../form'));
-const Users = React.lazy(() => import('../users'));
-const Footer = React.lazy(() => import('../footer'));
-
+const Form = React.lazy(() => import(/* webpackChunkName: "FormComponent" */ '../form'));
+const Users = React.lazy(() => import(/* webpackChunkName: "UsersComponent" */ '../users'));
+const Footer = React.lazy(() => import(/* webpackChunkName: "FooterComponent" */ '../footer'));
 
 
 

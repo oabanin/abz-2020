@@ -4,7 +4,7 @@ import ReactModal from 'react-modal';
 
 ReactModal.setAppElement('#root');
 
-const Modal = ({closeModal, title, text, btnText}) => {
+const Modal = ({ closeModal, title, text, btnText }) => {
   return (
     <>
       <div className="modal__container">

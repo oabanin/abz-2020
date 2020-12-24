@@ -14,7 +14,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js',       //имя СБОРКи
         publicPath: '/',
-        chunkFilename: 'js/[id].[contenthash].js'     // названия чанков js. Используются при динамических импортах  вендорных библиотек или другого отдел ( или нескольних entry points с dependsOn)для Code Splitting, без этой опции будут похожи на filename
+
     },
     module: {
         rules: [

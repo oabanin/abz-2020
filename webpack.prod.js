@@ -7,14 +7,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');  //  плагин ге
 
 module.exports = merge(common, {
     mode: 'production',
-    output: { publicPath: '/abz-2020/' },
+    output: {
+        publicPath: '/abz-2020/',
+        //chunkFilename: 'js/[id].[chunkhash:8].chunk.js'     // названия чанков js. Используются при динамических импортах  вендорных библиотек, REact-lazy или другого отдел ( или нескольних entry points с dependsOn)для Code Splitting, без этой опции будут похожи на filename. если есть то magicComments - webpackChunkName не будут работать 
+    },
     optimization: {
         splitChunks: {
             chunks: 'all',
         },
 
         usedExports: true,
-        minimize: true, // false - отключить минимизацию, по умолчанию используется
+        minimize: false, // false - отключить минимизацию, по умолчанию используется
         minimizer: [
             new TerserPlugin({
                 test: /\.js(\?.*)?$/i,
