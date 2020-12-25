@@ -1,5 +1,5 @@
 // const path = require('path')
-//const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин бандлинга css в отдельный файл
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');  //плагин бандлинга css в отдельный файл
 const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const common = require('./webpack.common.js');
@@ -29,11 +29,11 @@ module.exports = merge(common, {
         ],
     },
     plugins: [
-        // new MiniCssExtractPlugin({
-        //     filename: 'css/[name].[hash].css',    //используятся при синхронных импортах
-        //     chunkFilename: 'css/[id].[hash].css', // Чанки css. Используются при динамических импортах
-        // }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash].css',    //используятся при синхронных импортах
+            chunkFilename: 'css/[id].[contenthash].css', // названия чанков  css
 
+        }),
         new HtmlWebpackPlugin({
             template: "./public/index.html", // файл-шаблон в который пихается бандл (если не указать создастся дефолтный без разметки)
             filename: "./index.html",        //итоговое название файла

@@ -22,7 +22,12 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader', // Translates CSS into CommonJS
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                        }
+                    }, // Translates CSS into CommonJS
                     'postcss-loader',
                     'sass-loader'  //задом наперед, сначала sass-loader (превращает в css), затем postcss-loader, затем css-loader, затем MiniCssExtractPlugin.loader
                 ],
@@ -46,6 +51,14 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash].css',    //используятся при синхронных импортах
             chunkFilename: 'css/[id].[contenthash].css', // названия чанков  css
+            insert: (linkTag) => {
+                const preloadLinkTag = document.createElement('link')
+                preloadLinkTag.rel = 'preload'
+                preloadLinkTag.as = 'style'
+                preloadLinkTag.href = linkTag.href
+                document.head.appendChild(preloadLinkTag)
+                document.head.appendChild(linkTag)
+            }
         }),
 
 
