@@ -1,9 +1,9 @@
 /*override the Bootstrap variable’s default value*/
-@import "config/_bootstrap-overrides";
+//@import "config/_bootstrap-overrides";
 
 /*Import Bootstrap Grid and Sizing Utility*/
-@import "~bootstrap/scss/bootstrap-grid";
-@import "~bootstrap/scss/utilities/sizing";
+//@import "~bootstrap/scss/bootstrap-grid";
+//@import "~bootstrap/scss/utilities/sizing";
 
 /*Import Sass architecture of project*/
 @import "config/index";

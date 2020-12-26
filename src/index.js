@@ -11,6 +11,10 @@ import * as api from './services/api';
 
 import store from "./store";
 
+import "./scss/config/_bootstrap-overrides.scss";
+import "~bootstrap/scss/bootstrap-grid.scss";
+import "~bootstrap/scss/utilities/sizing.scss";
+
 import './scss/styles.scss';
 
 
