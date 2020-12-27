@@ -77,8 +77,7 @@ const Users = () => {
           {userList}
         </div>
         {isLoading && <Spinner />}
-        {isError && isError}
-        {nextUrl &&
+        {!isError && nextUrl &&
           <div className="row">
             <div className="col-md-4 offset-md-4 text-center">
               <button
