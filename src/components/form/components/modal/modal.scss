@@ -1,3 +1,7 @@
+@import "../../../../scss/config/variables";
+@import "../../../../scss/base/typography";
+@import "../../../../scss/config/mixins";
+@import "../../../../scss/base/placeholders";
 
 .ReactModal {
   &__Content{

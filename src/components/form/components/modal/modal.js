@@ -2,6 +2,8 @@ import React from 'react';
 import ImgClose from './close.svg'
 import ReactModal from 'react-modal';
 
+import './modal.scss'
+
 ReactModal.setAppElement('#root');
 
 const Modal = ({ closeModal, title, text, btnText }) => {

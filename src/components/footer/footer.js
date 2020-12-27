@@ -1,10 +1,12 @@
 import React from 'react';
 
+import './footer.scss';
+
 const Footer = () => {
 
 	return (
 		<footer className="footer">
-			<hr/>
+			<hr />
 			<div className="container-fluid">
 				<div className="row">
 					<div className="col-md-4 offset-md-4">

@@ -1,3 +1,8 @@
+@import "../../scss/config/variables";
+@import "../../scss/base/typography";
+@import "../../scss/config/mixins";
+@import "../../scss/base/placeholders";
+
 .footer {
 
 
@@ -18,7 +23,3 @@
 }
 
 
-//DELETE
-// .col-md-4 {
-//     border: 1px solid black;
-// }

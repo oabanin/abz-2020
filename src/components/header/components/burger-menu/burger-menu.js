@@ -2,6 +2,8 @@ import React, { useLayoutEffect } from 'react'
 import HeaderLogo from "../header-logo";
 import { Link } from "react-scroll";
 
+import "./burger-menu.scss";
+
 function BurgerMenu({ active, closeBurger }) {
 
   if (active) document.body.style.overflow = 'hidden';
