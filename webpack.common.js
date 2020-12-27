@@ -25,7 +25,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            //modules: true,
                         }
                     }, // Translates CSS into CommonJS
                     'postcss-loader',

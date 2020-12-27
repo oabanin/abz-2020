@@ -1,9 +1,9 @@
 /*override the Bootstrap variable’s default value*/
-//@import "config/_bootstrap-overrides";
+@import "config/_bootstrap-overrides";
 
 /*Import Bootstrap Grid and Sizing Utility*/
-//@import "~bootstrap/scss/bootstrap-grid";
-//@import "~bootstrap/scss/utilities/sizing";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/utilities/sizing";
 
 /*Import Sass architecture of project*/
 @import "config/index";
@@ -19,7 +19,7 @@
 @import "~components/error-boundary/error-boundary";
 @import "~components/banner/banner";
 @import "~components/about/about";
-@import "~components/users/users";
+//@import "~components/users/users";
 @import "~components/form/form";
 @import "~components/form/components/modal/modal";
 @import "~components/footer/footer";

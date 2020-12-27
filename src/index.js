@@ -4,17 +4,11 @@ import { Provider } from 'react-redux'
 
 import App from './components/app';
 
-
 import ErrorBoundary from './components/error-boundary';
 import { ApiServiceProvider } from './components/api-service-context';
 import * as api from './services/api';
 
 import store from "./store";
-
-import "./scss/config/_bootstrap-overrides.scss";
-import "~bootstrap/scss/bootstrap-grid.scss";
-import "~bootstrap/scss/utilities/sizing.scss";
-
 import './scss/styles.scss';
 
 

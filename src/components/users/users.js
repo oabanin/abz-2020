@@ -9,6 +9,8 @@ import ApiContext from '../api-service-context';
 
 //import Photo from './photo.jpg';
 
+import './users.scss';
+
 import {
   selectError,
   selectLoading,
