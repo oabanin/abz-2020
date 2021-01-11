@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
 import App from './components/app';
 
@@ -8,18 +8,18 @@ import ErrorBoundary from './components/error-boundary';
 import { ApiServiceProvider } from './components/api-service-context';
 import * as api from './services/api';
 
-import store from "./store";
+import store from './store';
 import './scss/styles.scss';
 
-
 ReactDOM.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<ErrorBoundary>
-				<ApiServiceProvider value={api}>
-					<App />
-				</ApiServiceProvider>
-			</ErrorBoundary>
-		</Provider>
-	</React.StrictMode>,
-	document.getElementById('root'));
+  <React.StrictMode>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <ApiServiceProvider value={api}>
+          <App />
+        </ApiServiceProvider>
+      </ErrorBoundary>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root'),
+);

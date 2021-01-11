@@ -10,33 +10,31 @@ const Form = React.lazy(() => import(/* webpackChunkName: "FormComponent" */ '..
 const Users = React.lazy(() => import(/* webpackChunkName: "UsersComponent" */ '../users'));
 const Footer = React.lazy(() => import(/* webpackChunkName: "FooterComponent" */ '../footer'));
 
+const App = () => (
+  <>
+    <Header />
+    <main>
+      <Banner />
+      <About />
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <Users />
+        </Suspense>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <Form />
+        </Suspense>
+      </ErrorBoundary>
 
-const App = () => {
-	return (
-		<>
-			<Header />
-			<main>
-				<Banner />
-				<About />
-				<ErrorBoundary>
-					<Suspense fallback={<Spinner />}>
-						<Users />
-					</Suspense>
-				</ErrorBoundary>
-				<ErrorBoundary>
-					<Suspense fallback={<Spinner />}>
-						<Form />
-					</Suspense>
-				</ErrorBoundary>
+    </main>
+    <ErrorBoundary>
+      <Suspense fallback={<Spinner />}>
+        <Footer />
+      </Suspense>
+    </ErrorBoundary>
 
-			</main>
-			<ErrorBoundary>
-				<Suspense fallback={<Spinner />}>
-					<Footer />
-				</Suspense>
-			</ErrorBoundary>
-
-		</>)
-}
+  </>
+);
 
 export default App;

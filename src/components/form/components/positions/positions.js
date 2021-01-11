@@ -1,8 +1,7 @@
 import React from 'react';
 
-const Positions = ({fetchedPositions, errors, register}) => {
-
-  const positions = fetchedPositions.map(position => (
+const Positions = ({ fetchedPositions, errors, register }) => {
+  const positions = fetchedPositions.map((position) => (
     <div key={position.id} className="form__radioWrapper">
       <input
         className="form__radio"
@@ -13,14 +12,15 @@ const Positions = ({fetchedPositions, errors, register}) => {
         ref={register({ required: 'Position is required' })}
       />
       <label className="form__radioLabel" htmlFor={`form__radio${position.id}`}>{position.name}</label>
-    </div>)
-  );
+    </div>
+  ));
 
   return (
     <>
-    {positions}
-    {errors.position_id && <div className="form__error">{errors.position_id.message}</div>}
-    </>);
-}
+      {positions}
+      {errors.position_id && <div className="form__error">{errors.position_id.message}</div>}
+    </>
+  );
+};
 
 export default Positions;

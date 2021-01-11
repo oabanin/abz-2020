@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const useBurger = () => {
-    const [burgerActive, setActive] = useState(false);
+  const [burgerActive, setActive] = useState(false);
 
-    const closeBurgerMenu = () => setActive(false);
-    const openBurgerMenu = () => setActive(true);
+  const closeBurgerMenu = () => setActive(false);
+  const openBurgerMenu = () => setActive(true);
 
-    return { burgerActive, closeBurgerMenu, openBurgerMenu }
-}
+  return { burgerActive, closeBurgerMenu, openBurgerMenu };
+};
 
 export { useBurger };
